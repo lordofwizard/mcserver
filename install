@@ -1,0 +1,76 @@
+clear
+#!/bin/bash
+
+#	This is just a Experimental Project Which comes with no warrenty
+#	I don't know anything about warrenty and also this project is a open source project
+#	You can use it for Profit/Non-Profit...
+#	
+#	@Author - Advait Pandharpurkar 
+#	Mail - lordofwizard@protonmail.com
+	#ENJOY
+
+echo " ________  ___  ___  ________  ________  ________  ________  ___  ________  _______           _________  ________          "
+echo "|\   ____\|\  \|\  \|\   __  \|\   ____\|\   ____\|\   __  \|\  \|\   __  \|\  ___ \         |\___   ___\\   __  \         "
+echo "\ \  \___|\ \  \\\  \ \  \|\ /\ \  \___|\ \  \___|\ \  \|\  \ \  \ \  \|\ /\ \   __/|        \|___ \  \_\ \  \|\  \        "
+echo " \ \_____  \ \  \\\  \ \   __  \ \_____  \ \  \    \ \   _  _\ \  \ \   __  \ \  \_|/__           \ \  \ \ \  \\\  \       "
+echo "  \|____|\  \ \  \\\  \ \  \|\  \|____|\  \ \  \____\ \  \\  \\ \  \ \  \|\  \ \  \_|\ \           \ \  \ \ \  \\\  \      "
+echo "    ____\_\  \ \_______\ \_______\____\_\  \ \_______\ \__\\ _\\ \__\ \_______\ \_______\           \ \__\ \ \_______\     "
+echo "   |\_________\|_______|\|_______|\_________\|_______|\|__|\|__|\|__|\|_______|\|_______|            \|__|  \|_______|     "
+echo "   \|_________|                  \|_________|                                                                              "
+echo "                                                                                                                           "
+echo "                                                                                                                           "
+echo " ___       ________  ________  ________  ________  ________ ___       __   ___  ________  ________  ________  ________     "
+echo "|\  \     |\   __  \|\   __  \|\   ___ \|\   __  \|\  _____\\  \     |\  \|\  \|\_____  \|\   __  \|\   __  \|\   ___ \    "
+echo "\ \  \    \ \  \|\  \ \  \|\  \ \  \_|\ \ \  \|\  \ \  \__/\ \  \    \ \  \ \  \\|___/  /\ \  \|\  \ \  \|\  \ \  \_|\ \   "
+echo " \ \  \    \ \  \\\  \ \   _  _\ \  \ \\ \ \  \\\  \ \   __\\ \  \  __\ \  \ \  \   /  / /\ \   __  \ \   _  _\ \  \ \\ \  "
+echo "  \ \  \____\ \  \\\  \ \  \\  \\ \  \_\\ \ \  \\\  \ \  \_| \ \  \|\__\_\  \ \  \ /  /_/__\ \  \ \  \ \  \\  \\ \  \_\\ \ "
+echo "   \ \_______\ \_______\ \__\\ _\\ \_______\ \_______\ \__\   \ \____________\ \__\\________\ \__\ \__\ \__\\ _\\ \_______\ "
+echo "    \|_______|\|_______|\|__|\|__|\|_______|\|_______|\|__|    \|____________|\|__|\|_______|\|__|\|__|\|__|\|__|\|_______|"
+
+#Installing all the dependencise
+sudo apt install screen neofetch -y > /dev/null
+#mv lordofwizard $HOME/.gems/bin/
+echo "export PATH=$PATH:/some/new/path" > ~/.profile
+echo "Dependencies are installed successfully : )"
+
+#Downloading ngrok && Downloading Minecraft Server
+mkdir server 
+echo "Please enter your authentication token for NGROK >"
+read token
+./ngrok_ authtoken $token 
+echo ""
+#....................(This is where to right the custom url function
+echo "Type 1 If you want the Native(Vanila[NotICE-Cream]) version of minecraft server [DEFAULT=1]"
+echo "Type 2 If you want to install Other Modded MineCraft Server [PaperMC, Or Spigot etc] >"
+choiceForServer=1
+read choiceForServer
+if [[ -z $choiceForServer ]]; then
+		curl https://www.minecraft.net/en-us/download/server > temp;
+	#Fetching the URL from the minecraft.net and sedding it throught bunch of     pattens to get the actual URL
+	URL=$(cat temp | grep -o '<a .*href=.*>' | sed -e 's/<a /\n<a /g' | sed -e 's/<a .*href=['"'"'"]//' -e 's/["'"'"'].*$//' -e '/^$/ d' | grep "https://launcher")
+
+elif [[ $choiceForServer == 1 ]]; then
+	curl https://www.minecraft.net/en-us/download/server > temp;
+	#Fetching the URL from the minecraft.net and sedding it throught bunch of     pattens to get the actual URL
+	URL=$(cat temp | grep -o '<a .*href=.*>' | sed -e 's/<a /\n<a /g' | sed -e 's/<a .*href=['"'"'"]//' -e 's/["'"'"'].*$//' -e '/^$/ d' | grep "https://launcher")
+else
+	echo "Well This seems like you don't like vanilla Do yeh?"
+	echo "Now you better paste a URL here >"
+	read URL
+	
+fi
+#...................
+
+
+
+#This will work fine i guess but not completely
+
+
+# token installed successfully
+#echo "Token Installed Successfully"
+
+wget "$URL" -O server/server.jar > /dev/null
+
+echo "Server installation is successful"
+echo "Everything is installed and configures completely fine...."
+echo "ENJOY PLAYING MINECRAFT"

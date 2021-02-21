@@ -1,0 +1,12 @@
+#!/bin/bash
+clear
+echo "Please Subscribe to "
+echo ""
+echo ""
+echo "|   _  ._ _| / \ _|_ \    / o _   _. ._ _| "
+echo "|_ (_) | (_| \_/  |   \/\/  | /_ (_| | (_| "
+echo ""
+echo ""
+echo "Youtube - https://www.youtube.com/channel/UCrngq2SZL98AtiHBQxs3Y5g"
+echo "Github - https://github.com/lordofwizard/"
+killall screen
