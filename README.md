@@ -7,7 +7,7 @@ To make the script i have taken Inspiration from lot of people For Example [Bugs
 The [Older](https://github.com/lordofwizard/minecraft_server) version is still running but not recommended to install because of some issues with disconnecting and installation of modded minecraft servers.
 
 ### Installation 
-* Activate a [Google Cloud Shell] on Google cloud.
+* Activate a [Google Cloud Shell](https://console.cloud.google.com/) on Google cloud.
 * Clone the following repository with the below command..
 ```
 git clone https://github.com/lordofwizard/mcserver
