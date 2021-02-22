@@ -24,6 +24,7 @@ chmod +x *
 ```
 ./install
 ```
+Also put the correct [NGROK](https://dashboard.ngrok.com/) TOKEN in the prompt.
 (Check for the option to input 1(if you want the vanilla server) and put 2(if you want the modded version))
 * now run the server for the first time
 ``` 
