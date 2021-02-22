@@ -6,7 +6,7 @@ clear
 #	
 #	@Author - Advait Pandharpurkar 
 #	Mail - lordofwizard@protonmail.com
-	#ENJOY
+#       ENJOY
 
 echo " ________  ___  ___  ________  ________  ________  ________  ___  ________  _______           _________  ________          "
 echo "|\   ____\|\  \|\  \|\   __  \|\   ____\|\   ____\|\   __  \|\  \|\   __  \|\  ___ \         |\___   ___\\   __  \         "
@@ -26,8 +26,10 @@ echo "  \ \  \____\ \  \\\  \ \  \\  \\ \  \_\\ \ \  \\\  \ \  \_| \ \  \|\__\_\
 echo "   \ \_______\ \_______\ \__\\ _\\ \_______\ \_______\ \__\   \ \____________\ \__\\________\ \__\ \__\ \__\\ _\\ \_______\ "
 echo "    \|_______|\|_______|\|__|\|__|\|_______|\|_______|\|__|    \|____________|\|__|\|_______|\|__|\|__|\|__|\|__|\|_______|"
 
+
 #Installing all the dependencise
 sudo apt install screen neofetch -y > /dev/null
+
 #mv lordofwizard $HOME/.gems/bin/
 echo "export PATH=$PATH:/some/new/path" > ~/.profile
 echo "Dependencies are installed successfully : )"
@@ -39,35 +41,40 @@ mkdir server
 #NGROK AUTHENTICATION PROCESS
 echo "Please enter your authentication token for NGROK >"
 read token
+
 ./ngrok_ authtoken $token 
 echo ""
 
 echo "Type 1 If you want the Native(Vanila[NotICE-Cream]) version of minecraft server [DEFAULT=1]"
 echo "Type 2 If you want to install Other Modded MineCraft Server [PaperMC, Or Spigot etc] >"
+
 choiceForServer=1
 read choiceForServer
 
 #First If statement which compares if the command or you can say the given no is a VOID or Null number.
 if [[ -z $choiceForServer ]]; then
-		curl https://www.minecraft.net/en-us/download/server > temp;
-	#Fetching the URL from the minecraft.net and sedding it throught bunch of     pattens to get the actual URL
+	
+	curl https://www.minecraft.net/en-us/download/server > temp;
+	
+	#Fetching the URL from the minecraft.net and sedding it throught bunch of pattens to get the actual URL
 	URL=$(cat temp | grep -o '<a .*href=.*>' | sed -e 's/<a /\n<a /g' | sed -e 's/<a .*href=['"'"'"]//' -e 's/["'"'"'].*$//' -e '/^$/ d' | grep "https://launcher")
+
 
 #Second If statment which compares if the command or you can say the given no is a 1 number or not.
 elif [[ $choiceForServer == 1 ]]; then
+	
 	curl https://www.minecraft.net/en-us/download/server > temp;
-	#Fetching the URL from the minecraft.net and sedding it throught bunch of     pattens to get the actual URL
+
+	#Fetching the URL from the minecraft.net and sedding it throught bunch of pattens to get the actual URL
 	URL=$(cat temp | grep -o '<a .*href=.*>' | sed -e 's/<a /\n<a /g' | sed -e 's/<a .*href=['"'"'"]//' -e 's/["'"'"'].*$//' -e '/^$/ d' | grep "https://launcher")
+
 
 #This else statement will ask for if you have a url of a Modded Server or not
 else
 	echo "Well This seems like you don't like vanilla Do yeh?"
 	echo "Now you better paste a URL here >"
-	read URL
-	
+	read URL	
 fi
-
-
 
 
 
