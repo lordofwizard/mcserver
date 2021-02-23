@@ -1,6 +1,6 @@
 ## MineCraft Server Improved Version
 
-###[YOUTUBE TUTORIAL](https://www.youtube.com/watch?v=Kfk_P6z-FeY)
+### [YOUTUBE TUTORIAL](https://www.youtube.com/watch?v=Kfk_P6z-FeY)
 
 [Youtueb Channel For Tutorial](https://www.youtube.com/channel/UCrngq2SZL98AtiHBQxs3Y5g).
 
@@ -73,4 +73,4 @@ screen -r server
 * To Detach the session you can do it using the following keyboard shortcuts 
 * CTRL+a & CTRL+d
 
-#####TO STOP THE SERVER TYPE ```exit``` and press enter
+##### TO STOP THE SERVER TYPE ```exit``` and press enter
