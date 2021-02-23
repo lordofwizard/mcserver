@@ -1,4 +1,7 @@
 ## MineCraft Server Improved Version
+
+###[YOUTUBE TUTORIAL](https://www.youtube.com/watch?v=Kfk_P6z-FeY)
+
 [Youtueb Channel For Tutorial](https://www.youtube.com/channel/UCrngq2SZL98AtiHBQxs3Y5g).
 
 This project is to make installation of Minecraft server easier on any ubuntu/debian running machine. It is heavely focused to host this minecraft server to the cloud.
