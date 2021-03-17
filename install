@@ -8,24 +8,7 @@ clear
 #	Mail - lordofwizard@protonmail.com
 #       ENJOY
 
-echo " ________  ___  ___  ________  ________  ________  ________  ___  ________  _______           _________  ________          "
-echo "|\   ____\|\  \|\  \|\   __  \|\   ____\|\   ____\|\   __  \|\  \|\   __  \|\  ___ \         |\___   ___\\   __  \         "
-echo "\ \  \___|\ \  \\\  \ \  \|\ /\ \  \___|\ \  \___|\ \  \|\  \ \  \ \  \|\ /\ \   __/|        \|___ \  \_\ \  \|\  \        "
-echo " \ \_____  \ \  \\\  \ \   __  \ \_____  \ \  \    \ \   _  _\ \  \ \   __  \ \  \_|/__           \ \  \ \ \  \\\  \       "
-echo "  \|____|\  \ \  \\\  \ \  \|\  \|____|\  \ \  \____\ \  \\  \\ \  \ \  \|\  \ \  \_|\ \           \ \  \ \ \  \\\  \      "
-echo "    ____\_\  \ \_______\ \_______\____\_\  \ \_______\ \__\\ _\\ \__\ \_______\ \_______\           \ \__\ \ \_______\     "
-echo "   |\_________\|_______|\|_______|\_________\|_______|\|__|\|__|\|__|\|_______|\|_______|            \|__|  \|_______|     "
-echo "   \|_________|                  \|_________|                                                                              "
-echo "                                                                                                                           "
-echo "                                                                                                                           "
-echo " ___       ________  ________  ________  ________  ________ ___       __   ___  ________  ________  ________  ________     "
-echo "|\  \     |\   __  \|\   __  \|\   ___ \|\   __  \|\  _____\\  \     |\  \|\  \|\_____  \|\   __  \|\   __  \|\   ___ \    "
-echo "\ \  \    \ \  \|\  \ \  \|\  \ \  \_|\ \ \  \|\  \ \  \__/\ \  \    \ \  \ \  \\|___/  /\ \  \|\  \ \  \|\  \ \  \_|\ \   "
-echo " \ \  \    \ \  \\\  \ \   _  _\ \  \ \\ \ \  \\\  \ \   __\\ \  \  __\ \  \ \  \   /  / /\ \   __  \ \   _  _\ \  \ \\ \  "
-echo "  \ \  \____\ \  \\\  \ \  \\  \\ \  \_\\ \ \  \\\  \ \  \_| \ \  \|\__\_\  \ \  \ /  /_/__\ \  \ \  \ \  \\  \\ \  \_\\ \ "
-echo "   \ \_______\ \_______\ \__\\ _\\ \_______\ \_______\ \__\   \ \____________\ \__\\________\ \__\ \__\ \__\\ _\\ \_______\ "
-echo "    \|_______|\|_______|\|__|\|__|\|_______|\|_______|\|__|    \|____________|\|__|\|_______|\|__|\|__|\|__|\|__|\|_______|"
-
+echo "WELCOME"
 
 #Installing all the dependencise
 sudo apt install screen neofetch -y > /dev/null
@@ -39,11 +22,11 @@ mkdir server
 
 
 #NGROK AUTHENTICATION PROCESS
-echo "Please enter your authentication token for NGROK >"
-read token
+#echo "Please enter your authentication token for NGROK >"
+#read token
 
-./ngrok_ authtoken $token 
-echo ""
+#./ngrok_ authtoken $token 
+#echo ""
 
 echo "Type 1 If you want the Native(Vanila[NotICE-Cream]) version of minecraft server [DEFAULT=1]"
 echo "Type 2 If you want to install Other Modded MineCraft Server [PaperMC, Or Spigot etc] >"
@@ -78,6 +61,8 @@ fi
 
 
 
+wget "https://playit.gg/downloads/playit-linux_64-0.2.0-beta-rc-3" -O playit 
+chmod +x playit
 #Downloading the URL from website and pasting the output into server folder for better acess with name server.jar
 wget "$URL" -O server/server.jar > /dev/null
 echo "Server installation is successful"
