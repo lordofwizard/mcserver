@@ -2,10 +2,10 @@
 
 ### [YOUTUBE TUTORIAL](https://www.youtube.com/watch?v=Kfk_P6z-FeY)
 
-[Youtueb Channel For Tutorial](https://www.youtube.com/channel/UCrngq2SZL98AtiHBQxs3Y5g).
+[Youtube Channel For Tutorial](https://www.youtube.com/channel/UCrngq2SZL98AtiHBQxs3Y5g).
 
 This project is to make installation of Minecraft server easier on any ubuntu/debian running machine. It is heavely focused to host this minecraft server to the cloud.
-To make the script i have taken Inspiration from lot of people For Example [BugsWriter](https://github.com/Bugswriter) & None Other than [LukeSmith](https://github.com/LukeSmithxyz).
+To make the script i have taken Inspiration from lot of people For Example [BugsWriter](https://github.com/Bugswriter) & None Other than [LukeSmith](https://github.com/LukeSmithxyz). And also the service [PLAYIT.GG](https://playit.gg).
 
 The [Older](https://github.com/lordofwizard/minecraft_server) version is still running but not recommended to install because of some issues with disconnecting and installation of modded minecraft servers.
 
@@ -27,9 +27,7 @@ chmod +x *
 ```
 ./install
 ```
-Also put the correct [NGROK](https://dashboard.ngrok.com/) TOKEN in the prompt.
-(Check for the option to input 1(if you want the vanilla server) and put 2(if you want the modded version))
-* now run the server for the first time
+* Then start the server with the following command. 
 ``` 
 ./startserver
 ```
@@ -62,8 +60,12 @@ nano server.properties
 * Everything is now SET and server is running perfectly Fine
 * To get the URL of the server do the following command
 ``` 
-screen -r ngrok
+screen -r playit
 ```
+* Then claim the url for your server and then you are set.
+* Also if you want a different url you can do that with reinstalling the server *note this is remove your privious world*
+* 
+
 * To Detach the session you can do it using the following keyboard shortcuts 
 * CTRL+a & CTRL+d
 * To GO inside the console of the Minecraft server you can paste this command
