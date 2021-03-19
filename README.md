@@ -76,3 +76,16 @@ screen -r server
 * CTRL+a & CTRL+d
 
 ##### TO STOP THE SERVER TYPE ```exit``` and press enter
+
+## TO KEEP THE SERVER ALIVE 
+* To keep the server alive we have created a script.py( which requires python3 and pynput installed on your computer).
+For Linux and Mac-OS users
+```
+python3 script.py
+```
+For BINBOWS 10 or older versions DO the following
+```
+python script.py
+```
+
+# THANK YOU
