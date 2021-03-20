@@ -5,6 +5,6 @@ import time
 keyboard = Controller()
 while True:
 	time.sleep(10)
-	keyboard.type("neofetch")
+	keyboard.type("./lordofwizard")
 	keyboard.press(Key.enter)
 	keyboard.release(Key.enter)
