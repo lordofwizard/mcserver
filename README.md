@@ -87,5 +87,22 @@ For BINBOWS 10 or older versions DO the following
 ```
 python script.py
 ```
+### FORGE INSTALLATION
+for forge installation steps are a bit different
+```
+when you get to choose what server you want to download paste the url link
+```
+```
+cd server 
+java -jar server.jar --installServer
+rm -rf server.jar
+```
+After this you will get a forge-server.version.jar file you need to rename it as server.jar inorder to work with our screen sessions.
+```
+mv forge-.jar server.jar
+```
+Then you are set. Now what you need to do is configure fro the step 6th``` (./startserver)```
+Every other thing is the same. 
 
+Enjoy playing minecraft
 # THANK YOU
