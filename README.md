@@ -1,9 +1,6 @@
 # Minecraft Cloud Shell Tutorial & Info
 
-This Project was heavily inspired by [LordOfWizard](https://github.com/lordofwizard) and this was modified for better user experience and additional features and fixes.
-Go to the original repo of this project [here](https://github.com/lordofwizard/mcserver).
-
-[LordOfWizard](https://github.com/lordofwizard)'s repo has lack of features and there is a lot of bugs so I use his project and fix those bugs and added more features for people is use.
+This Project is offically **Forked** into [LordOfWizard's Project](https://github.com/lordofwizard/mcserver). This project will consently be updating with different features. This is more like a development builds and LordOfWizard's will be the stable builds. Feel free to keep on testing this project out.
 
 **The following features are added into this project are:**
 - Supports different type of Bedrock Servers
