@@ -38,11 +38,11 @@ You can view your exact specs by doing `./specinfo`
 * Activate a [Google Cloud Shell](https://console.cloud.google.com/) on Google cloud.
 * Clone this GitHub Project into the Console:
 ```
-git clone https://github.com/DumbCaveSpider/Minecraft-Cloud-Shell
+git clone https://github.com/lordofwizard/mcserver
 ```
-* Go into `Minecraft-Cloud-Shell` directory:
+* Go into `mcserver` directory:
 ```
-cd Minecraft-Cloud-Shell
+cd mcserver
 ```
 * Allow all commands executable:
 ```
@@ -123,7 +123,7 @@ Do `Ctrl + W` then press `Y` to save and press `Enter` exit the text editor.
 
 ## Access Server Files
 If you want to access your server files, go to `Open Editor` on the top right.
-- Once you there, if you don't see any folders on the left side, you can `Open Folder` and pick `Minecraft-Cloud-Shell` and go to `server` to view and modify anything inside.
+- Once you there, if you don't see any folders on the left side, you can `Open Folder` and pick `mcserver` and go to `server` to view and modify anything inside.
 - If you made any changes on your server, restart your server.
 After you restarted your server, all the changes are saved into your server.
 
@@ -157,7 +157,7 @@ EXAMPLE_VARIBALES=VARIABLES # NOTE ABOUT VARIABLES
 
 ## Restarting your Server
 If you don't know what restarting your server mean, here's the step.
-- Go to `~/Minecraft-Cloud-Shell` directory and do this command.
+- Go to `~/mcserver` directory and do this command.
 - Stop the server which stops both the Minecraft Server and Playit.gg tunneling system:
 ```
 ./stopserver
@@ -185,7 +185,7 @@ Sadly you can't use the host IP into your dedicated IP as it won't let you join 
 Each Cloud Shell session will have different specs of your server based on your physical location so you won't always get the best performance of your server but good news being that it's always the range between `8GB` to `16GB` so you won't have to worry about lag when playing in the server with high processing in your server.
 
 ## Uninstall/Remove the Server
-- If you want to make a new or delete your server, do this command inside `~/Minecraft-Cloud-Shell`:
+- If you want to make a new or delete your server, do this command inside `~/mcserver`:
 ```
 ./uninstall
 ```
@@ -200,7 +200,7 @@ cd
 ``` 
 - Now delete the whole project *(Be careful, backup/download your world folder FIRST before deleting it. You can't go back once you do this command)*:
 ```
-sudo rm -r Minecraft-Cloud-Shell
+sudo rm -r mcserver
 ```
 If the project is completely deleted, you can clone the project again and it should be up to date with the new features and code from this project!
 ## Conclusion
