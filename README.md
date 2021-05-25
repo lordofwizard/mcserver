@@ -15,7 +15,7 @@ You can use [LordOfWizard's Project](https://github.com/lordofwizard/mcserver) i
 - Instant EULA script setup *(Completly skipping this part which makes other people's life much easier to manage)*
 - Faster Server Installation *(It would probably take you like approx 30 seconds to setup a server)*
 
-(This is modified and license under [MIT License](https://github.com/DumbCaveSpider/Minecraft-Cloud-Shell/blob/main/LICENSE))
+This is modified and license under **[MIT License](https://github.com/DumbCaveSpider/Minecraft-Cloud-Shell/blob/main/LICENSE)**
 
 This script is used to host your very own Java/Bedrock Minecraft Server using `Google Cloud Shell`. This works under `Ubuntu/Debian` based Linux operation system.
 
