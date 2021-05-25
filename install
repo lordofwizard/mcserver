@@ -1,5 +1,7 @@
 #!/bin/bash
 
+sudo mv mcserver Minecraft-Cloud-Shell # Changing directory
+
 echo "Which Server do you want to install?"
 echo "Type [1] Java Server"
 echo "Type [2] Bedrock Server"
