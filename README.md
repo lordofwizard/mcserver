@@ -15,7 +15,7 @@ If you want to test out the development builds, feel free to go to lordofwizard'
 - Instant EULA script setup *(Completly skipping this part which makes other people's life much easier to manage)*
 - Faster Server Installation *(It would probably take you like approx 30 seconds to setup a server)*
 
-(This is modified and license under [MIT License](https://github.com/lordofwizard/mcserver/blob/main/LICENSE))
+License under **[MIT License](https://github.com/lordofwizard/mcserver/blob/main/LICENSE)**
 
 If you want to see how it works, [**watch this tutorial**](https://youtu.be/0j0ijkwddz8).
 
