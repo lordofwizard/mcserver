@@ -1,0 +1,109 @@
+#!/bin/bash
+
+#Installing all the dependencise
+sudo apt install screen neofetch -y > /dev/null
+
+echo "export PATH=$PATH:/some/new/path" > ~/.profile
+echo "> Dependencies Installtion Completed!"
+
+#Downloading ngrok && Downloading Minecraft Server
+mkdir server 
+
+echo ""
+echo "-- Pick the following Server type: --"
+echo "Type [1] Create Vanilla Server"
+echo "Type [2] Create Paper Server"
+echo "Type [3] Create Forge Server"
+echo "Type [4] Create Sponge Server"
+echo "Type [5] Create Fabric Server"
+
+choiceForServer=1
+read choiceForServer
+
+# 0
+if [[ -z $choiceForServer ]]; then
+	
+echo "> By Default, you selected [1]"
+echo "> Installing Vanilla..."
+cd JavaInstallScripts
+chmod +x *
+./VanillaInstall
+
+# Vanilla
+elif [[ $choiceForServer == 1 ]]; then
+	
+echo "> Installing Vanilla..."
+cd JavaInstallScripts
+chmod +x *
+./VanillaInstall
+
+# Paper
+elif [[ $choiceForServer == 2 ]]; then
+	
+echo "> Installing Paper..."
+cd JavaInstallScripts
+chmod +x *
+./PaperInstall
+
+
+# Forge
+elif [[ $choiceForServer == 3 ]]; then
+
+echo "> Installing Forge..."
+cd JavaInstallScripts
+chmod +x *
+./ForgeInstall
+
+# Sponge
+elif [[ $choiceForServer == 4 ]]; then
+
+echo "> Installing Sponge..."
+cd JavaInstallScripts
+chmod +x *
+./SpongeInstall
+
+# Sponge
+elif [[ $choiceForServer == 5 ]]; then
+
+echo "> Installing Fabric..."
+cd JavaInstallScripts
+chmod +x *
+./FabricInstall
+
+# Invaild Input
+else
+
+echo "Invaild Responds! Please try again"
+./installJava
+
+fi
+
+# Backup install playit.gg in case if first one doesn't download
+echo "> Installing Playit.gg..."
+cd ..
+wget "https://playit.gg/downloads/playit-linux_64-0.2.0-beta-rc-3" -O playit 
+chmod +x playit
+echo "> Playit.gg Installation Completed!"
+echo ""
+echo "-- Do you want to start the server now? --"
+echo "Type [1] for Yes"
+echo "Type [2] for No"
+
+StartServer=2
+read StartServer
+
+if [[ -z $StartServer ]]; then
+echo "> By Default, you selected 'No'."
+echo "> You can start the server by do ./startserver"
+
+elif [[ $StartServer == 1 ]]; then
+./startserver
+
+elif [[ $StartServer == 2 ]]; then
+echo "You picked 'No'."
+echo "> You can start the server by do ./startserver"
+
+else
+echo "> By Default, you selected 'No'."
+echo "> You can start the server by do ./startserver"
+fi

@@ -1,0 +1,33 @@
+#!/bin/bash
+
+echo "Which Server do you want to install?"
+echo "Type [1] Java Server"
+echo "Type [2] Bedrock Server"
+
+choiceForServer=1
+read choiceForServer
+
+# If choice is 0 or null then run this command
+if [[ -z $choiceForServer ]]; then
+
+  echo "> Invaild Respond. Please try again."
+  ./install
+
+# If choice is 1 then run this command
+elif [[ $choiceForServer == 1 ]]; then
+	
+	echo "> Running Java Installation..."
+  ./installJava
+
+# If choice is 1 then run this command
+elif [[ $choiceForServer == 2 ]]; then
+	
+	echo "> Running Bedrock Installation..."
+  ./installBedrock
+
+else
+	echo "> Invaild Respond. Please try again."
+	./install
+fi
+
+echo ""

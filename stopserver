@@ -1,0 +1,9 @@
+#!/bin/bash
+clear
+echo "> Server Terminated!"
+echo ""
+echo "To run again, type './startserver' to reboot your server."
+echo "To delete your server, type './uninstall' to uninstall and delete your server."
+
+# Kill all Screen
+killall screen

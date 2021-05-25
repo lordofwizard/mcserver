@@ -1,0 +1,2 @@
+cd server
+java -Xmx28G -Xms15G -jar server.jar nogui
