@@ -2,7 +2,7 @@
 
 In this project, we'll teach you host your very own Java/Bedrock Minecraft Server using `Google Cloud Shell`. This works under `Ubuntu/Debian` based Linux operation system.
 
-If you want to test out the development builds, feel free to go to [DumbCaveSpider's Project](https://github.com/DumbCaveSpider/Minecraft-Cloud-Shell).
+If you want to test out the development builds, feel free to go to [lordofwizard's Project](https://github.com/lordofwizard/mcserver) Development Branch.
 
 > Stable Build: `1.0`
 
@@ -11,11 +11,11 @@ If you want to test out the development builds, feel free to go to [DumbCaveSpid
 - Clean & Friendly Interface
 - Supports Additional type of Java Server *(eg. Sponge, Paper, Fabric etc)*
 - Added Server Management
-- Easier functional scripts *(eg. [**./uninstall**](https://github.com/DumbCaveSpider/Minecraft-Cloud-Shell/blob/main/README.md#uninstallremove-the-server) allows you to delete your server easily)*
+- Easier functional scripts *(eg. [**./uninstall**](https://github.com/lordofwizard/mcserver/blob/main/README.md#uninstallremove-the-server) allows you to delete your server easily)*
 - Instant EULA script setup *(Completly skipping this part which makes other people's life much easier to manage)*
 - Faster Server Installation *(It would probably take you like approx 30 seconds to setup a server)*
 
-(This is modified and license under [MIT License](https://github.com/DumbCaveSpider/Minecraft-Cloud-Shell/blob/main/LICENSE))
+(This is modified and license under [MIT License](https://github.com/lordofwizard/mcserver/blob/main/LICENSE))
 
 If you want to see how it works, [**watch this tutorial**](https://youtu.be/0j0ijkwddz8).
 
@@ -79,7 +79,7 @@ Do `Ctrl + W` then press `Y` to save and press `Enter` exit the text editor.
 ```
 cd ..
 ```
-- And [restart](https://github.com/DumbCaveSpider/Minecraft-Cloud-Shell/blob/main/README.md#restarting-your-server) your server.
+- And [restart](https://github.com/lordofwizard/mcserver/blob/main/README.md#restarting-your-server) your server.
 * Now everything should be functional and ready. You can check if your server is up and running by doing `screen -r server`.
 ## Joining your Server
 * To join your server, start your server by doing `./startserver` *(If you haven't started it yet)* and do this command:
@@ -118,7 +118,7 @@ online-mode=true
 ```
 Do `Ctrl + W` then press `Y` to save and press `Enter` exit the text editor.
 
-- [Restart](https://github.com/DumbCaveSpider/Minecraft-Cloud-Shell/blob/main/README.md#restarting-your-server) your server after you apply these changes.
+- [Restart](https://github.com/lordofwizard/mcserver/blob/main/README.md#restarting-your-server) your server after you apply these changes.
 
 ## Access Server Files
 If you want to access your server files, go to `Open Editor` on the top right.
@@ -203,6 +203,6 @@ sudo rm -r mcserver
 ```
 If the project is completely deleted, you can clone the project again and it should be up to date with the new features and code from this project!
 ## Conclusion
-Now you can host your very own Minecraft Server for both Java & Bedrock fast and easy and it won't cost you a single penny to make a fast and strong server. Best of all, IT'S FOREVER! Feel free to leave any requests you would like me to add into the project. If you have any issues, go to the [**Issues**](https://github.com/DumbCaveSpider/Minecraft-Cloud-Shell/issues) tab and submit a issue there.
+Now you can host your very own Minecraft Server for both Java & Bedrock fast and easy and it won't cost you a single penny to make a fast and strong server. Best of all, IT'S FOREVER! Feel free to leave any requests you would like me to add into the project. If you have any issues, go to the [**Issues**](https://github.com/lordofwizard/mcserver/issues) tab and submit a issue there.
 
-Thanks for using this project! *-DumbCaveSpider*
+Thanks for using this project! *-LordOfWizard* & *-DumbCaveSpider*
