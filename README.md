@@ -2,7 +2,7 @@
 
 This Project is offically **Forked** into [LordOfWizard's Project](https://github.com/lordofwizard/mcserver). This project will consently be updating with different features. This is more like a development builds and LordOfWizard's will be the stable builds. Feel free to keep on testing this project out.
 
-You can use [LordOfWizard's Project](https://github.com/lordofwizard/mcserver if you want a static and more stable builds.
+You can use [LordOfWizard's Project](https://github.com/lordofwizard/mcserver) if you want a static and more stable builds.
 
 > Development Build: `1.0`
 
