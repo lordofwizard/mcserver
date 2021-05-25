@@ -2,7 +2,7 @@
 
 In this project, we'll teach you host your very own Java/Bedrock Minecraft Server using `Google Cloud Shell`. This works under `Ubuntu/Debian` based Linux operation system.
 
-If you want to test out the development builds, feel free to go to [lordofwizard's Project](https://github.com/lordofwizard/mcserver) Development Branch.
+If you want to test out the development builds, feel free to go to lordofwizard's [Development Project](https://github.com/DumbCaveSpider/Minecraft-Cloud-Shell).
 
 > Stable Build: `1.0`
 
