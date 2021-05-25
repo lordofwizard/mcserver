@@ -1,0 +1,29 @@
+#!/bin/bash
+sudo apt update
+sudo apt install -y curl jq unzip dos2unix wget
+
+cd ..
+mkdir -p server
+cd server
+
+
+# -- EDIT HERE | DO NOT EDIT ABOVE -- #
+SERVER_JARFILE=server.jar # LEAVE THIS PART ALONE
+MC_VERSION=latest # MC_VERSION: https://meta.fabricmc.net/v2/versions/game
+FABRIC_VERSION=latest # FABRIC_VERSION: https://meta.fabricmc.net/v2/versions/installer
+# -- EDIT HERE | DO NOT EDIT BELOW -- #
+
+
+# Enable snapshots
+if [ -z "$MC_VERSION" ] || [ "$MC_VERSION" == "latest" ]; then
+  MC_VERSION=$(curl -sSL https://meta.fabricmc.net/v2/versions/game | jq -r '.[] | select(.stable== true )|.version' | head -n1)
+elif [ "$MC_VERSION" == "snapshot" ]; then
+  MC_VERSION=$(curl -sSL https://meta.fabricmc.net/v2/versions/game | jq -r '.[] | select(.stable== false )|.version' | head -n1)
+fi
+
+if [ -z "$FABRIC_VERSION" ] || [ "$FABRIC_VERSION" == "latest" ]; then
+  FABRIC_VERSION=$(curl -sSL https://meta.fabricmc.net/v2/versions/installer | jq -r '.[0].version')
+fi
+wget -O fabric-installer.jar https://maven.fabricmc.net/net/fabricmc/fabric-installer/$FABRIC_VERSION/fabric-installer-$FABRIC_VERSION.jar
+java -jar fabric-installer.jar server -mcversion $MC_VERSION -downloadMinecraft
+echo -e "Install Complete"

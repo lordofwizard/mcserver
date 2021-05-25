@@ -1,12 +1,9 @@
 #!/bin/bash
 clear
-echo "Please Subscribe to "
+echo "> Server Terminated!"
 echo ""
-echo ""
-echo "|   _  ._ _| / \ _|_ \    / o _   _. ._ _| "
-echo "|_ (_) | (_| \_/  |   \/\/  | /_ (_| | (_| "
-echo ""
-echo ""
-echo "Youtube - https://www.youtube.com/channel/UCrngq2SZL98AtiHBQxs3Y5g"
-echo "Github - https://github.com/lordofwizard/"
+echo "To run again, type './startserver' to reboot your server."
+echo "To delete your server, type './uninstall' to uninstall and delete your server."
+
+# Kill all Screen
 killall screen

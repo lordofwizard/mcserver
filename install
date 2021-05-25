@@ -1,70 +1,33 @@
 #!/bin/bash
-clear
-#	This is just a Experimental Project Which comes with no warrenty
-#	I don't know anything about warrenty and also this project is a open source project
-#	You can use it for Profit/Non-Profit...
-#	
-#	@Author - Advait Pandharpurkar 
-#	Mail - lordofwizard@protonmail.com
-#       ENJOY
 
-echo "WELCOME"
-
-#Installing all the dependencise
-sudo apt install screen neofetch -y > /dev/null
-
-#mv lordofwizard $HOME/.gems/bin/
-echo "export PATH=$PATH:/some/new/path" > ~/.profile
-echo "Dependencies are installed successfully : )"
-
-#Downloading ngrok && Downloading Minecraft Server
-mkdir server 
-
-
-#NGROK AUTHENTICATION PROCESS
-#echo "Please enter your authentication token for NGROK >"
-#read token
-
-#./ngrok_ authtoken $token 
-#echo ""
-
-echo "Type 1 If you want the Native(Vanila[NotICE-Cream]) version of minecraft server [DEFAULT=1]"
-echo "Type 2 If you want to install Other Modded MineCraft Server [PaperMC, Or Spigot etc] >"
+echo "Which Server do you want to install?"
+echo "Type [1] Java Server"
+echo "Type [2] Bedrock Server"
 
 choiceForServer=1
 read choiceForServer
 
-#First If statement which compares if the command or you can say the given no is a VOID or Null number.
+# If choice is 0 or null then run this command
 if [[ -z $choiceForServer ]]; then
-	
-	curl https://www.minecraft.net/en-us/download/server > temp;
-	
-	#Fetching the URL from the minecraft.net and sedding it throught bunch of pattens to get the actual URL
-	URL=$(cat temp | grep -o '<a .*href=.*>' | sed -e 's/<a /\n<a /g' | sed -e 's/<a .*href=['"'"'"]//' -e 's/["'"'"'].*$//' -e '/^$/ d' | grep "https://launcher")
 
+  echo "> Invaild Respond. Please try again."
+  ./install
 
-#Second If statment which compares if the command or you can say the given no is a 1 number or not.
+# If choice is 1 then run this command
 elif [[ $choiceForServer == 1 ]]; then
 	
-	curl https://www.minecraft.net/en-us/download/server > temp;
+	echo "> Running Java Installation..."
+  ./installJava
 
-	#Fetching the URL from the minecraft.net and sedding it throught bunch of pattens to get the actual URL
-	URL=$(cat temp | grep -o '<a .*href=.*>' | sed -e 's/<a /\n<a /g' | sed -e 's/<a .*href=['"'"'"]//' -e 's/["'"'"'].*$//' -e '/^$/ d' | grep "https://launcher")
+# If choice is 1 then run this command
+elif [[ $choiceForServer == 2 ]]; then
+	
+	echo "> Running Bedrock Installation..."
+  ./installBedrock
 
-
-#This else statement will ask for if you have a url of a Modded Server or not
 else
-	echo "Well This seems like you don't like vanilla Do yeh?"
-	echo "Now you better paste a URL here >"
-	read URL	
+	echo "> Invaild Respond. Please try again."
+	./install
 fi
 
-
-
-wget "https://playit.gg/downloads/playit-linux_64-0.2.0-beta-rc-3" -O playit 
-chmod +x playit
-#Downloading the URL from website and pasting the output into server folder for better acess with name server.jar
-wget "$URL" -O server/server.jar > /dev/null
-echo "Server installation is successful"
-echo "Everything is installed and configures completely fine...."
-echo "ENJOY PLAYING MINECRAFT"
+echo ""
