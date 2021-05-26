@@ -1,12 +1,12 @@
 echo "> Checking..."
 
 # Begin Uninstalling Server
-if [ ! -d ~/Minecraft-Cloud-Shell/server ]; then
+if [ ! -d ~/mcserver/server ]; then
 
 echo "> You haven't installed the server yet..."
 
 
-elif [ -d ~/Minecraft-Cloud-Shell/server ]; then
+elif [ -d ~/mcserver/server ]; then
 echo "> Server Folder Detected!"
 echo " -- Are you sure you want to uninstall and delete your server? --"
 echo "Type [1] for Yes"
