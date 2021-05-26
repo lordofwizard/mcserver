@@ -1,5 +1,4 @@
-cd server
-./playit
 
-cd ~/Minecraft-Cloud-Shell
+
+cd ~/mcserver
 ./playit

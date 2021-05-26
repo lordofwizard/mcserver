@@ -1,7 +1,8 @@
 #!/usr/bin/env bash
 
-# Litterally just took this script out from someone... shhhh
-
+# This is the standard neofetch script taken from the repository
+# https://github.com/dylanaraps/neofetch
+#dylanaraps YOU ARE OP 
 version=7.1.0
 
 # Fallback to a value of '5' for shells which support bash
