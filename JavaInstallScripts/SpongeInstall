@@ -1,6 +1,6 @@
 #!/bin/bash
 sudo apt update -qq
-sudo apt install -y -qq wget tmux
+sudo apt install -y -qq wget
 
 cd ..
 mkdir -p server
