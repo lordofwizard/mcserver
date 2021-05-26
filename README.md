@@ -4,8 +4,13 @@ This Project is offically **Forked** into [LordOfWizard's Project](https://githu
 
 You can use [LordOfWizard's Project](https://github.com/lordofwizard/mcserver) if you want a static and more stable builds.
 
-> Development Build: `1.1`
+> Development Build: `1.2`
+---
+**In development:**
 
+- Changing from `screen` to `tmux` for better server screening.\
+- Easier and adding interface for custom variable script for every server type. *(Easy to change the variables)*
+---
 **The following features are added into this project are:**
 - Supports different type of Bedrock Servers
 - Clean & Friendly Interface
