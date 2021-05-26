@@ -2,7 +2,7 @@
 echo "> Starting the server up. Please wait..."                                                                                 
 echo "> Installing Dependencise..."
 
-sudo apt install screen wget -y > /dev/null
+sudo apt install -y -qq screen wget  
 
 echo "> Dependencise Installed!"
 
