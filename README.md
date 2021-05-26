@@ -32,6 +32,7 @@ You can view your exact specs by doing `./specinfo`
 
 ### Service Used:
 - [playit.gg](https://playit.gg)
+- [google.cloud](https://console.cloud.google.com)
 
 ## Installation 
 * Activate a [Google Cloud Shell](https://console.cloud.google.com/) on Google cloud.
