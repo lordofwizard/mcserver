@@ -3,8 +3,8 @@
 # Paper Installation Script
 #
 # Server Files: /mnt/server
-sudo apt update
-sudo apt install -y curl jq
+sudo apt update -qq
+sudo apt install -y -qq curl jq > /dev/null
 
 cd ..
 mkdir -p server
