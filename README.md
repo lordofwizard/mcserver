@@ -11,6 +11,7 @@ You can use [LordOfWizard's Project](https://github.com/lordofwizard/mcserver) i
 
 - Changing from `screen` to `tmux` for better server screening.
 - Adding interface for custom variable script for every server type. *(Easy to change the variables)*
+- Adding an automated script that keeps the shell alive.
 ---
 In this project, we'll teach you host your very own Java/Bedrock Minecraft Server using `Google Cloud Shell`. This works under `Ubuntu/Debian` based Linux operation system.
 
