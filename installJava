@@ -81,7 +81,7 @@ fi
 # Backup install playit.gg in case if first one doesn't download
 echo "> Installing Playit.gg..."
 cd ..
-wget "https://playit.gg/downloads/playit-linux_64-0.2.0-beta-rc-3" -O playit 
+wget "https://playit.gg/downloads/playit-linux_64-0.4.2-rc1" -O playit 
 chmod +x playit
 echo "> Playit.gg Installation Completed!"
 echo ""
