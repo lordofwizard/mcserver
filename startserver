@@ -8,28 +8,28 @@ sudo apt install -y -qq screen wget
 echo "> Dependencise Installed!"
 
 echo "> Checking Server Type..."
-if [ -f ~/mcserver/server/bedrock_server ]; then
+if [ -f $MAIN_DIR/server/bedrock_server ]; then
 
 echo "> Bedrock Server Detected! Starting Server up..."
 
-elif [ ! -f ~/mcserver/server/eula.txt ]; then
+elif [ ! -f $MAIN_DIR/server/eula.txt ]; then
 
-cd ~/mcserver/server
+cd $MAIN_DIR/server
 echo "> EULA doesn't exist! Creating one!"
 sudo wget https://cdn.discordapp.com/attachments/715123369200189460/846712565530624050/eula.txt
 echo "> EULA Completed! Restarting Server"
-cd ~/mcserver
+cd $MAIN_DIR
 screen -S server -d -m ./startJavaServer
 clear
 echo "> Your server just doing a second restart to fix the EULA file."
 ./startserver
 killall screen
-elif [ -f ~/mcserver/server/eula.txt ]; then
+elif [ -f $MAIN_DIR/server/eula.txt ]; then
 echo "> EULA Detected! Starting Server up..."
 
 else
 echo "> Your server isn't setup properly. Force uninstall..."
-cd ~/mcserver
+cd $MAIN_DIR
 ./uninstall
 echo "> Comfirmed Uninstallation! Restarting Installation..."
 ./install

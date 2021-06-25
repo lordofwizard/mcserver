@@ -1,12 +1,14 @@
+#!/bin/bash
+export MAIN_DIR=$PWD
 echo "> Checking..."
 
 # Begin Uninstalling Server
-if [ ! -d ~/mcserver/server ]; then
+if [ ! -d $MAIN_DIR/server ]; then
 
 echo "> You haven't installed the server yet..."
 
 
-elif [ -d ~/mcserver/server ]; then
+elif [ -d $MAIN_DIR/server ]; then
 echo "> Server Folder Detected!"
 echo " -- Are you sure you want to uninstall and delete your server? --"
 echo "Type [1] for Yes"

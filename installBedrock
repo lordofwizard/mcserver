@@ -1,5 +1,5 @@
 #!/bin/bash
-
+export MAIN_DIR=$PWD
 #Installing all the dependencise
 sudo apt install -qq screen neofetch wget unzip -y 
 
