@@ -1,2 +1,5 @@
+#!/bin/bash
+export MAIN_DIR=$PWD
+export JAVA=$MAIN_DIR/bin/java_bins/bin/java
 cd server
-java -Xmx28G -Xms15G -jar server.jar nogui
+$JAVA -Xmx28G -Xms15G -jar server.jar nogui

@@ -1,4 +1,5 @@
 #!/bin/bash
+mkdir bin
 chmod +x *
 export MAIN_DIR=$PWD
 echo "Which Server do you want to install?"
