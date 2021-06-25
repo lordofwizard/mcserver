@@ -1,5 +1,5 @@
 #!/bin/bash
-
+chmod +x *
 
 echo "Which Server do you want to install?"
 echo "Type [1] Java Server"

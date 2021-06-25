@@ -1,0 +1,2 @@
+# Just make other people's life much easier lol xD
+eula=true

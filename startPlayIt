@@ -1,4 +1,5 @@
+#!/bin/bash
+export MAIN_DIR=$PWD
 
-
-cd ~/mcserver
+cd $MAIN_DIR
 ./playit
