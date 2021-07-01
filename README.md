@@ -19,7 +19,7 @@ License under **[MIT License](https://github.com/lordofwizard/mcserver/blob/main
 
 If you want to see how it works, [**watch this tutorial**](https://youtu.be/0j0ijkwddz8).
 
-Need help? Join my [Discord](https://discord.com/invite/HBrK26SsN4) server.
+Need help? Join my [Discord](https://discord.gg/V2R26jBEzN) server.
 
 ### Server Specs:
 - **OS:** Debian GNU/Linux 10 (buster) x86_64
