@@ -20,6 +20,11 @@ License under **[MIT License](https://github.com/lordofwizard/mcserver/blob/main
 If you want to see how it works, [**watch this tutorial**](https://youtu.be/0j0ijkwddz8).
 
 Need help? Join my [Discord](https://discord.gg/V2R26jBEzN) server.
+### To do list
+- Asking the user for the specific version they want to run of java.
+- Add 3rd party sources in the list.
+- Automatic message typer for typing something on the server.
+- More easy way to upload files on google drive.
 
 ### Server Specs:
 - **OS:** Debian GNU/Linux 10 (buster) x86_64
