@@ -1,5 +1,78 @@
 #!/bin/bash
 
+export THIS_DIR=$PWD
+
+install_server () {
+  choice=$1
+  if [[ -z $choice ]]
+  then	
+    echo -e "\n> Installing Vanilla..."
+    cd JavaInstallScripts
+    chmod +x *
+    
+    ./VanillaInstall
+    errorno=${?}
+    if [ $errorno -eq 1 ]
+    then
+      cd $THIS_DIR
+      install_server $choice
+    fi
+
+
+  # Vanilla
+  elif [[ $choice == 1 ]]
+  then
+    echo -e "\n> Installing Vanilla..."
+    cd JavaInstallScripts
+    chmod +x *
+
+    ./VanillaInstall
+    errorno=${?}
+    if [ $errorno -eq 1 ]
+    then
+	    cd $THIS_DIR
+      install_server $choice
+    fi
+
+  # Paper
+  elif [[ $choice == 2 ]]
+  then
+    echo "> Installing Paper..."
+    cd JavaInstallScripts
+    chmod +x *
+    ./PaperInstall
+
+  # Forge
+  elif [[ $choice == 3 ]]
+  then
+    echo "> Installing Forge..."
+    cd JavaInstallScripts
+    chmod +x *
+    ./ForgeInstall
+
+  # Sponge
+  elif [[ $choice == 4 ]]
+  then
+    echo "> Installing Sponge..."
+    cd JavaInstallScripts
+    chmod +x *
+    ./SpongeInstall
+
+  # Sponge
+  elif [[ $choice == 5 ]]
+  then
+    echo "> Installing Fabric..."
+    cd JavaInstallScripts
+    chmod +x *
+    ./FabricInstall
+
+  # Invaild Input
+  else
+    echo "Invaild Responds! Please try again"
+    ./installJava
+  fi
+}
+
 #Installing all the dependencise
 sudo apt install -y -qq screen neofetch 
 
@@ -20,69 +93,13 @@ echo "Type [5] Create Fabric Server"
 choiceForServer=1
 read choiceForServer
 
-# 0
-if [[ -z $choiceForServer ]]; then
-	
-echo "> By Default, you selected [1]"
-echo "> Installing Vanilla..."
-cd JavaInstallScripts
-chmod +x *
-./VanillaInstall
-
-# Vanilla
-elif [[ $choiceForServer == 1 ]]; then
-	
-echo "> Installing Vanilla..."
-cd JavaInstallScripts
-chmod +x *
-./VanillaInstall
-
-# Paper
-elif [[ $choiceForServer == 2 ]]; then
-	
-echo "> Installing Paper..."
-cd JavaInstallScripts
-chmod +x *
-./PaperInstall
-
-
-# Forge
-elif [[ $choiceForServer == 3 ]]; then
-
-echo "> Installing Forge..."
-cd JavaInstallScripts
-chmod +x *
-./ForgeInstall
-
-# Sponge
-elif [[ $choiceForServer == 4 ]]; then
-
-echo "> Installing Sponge..."
-cd JavaInstallScripts
-chmod +x *
-./SpongeInstall
-
-# Sponge
-elif [[ $choiceForServer == 5 ]]; then
-
-echo "> Installing Fabric..."
-cd JavaInstallScripts
-chmod +x *
-./FabricInstall
-
-# Invaild Input
-else
-
-echo "Invaild Responds! Please try again"
-./installJava
-
-fi
+install_server $choiceForServer
 
 # Backup install playit.gg in case if first one doesn't download
 echo "> Installing Playit.gg..."
 cd ..
 #wget "https://playit.gg/downloads/playit-linux_64-0.4.2-rc1" -O playit 
-wget "https://playit.gg/downloads/playit-linux_64-0.4.3-rc2" -O playit
+wget -q "https://playit.gg/downloads/playit-linux_64-0.4.3-rc2" -O playit
 chmod +x playit
 echo "> Playit.gg Installation Completed!"
 echo ""
