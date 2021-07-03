@@ -2,13 +2,9 @@
 sudo apt update -qq
 sudo apt install -y -qq jq curl
 
-# export THIS_DIR=$PWD
-
 cd ..
 mkdir -p server
 cd server
-
-
 
 
 # -- EDIT HERE | DO NOT EDIT ABOVE -- #
@@ -39,8 +35,7 @@ DOWNLOAD_URL=$(curl ${MANIFEST_URL} | jq .downloads.server | jq -r '. | .url')
 if [ -z $DOWNLOAD_URL ]
 then
   echo "Invalid version provided"
-  # $THIS_DIR/VanillaInstall
-  exit
+  exit 1
 fi
 
 echo -e "running: curl -o server.jar $DOWNLOAD_URL"
