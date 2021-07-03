@@ -10,7 +10,9 @@ cd server
 
 
 # -- EDIT HERE | DO NOT EDIT ABOVE -- #
-VANILLA_VERSION=latest
+echo "> Enter minecraft version for server: "
+VANILLA_VERSION=1.17
+read VANILLA_VERSION
 # VANILLA_VERSION: https://launchermeta.mojang.com/mc/game/version_manifest.json
 # -- EDIT HERE | DO NOT EDIT BELOW -- # 
 
@@ -32,6 +34,12 @@ else
 fi
 
 DOWNLOAD_URL=$(curl ${MANIFEST_URL} | jq .downloads.server | jq -r '. | .url')
+if [ -z $DOWNLOAD_URL ]
+then
+  echo "Invalid version provided"
+  # ../VanillaInstall
+  exit
+fi
 
 echo -e "running: curl -o server.jar $DOWNLOAD_URL"
 sudo curl -o server.jar $DOWNLOAD_URL
