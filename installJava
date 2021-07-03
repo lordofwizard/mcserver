@@ -1,11 +1,12 @@
 #!/bin/bash
 
+export THIS_DIR=$PWD
+
 install_server () {
   choice=$1
   if [[ -z $choice ]]
   then	
-    echo "> By Default, you selected [1]"
-    echo "> Installing Vanilla..."
+    echo -e "\n> Installing Vanilla..."
     cd JavaInstallScripts
     chmod +x *
     
@@ -13,61 +14,63 @@ install_server () {
     errorno=${?}
     if [ $errorno -eq 1 ]
     then
+      cd $THIS_DIR
       install_server $choice
     fi
 
 
-    # Vanilla
-    elif [[ $choice == 1 ]]
+  # Vanilla
+  elif [[ $choice == 1 ]]
+  then
+    echo -e "\n> Installing Vanilla..."
+    cd JavaInstallScripts
+    chmod +x *
+
+    ./VanillaInstall
+    errorno=${?}
+    if [ $errorno -eq 1 ]
     then
-      echo "> Installing Vanilla..."
-      cd JavaInstallScripts
-      chmod +x *
-
-      ./VanillaInstall
-      errorno=${?}
-      if [ $errorno -eq 1 ]
-      then
-        install_server $choice
-      fi
-
-    # Paper
-    elif [[ $choice == 2 ]]
-    then
-      echo "> Installing Paper..."
-      cd JavaInstallScripts
-      chmod +x *
-      ./PaperInstall
-
-    # Forge
-    elif [[ $choice == 3 ]]
-    then
-      echo "> Installing Forge..."
-      cd JavaInstallScripts
-      chmod +x *
-      ./ForgeInstall
-
-    # Sponge
-    elif [[ $choice == 4 ]]
-    then
-      echo "> Installing Sponge..."
-      cd JavaInstallScripts
-      chmod +x *
-      ./SpongeInstall
-
-    # Sponge
-    elif [[ $choice == 5 ]]
-    then
-      echo "> Installing Fabric..."
-      cd JavaInstallScripts
-      chmod +x *
-      ./FabricInstall
-
-    # Invaild Input
-    else
-      echo "Invaild Responds! Please try again"
-      ./installJava
+	    cd $THIS_DIR
+      install_server $choice
     fi
+
+  # Paper
+  elif [[ $choice == 2 ]]
+  then
+    echo "> Installing Paper..."
+    cd JavaInstallScripts
+    chmod +x *
+    ./PaperInstall
+
+  # Forge
+  elif [[ $choice == 3 ]]
+  then
+    echo "> Installing Forge..."
+    cd JavaInstallScripts
+    chmod +x *
+    ./ForgeInstall
+
+  # Sponge
+  elif [[ $choice == 4 ]]
+  then
+    echo "> Installing Sponge..."
+    cd JavaInstallScripts
+    chmod +x *
+    ./SpongeInstall
+
+  # Sponge
+  elif [[ $choice == 5 ]]
+  then
+    echo "> Installing Fabric..."
+    cd JavaInstallScripts
+    chmod +x *
+    ./FabricInstall
+
+  # Invaild Input
+  else
+    echo "Invaild Responds! Please try again"
+    ./installJava
+  fi
 }
 
 #Installing all the dependencise
@@ -96,7 +99,7 @@ install_server $choiceForServer
 echo "> Installing Playit.gg..."
 cd ..
 #wget "https://playit.gg/downloads/playit-linux_64-0.4.2-rc1" -O playit 
-wget "https://playit.gg/downloads/playit-linux_64-0.4.3-rc2" -O playit
+wget -q "https://playit.gg/downloads/playit-linux_64-0.4.3-rc2" -O playit
 chmod +x playit
 echo "> Playit.gg Installation Completed!"
 echo ""
