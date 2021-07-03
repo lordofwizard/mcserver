@@ -24,6 +24,7 @@ echo "> Abort!"
 
 elif [[ $UninstallPick == 1 ]]; then
 sudo rm -r server
+sudo rm -rf bin
 killall screen
 echo "> Uninstall Complete! To make a new server, do ./install"
 
