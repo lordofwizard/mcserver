@@ -13,7 +13,7 @@ install_server () {
     errorno=${?}
     if [ $errorno -eq 1 ]
     then
-      installserver $choice
+      install_server $choice
     fi
 
 
@@ -28,7 +28,7 @@ install_server () {
       errorno=${?}
       if [ $errorno -eq 1 ]
       then
-        installserver $choice
+        install_server $choice
       fi
 
     # Paper
