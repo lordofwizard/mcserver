@@ -4,7 +4,7 @@ In this project, we'll teach you host your very own Java/Bedrock Minecraft Serve
 
 If you want to test out the development builds, feel free to go to the [Development Project](https://github.com/DumbCaveSpider/Minecraft-Cloud-Shell).
 
-> Stable Build: `1.0`
+> Stable Build: `1.1`
 
 **The following features are added into this project are:**
 - Supports different type of Bedrock Servers
@@ -26,6 +26,7 @@ Need help? Join my [Discord](https://discord.gg/V2R26jBEzN) server.
 - Automatic message typer for typing something on the server.
 - More easy way to upload files on google drive.
 - Update script.
+- Adding more server types script into Java Server Folder
 ### Server Specs:
 - **OS:** Debian GNU/Linux 10 (buster) x86_64
 - **RAM:** 8GB to 16GB
