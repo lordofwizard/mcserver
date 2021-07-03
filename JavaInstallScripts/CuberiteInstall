@@ -1,0 +1,13 @@
+#!/bin/ash
+# Cuberite
+
+apt update
+apt install -y wget
+
+cd ..
+mkdir -p server
+cd server
+
+wget https://download.cuberite.org/linux-x86_64/Cuberite.tar.gz
+
+tar -xzf Cuberite.tar.gz
