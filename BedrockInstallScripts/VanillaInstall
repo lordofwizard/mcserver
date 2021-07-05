@@ -16,37 +16,40 @@ DIFFICULTY=easy # DIFFICULTY: peaceful,easy,normal,hard
 CHEATS=false # CHEATS: true,false
 # -- EDIT HERE | DO NOT EDIT BELOW -- #
 
-
-
+RANDVERSION=$(echo $((1 + $RANDOM % 4000)))
 
 if [ -z "${BEDROCK_VERSION}" ] || [ "${BEDROCK_VERSION}" == "latest" ]; then
     echo -e "\n Downloading latest Bedrock server"
-    DOWNLOAD_URL=$(curl -sSL https://www.minecraft.net/en-us/download/server/bedrock/ | grep azureedge | grep linux | grep -Eo "(http|https)://[a-zA-Z0-9./?=_-]*")
+    curl -L -A "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/90.0.$RANDVERSION.212 Safari/537.36" -H "Accept-Language: en" -H "Accept-Encoding: gzip, deflate" -o versions.html.gz https://www.minecraft.net/en-us/download/server/bedrock
+    DOWNLOAD_URL=$(zgrep -o 'https://minecraft.azureedge.net/bin-linux/[^"]*' versions.html.gz)
 else 
     echo -e "\n Downloading ${BEDROCK_VERSION} Bedrock server"
     DOWNLOAD_URL=https://minecraft.azureedge.net/bin-linux/bedrock-server-$BEDROCK_VERSION.zip
 fi
 
+DOWNLOAD_FILE=$(echo ${DOWNLOAD_URL} | cut -d"/" -f5) # Retrieve archive name
+
 echo -e "backing up config files"
-rm *.bak
+rm *.bak versions.html.gz
 cp server.properties server.properties.bak
 cp permissions.json permissions.json.bak
 cp whitelist.json whitelist.json.bak
 
-echo -e "Downloading files from https://minecraft.azureedge.net/bin-linux/bedrock-server-$BEDROCK_VERSION.zip"
+echo -e "Downloading files from: $DOWNLOAD_URL"
 
-wget ${DOWNLOAD_URL}
+curl -L -A "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/90.0.$RANDVERSION.212 Safari/537.36" -H "Accept-Language: en" -o $DOWNLOAD_FILE $DOWNLOAD_URL
 
 echo -e "Unpacking server files"
-unzip -o $(echo ${DOWNLOAD_URL} | cut -d"/" -f5)
+unzip -o $DOWNLOAD_FILE
 
 echo -e "Cleaning up after installing"
-rm $(echo ${DOWNLOAD_URL} | cut -d"/" -f5)
+rm $DOWNLOAD_FILE
 
-echo -e "restoring config files"
+echo -e "restoring backup config files - on first install there will be file not found errors which you can ignore."
 cp -rf server.properties.bak server.properties
 cp -rf permissions.json.bak permissions.json
 cp -rf whitelist.json.bak whitelist.json
+
 chmod +x bedrock_server
 
-echo -e "Done"
+echo -e "Install Completed"
