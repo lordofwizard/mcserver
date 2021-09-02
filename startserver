@@ -38,7 +38,7 @@ fi
 
 screen -S server -d -m ./startJavaServer # Starting Java Server
 screen -S server -d -m ./startBedrockServer # Starting Bedrock Server
-
+screen -S afk -d -m ./startAfk #Starting AFK app aka bpytop.
 screen -S playit -d -m ./startPlayIt # Starting Playit
 
 cd $MAIN_DIR/server
