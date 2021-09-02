@@ -1,9 +1,0 @@
-#!/bin/bash
-export MAIN_DIR=$PWD
-
-chmod +x $MAIN_DIR/afk
-#!/bin/bash
-export MAIN_DIR=$PWD
-
-chmod +x $MAIN_DIR/afk
-./afk
