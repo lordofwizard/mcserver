@@ -1,10 +1,6 @@
 # Minecraft Cloud Shell Tutorial & Info
 
-In this project, we'll teach you host your very own Java/Bedrock Minecraft Server using `Google Cloud Shell`. This works under `Ubuntu/Debian` based Linux operation system.
-
-If you want to test out the development builds, feel free to go to the [Development Project](https://github.com/DumbCaveSpider/Minecraft-Cloud-Shell).
-
-> Stable Build: `1.0`
+In this project, we'll teach you host your very own Java/Bedrock Minecraft Server using `Google Cloud Shell`. This works under `Ubuntu/Debian` based Linux operation system. This project requires **NO CREDIT CARD** and the whole project is entirely **FREE**! You can make a server without costing you anything.
 
 **The following features are added into this project are:**
 - Supports different type of Bedrock Servers
@@ -15,11 +11,14 @@ If you want to test out the development builds, feel free to go to the [Developm
 - Instant EULA script setup *(Completly skipping this part which makes other people's life much easier to manage)*
 - Faster Server Installation *(It would probably take you like approx 30 seconds to setup a server)*
 
-License under **[MIT License](https://github.com/lordofwizard/mcserver/blob/main/LICENSE)**
+## Need help?
+> [**Watch this Tutorial with LordOfWizard**](https://youtu.be/2CdQUmNKRJI) `Latest`
 
-If you want to see how it works, [**watch this tutorial**](https://youtu.be/0j0ijkwddz8).
+> [**Watch this Tutorial with ArcticWoof**](https://youtu.be/0j0ijkwddz8) `Outdated`
 
-Need help? Join my [Discord](https://discord.gg/V2R26jBEzN) server.
+> [**Submit any Issues here**](https://github.com/lordofwizard/mcserver/issues)
+
+> [**Join the Discord Server**](https://discord.gg/V2R26jBEzN)
 ### To do list
 - Asking the user for the specific version they want to run of java.
 - Add 3rd party sources in the list.
@@ -65,7 +64,7 @@ Follow the installation step shown in the console
 (You only need to do this if you chose `No`.)
 
 ## Java Server Additional Setup (You can skip this part)
-*(This only applies to Java Servers including Nukkit and if the EULA script didn't work for you.)*
+*(This only applies to Java Servers including Nukkit or the EULA script didn't work for you.)*
 
 If you first start up your server, it will fail to start because you need to accept the **EULA** to run properly.
 
@@ -85,7 +84,7 @@ Do `Ctrl + W` then press `Y` to save and press `Enter` exit the text editor.
 ```
 cd ..
 ```
-- And [restart](https://github.com/lordofwizard/mcserver/blob/main/README.md#restarting-your-server) your server.
+- And [Restart the Server](https://github.com/lordofwizard/mcserver/blob/main/README.md#restarting-your-server).
 * Now everything should be functional and ready. You can check if your server is up and running by doing `screen -r server`.
 ## Joining your Server
 * To join your server, start your server by doing `./startserver` *(If you haven't started it yet)* and do this command:
@@ -133,7 +132,7 @@ If you want to access your server files, go to `Open Editor` on the top right.
 After you restarted your server, all the changes are saved into your server.
 
 ## Changing/Customize Variables
-So image this part, so you want to setup a server that is on 1.12.2 but you can't because the script *"only"* does it install the latest version possible. Well you can now change the version of your server.
+If you want to change the variables inside the script or just tweak something for your server to work, you can change and edit the varibles/
 - To do this, go to either `/JavaInstallScripts` or `/BedrockInstallScripts` on `Cloud Shell Editor`
 
 The following `Java` servers are supported for custom variables:
@@ -162,7 +161,7 @@ EXAMPLE_VARIBALES=VARIABLES # NOTE ABOUT VARIABLES
 
 ## Restarting your Server
 If you don't know what restarting your server mean, here's the step.
-- Go to `mcserver` or '../mcserver/` directory and do this command.
+- Go to `mcserver` or `../mcserver/` directory and do this command.
 - Stop the server which stops both the Minecraft Server and Playit.gg tunneling system:
 ```
 ./stopserver
@@ -173,8 +172,8 @@ If you don't know what restarting your server mean, here's the step.
 ```
 Now your server has fully restarted.
 ## Keeping the Server Alive 24/7
-Due to the nature of **Cloud Shell** stopping all it's processing when closed, you can't *"technically"* host your server 24/7.
-The only way to go around this issue is to keep the **Cloud Shell** open on another device that you don't use like an old phone or laptop and you can host your server that way.
+There's only **ONE** way to keep your server online longer than 20 minutes:
+- You must Keep your browser open to keep your server online. This so the shell doesn't get terminated when it's unused or the browser is closed.
 
 *(Don't worry, your device that is being used to host your server isn't affected from the intensity of your server.)*
 
@@ -207,8 +206,10 @@ cd
 ```
 sudo rm -r mcserver
 ```
-If the project is completely deleted, you can clone the project again and it should be up to date with the new features and code from this project!
+If the project is completely deleted, you can [Clone the Project](https://github.com/lordofwizard/mcserver/blob/main/README.md#installation) again and it should be up to date with the new features and code from this project!
 ## Conclusion
 Now you can host your very own Minecraft Server for both Java & Bedrock fast and easy and it won't cost you a single penny to make a fast and strong server. Best of all, IT'S FOREVER! Feel free to leave any requests you would like me to add into the project. If you have any issues, go to the [**Issues**](https://github.com/lordofwizard/mcserver/issues) tab and submit a issue there.
+## Credits
+> Project Creator: *[LordOfWizard](https://github.com/lordofwizard)*
 
-Thanks for using this project! *-LordOfWizard*
+> Tutorial Creator: *[DumbCaveSpider](https://github.com/DumbCaveSpider)*
