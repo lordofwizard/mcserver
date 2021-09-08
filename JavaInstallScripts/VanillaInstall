@@ -19,7 +19,7 @@ echo -e "\nlatest version is $LATEST_VERSION"
 echo -e "latest snapshot is $LATEST_SNAPSHOT_VERSION"
 
 echo -e "\n> Enter minecraft version for server: "
-VANILLA_VERSION=1.17
+VANILLA_VERSION=latest
 read VANILLA_VERSION
 
 if [ -z "$VANILLA_VERSION" ] || [ "$VANILLA_VERSION" == "latest" ]; then
