@@ -117,9 +117,9 @@ Example: [Tlauncher](https://tlauncher.org/en/)
 ```
 nano server.properties
 ```
-- Change it from `false` to `true`
+- Change it from `true` to `false`
 ```
-online-mode=true
+online-mode=false
 ```
 Do `Ctrl + W` then press `Y` to save and press `Enter` exit the text editor.
 
