@@ -11,10 +11,12 @@ mkdir -p server
 cd server
 
 
+echo -e "\n> Enter minecraft version for server: "
+MINECRAFT_VERSION=lates
+read MINECRAFT_VERSION
 
 
 # -- EDIT HERE | DO NOT EDIT ABOVE -- #
-MINECRAFT_VERSION=latest # https://papermc.io/downloads
 BUILD_NUMBER=latest # https://papermc.io/downloads
 PROJECT=paper # PROJECT: https://papermc.io/api/v2/projects/
 SERVER_JARFILE=server.jar # LEAVE THIS PART ALONE
