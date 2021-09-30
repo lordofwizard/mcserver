@@ -12,7 +12,7 @@ cd server
 
 
 echo -e "\n> Enter minecraft version for server: "
-MINECRAFT_VERSION=lates
+MINECRAFT_VERSION=latest
 read MINECRAFT_VERSION
 
 
