@@ -149,6 +149,8 @@ The following `Bedrock` servers are supported for custom variables:
 These servers aren't supported for custom variables:
 - Sponge `Java` *(This server type is too old and it only supports direct download)*
 - GoMint `Bedrock` *(No Variables needed for this type of server)*
+## Older Version
+If you are using older version of Minecraft check out [this](https://github.com/lordofwizard/mcserver/wiki/Version) documentation and install it according to your need:
 
 You can go inside the server scripts and edit **ONLY** on this section of the code:
 ```
