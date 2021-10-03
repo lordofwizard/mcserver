@@ -213,3 +213,5 @@ Now you can host your very own Minecraft Server for both Java & Bedrock fast and
 > Project Creator: *[LordOfWizard](https://github.com/lordofwizard)*
 
 > Tutorial Creator: *[DumbCaveSpider](https://github.com/DumbCaveSpider)*
+
+> Project Maintainer: *[Silent-Crafter](https://github.com/Silent-Crafter)*
