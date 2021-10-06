@@ -50,7 +50,7 @@ fi
 
 if [ ! -z $FORGE_VERSION ]; then
 	DOWNLOAD_LINK=https://maven.minecraftforge.net/net/minecraftforge/forge/${FORGE_VERSION}-${BUILD_TYPE}/forge-${FORGE_VERSION}
-    FORGE_JAR=forge-${FORGE_VERSION}*.jar
+    	FORGE_JAR=forge-${FORGE_VERSION}*.jar
 
 else
 
