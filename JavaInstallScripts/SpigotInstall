@@ -6,5 +6,11 @@ MAIN_DIR=$PWD
 BUILD_URL=https://hub.spigotmc.org/jenkins/job/BuildTools/lastSuccessfulBuild/artifact/target/BuildTools.jar
 
 #checking the directories thingy
+cd ..
+mkdir -p server
+cd server/
 
-wget -q 
+# downloading the damn BuildTools.jar
+wget -q $BUILD_URL -o BuildTools.jar
+
+
