@@ -37,6 +37,8 @@ clear
 sleep 1
 $MAIN_DIR/bin/java_bins/bin/java BuildTools.jar
 
+JAR=$(ls | grep spigot)
+mv $JAR server.jar
 
 
 
