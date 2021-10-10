@@ -65,11 +65,13 @@ install_server () {
     cd JavaInstallScripts
     chmod +x *
     ./FabricInstall
-  elif [[ $choice == 5 ]];then
+
+
+  elif [[ $choice == 6 ]];then
     echo "> Installing Fabric..."
     cd JavaInstallScripts
     chmod +x *
-    ./FabricInstall
+    ./SpigotInstall
 
   
  # Invaild Input
