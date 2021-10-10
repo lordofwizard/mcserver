@@ -12,7 +12,7 @@ mkdir -p server
 cd server/
 
 # downloading the damn BuildTools.jar
-wget -q $BUILD_URL -o BuildTools.jar
+wget -q $BUILD_URL 
 echo -e "
 _________         _________ _______            _________ _        _         
 \__   __/|\     /|\__   __/(  ____ \  |\     /|\__   __/( \      ( \        
@@ -35,7 +35,7 @@ _________         _________ _______            _________ _        _
 sleep 7
 clear
 sleep 1
-../$MAIN_DIR/bin/java_bins/bin/java BuildTools.jar
+../bin/java_bins/bin/java BuildTools.jar
 
 # changing the name of the file to appropriate name...
 
