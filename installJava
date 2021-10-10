@@ -58,7 +58,7 @@ install_server () {
     chmod +x *
     ./SpongeInstall
 
-  # Sponge
+  # Fabric
   elif [[ $choice == 5 ]]
   then
     echo "> Installing Fabric..."
