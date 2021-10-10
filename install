@@ -16,7 +16,7 @@ cd $MAIN_DIR/bin
 echo "> Extracting Java JDK 16 to the bin/ folder. [THIS MAY TAKE SOME TIME] Replace it if you want to use older version of JAVA."
 tar -xf java.tar.xz && mv "jdk-16.0.1" java_bins
 
-
+cd $MAIN_DIR
 # If choice is 0 or null then run this command
 if [[ -z $choiceForServer ]]; then
 
