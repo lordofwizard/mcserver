@@ -35,7 +35,7 @@ _________         _________ _______            _________ _        _
 sleep 7
 clear
 sleep 1
-$MAIN_DIR/bin/java_bins/bin/java BuildTools.jar
+..$MAIN_DIR/bin/java_bins/bin/java BuildTools.jar
 
 # changing the name of the file to appropriate name...
 
