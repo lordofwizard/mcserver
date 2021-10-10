@@ -2,7 +2,7 @@
 
 # @Author LordOfWizard
 
-MAIN_DIR=$PWD]
+MAIN_DIR=$PWD
 echo "This will install the latest spigot version.. if you want custom version change the BUILD_URL in JavaInstallScript/SpigotInstall file"
 BUILD_URL=https://hub.spigotmc.org/jenkins/job/BuildTools/lastSuccessfulBuild/artifact/target/BuildTools.jar
 
