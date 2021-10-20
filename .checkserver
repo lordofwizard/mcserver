@@ -1,0 +1,12 @@
+#!/bin/sh
+sleep 10
+server=$(screen -ls | grep server)
+if [ -z "$server" ]; then
+    echo -e '\nWhoops looks like your minecraft server crashed. \nPlease check crash.log file for crash info and send them to the mods in our discord for further help.'
+    ./startJavaServer
+    ./startBedrockServer
+    killall screen
+else
+    echo -e '\nyou are fine\n'
+fi
+exit

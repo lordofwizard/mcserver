@@ -55,3 +55,6 @@ echo "Type [screen -r server] to enter the Server Console"
 echo "Type [screen -r playit] to view your Server IP"
 echo ""
 echo "> To stop your server, type './stopserver' to stop"
+
+echo -e '\nchecking if server has launched properly'
+./.checkserver 2> crash.log
