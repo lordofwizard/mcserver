@@ -22,8 +22,9 @@ cd $MAIN_DIR
 screen -S server -d -m ./startJavaServer
 clear
 echo "> Your server just doing a second restart to fix the EULA file."
-./startserver
 killall screen
+./startserver
+exit
 elif [ -f $MAIN_DIR/server/eula.txt ]; then
 echo "> EULA Detected! Starting Server up..."
 
