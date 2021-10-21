@@ -41,7 +41,7 @@ fi
 
 echo -e "you chose $BUILD_TYPE"
 
-echo -e "\n>>Enter minecraft version: "
+echo -e "\n> Enter minecraft version: "
 read MC_VERSION
 
 if [ -z $MC_VERSION ] || [ "$MC_VERSION" == "latest" ]; then
@@ -131,6 +131,7 @@ cd server
     chmod +x ../startJavaServer
 
 else
+    # 1.7.10 thanks to Optifinel3ss#9059
     if [ "$MC_VERSION" == "1.8.9" ] || [ "$MC_VERSION" == "1.7.10" ]; then
         FORGE_JAR=forge-${MC_VERSION}-${FORGE_VERSION}-${MC_VERSION}-universal.jar
     else
