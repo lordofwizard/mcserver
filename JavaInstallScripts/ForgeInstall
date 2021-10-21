@@ -131,7 +131,7 @@ cd server
     chmod +x ../startJavaServer
 
 else
-    if [ "$MC_VERSION" == "1.8.9" ]; then
+    if [ "$MC_VERSION" == "1.8.9" ] || [ "$MC_VERSION" == "1.7.10" ]; then
         FORGE_JAR=forge-${MC_VERSION}-${FORGE_VERSION}-${MC_VERSION}-universal.jar
     else
         FORGE_JAR=forge-${MC_VERSION}-${FORGE_VERSION}.jar
