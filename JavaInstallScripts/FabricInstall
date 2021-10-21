@@ -6,10 +6,17 @@ cd ..
 mkdir -p server
 cd server
 
+echo -e 'Please check if your mc version is available: https://meta.fabricmc.net/v2/versions/game'
+echo -r '\n> Enter Minecraft version: '
+read MC_VERSION
+
+if [ -z "$MC_VERSION" ]; then
+  $MC_VERSION=latest
+  echo -e 'continuing with the latest version'
+
 
 # -- EDIT HERE | DO NOT EDIT ABOVE -- #
 SERVER_JARFILE=server.jar # LEAVE THIS PART ALONE
-MC_VERSION=latest # MC_VERSION: https://meta.fabricmc.net/v2/versions/game
 FABRIC_VERSION=latest # FABRIC_VERSION: https://meta.fabricmc.net/v2/versions/installer
 # -- EDIT HERE | DO NOT EDIT BELOW -- #
 

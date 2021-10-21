@@ -22,8 +22,9 @@ cd $MAIN_DIR
 screen -S server -d -m ./startJavaServer
 clear
 echo "> Your server just doing a second restart to fix the EULA file."
-./startserver
 killall screen
+./startserver
+exit
 elif [ -f $MAIN_DIR/server/eula.txt ]; then
 echo "> EULA Detected! Starting Server up..."
 
@@ -35,6 +36,8 @@ echo "> Comfirmed Uninstallation! Restarting Installation..."
 ./install
 fi
 
+# apparently ppl keep spamming startserver and end up having multiple screens of the same app
+killall screen
 
 screen -S server -d -m ./startJavaServer # Starting Java Server
 screen -S server -d -m ./startBedrockServer # Starting Bedrock Server
@@ -53,3 +56,6 @@ echo "Type [screen -r server] to enter the Server Console"
 echo "Type [screen -r playit] to view your Server IP"
 echo ""
 echo "> To stop your server, type './stopserver' to stop"
+
+echo -e '\nchecking if server has launched properly'
+./.checkserver 2> crash.log
