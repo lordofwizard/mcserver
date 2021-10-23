@@ -13,7 +13,7 @@ read MC_VERSION
 if [ -z "$MC_VERSION" ]; then
   $MC_VERSION=latest
   echo -e 'continuing with the latest version'
-
+fi
 
 # -- EDIT HERE | DO NOT EDIT ABOVE -- #
 SERVER_JARFILE=server.jar # LEAVE THIS PART ALONE
