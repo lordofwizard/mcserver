@@ -7,7 +7,7 @@ mkdir -p server
 cd server
 
 echo -e 'Please check if your mc version is available: https://meta.fabricmc.net/v2/versions/game'
-echo -r '\n> Enter Minecraft version: '
+echo -e '\n> Enter Minecraft version: '
 read MC_VERSION
 
 if [ -z "$MC_VERSION" ]; then
