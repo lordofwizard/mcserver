@@ -29,7 +29,7 @@ In this project, we'll teach you host your very own Java/Bedrock Minecraft Serve
 - **OS:** Debian GNU/Linux 10 (buster) x86_64
 - **RAM:** 8GB to 16GB
 - **Location:** Based on your physical location.
-- **Storage:** Approx 55GB
+- **Storage:** Approx 5GB
 - **CPU:**  AMD EPYC (2) 7B12 @ 2.249GHz or Intel Xeon (4) @ 2.199GHz
 
 You can view your exact specs by doing `./specinfo`
