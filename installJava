@@ -105,6 +105,7 @@ echo "Type [3] Create Forge Server"
 echo "Type [4] Create Sponge Server"
 echo "Type [5] Create Fabric Server"
 echo "Type [6] Create Spigot Server(COMPILE)"
+echo "Type [7] Create Bungeecord Server(latest)"
 choiceForServer=1
 read choiceForServer
 
