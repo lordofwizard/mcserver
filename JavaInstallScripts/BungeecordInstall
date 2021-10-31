@@ -39,8 +39,9 @@ clear
 sleep 1
 ../bin/java_bins/bin/java -jar BuildTools.jar
 
+# removing the BuildTools jar and log
+rm BuildTools*
 # changing the name of the file to appropriate name...
-
-JAR=$(ls | grep bungeecord)
+JAR=$(ls *.jar)
 mv $JAR server.jar
 
