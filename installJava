@@ -73,6 +73,13 @@ install_server () {
     chmod +x *
     ./SpigotInstall
 
+
+  elif [[ $choice == 7 ]];then
+    echo "> Installing Fabric..."
+    cd JavaInstallScripts
+    chmod +x *
+    ./BungeecordInstall
+
   
  # Invaild Input
   else
