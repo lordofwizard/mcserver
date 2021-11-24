@@ -68,14 +68,14 @@ install_server () {
 
 
   elif [[ $choice == 6 ]];then
-    echo "> Installing Fabric..."
+    echo "> Installing Spigot..."
     cd JavaInstallScripts
     chmod +x *
     ./SpigotInstall
 
 
   elif [[ $choice == 7 ]];then
-    echo "> Installing Fabric..."
+    echo "> Installing Bungeecord..."
     cd JavaInstallScripts
     chmod +x *
     ./BungeecordInstall
