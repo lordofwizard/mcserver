@@ -4,6 +4,6 @@ export JAVA=$MAIN_DIR/bin/java_bins/bin/java
 cd server
 
 #uncomment this below line only if the server you are running is 1.17+ (if it is uncommented by default keep it as it is).
-$JAVA -Xmx28G -Xms15G -jar server.jar nogui
+$JAVA -Xmx16G -Xms16G -jar server.jar nogui
 # for 1.16 or lower uncomment this line
-#java -Xmx28G -Xms15G -jar server.jar nogui
+#java -Xmx16G -Xms16G -jar server.jar nogui
