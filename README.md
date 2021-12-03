@@ -20,11 +20,7 @@ In this project, we'll teach you host your very own Java/Bedrock Minecraft Serve
 
 > [**Join the Discord Server**](https://discord.gg/V2R26jBEzN)
 ### To do list
-- [x] Asking the user for the specific version they want to run of java.
-- [x] Add 3rd party sources in the list.
-- [x] Automatic message typer for typing something on the server. (AFK APP)
-- [x] More easy way to upload files on google drive.(use cloud-shell editor)
-- [x] Update script.
+EMPTY
 ### Server Specs:
 - **OS:** Debian GNU/Linux 10 (buster) x86_64
 - **RAM:** 8GB to 16GB
