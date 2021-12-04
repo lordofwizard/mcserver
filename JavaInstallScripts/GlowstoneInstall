@@ -1,0 +1,9 @@
+	#!/bin/bash
+sudo apt update -qq
+sudo apt install -y -qq wget
+
+cd ..
+mkdir -p server
+cd server
+
+sudo wget "https://github.com/GlowstoneMC/Glowstone/releases/download/2021.7.0/glowstone.jar" -o server.jar
