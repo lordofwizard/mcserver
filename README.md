@@ -24,12 +24,12 @@ In this project, we'll teach you host your very own Java/Bedrock Minecraft Serve
 - [x] Add 3rd party sources in the list.
 - [x] Automatic message typer for typing something on the server. (AFK APP)
 - [x] More easy way to upload files on google drive.(use cloud-shell editor)
-- [ ] Update script.
+- [x] Update script.
 ### Server Specs:
 - **OS:** Debian GNU/Linux 10 (buster) x86_64
 - **RAM:** 8GB to 16GB
 - **Location:** Based on your physical location.
-- **Storage:** Approx 55GB
+- **Storage:** Approx 5GB
 - **CPU:**  AMD EPYC (2) 7B12 @ 2.249GHz or Intel Xeon (4) @ 2.199GHz
 
 You can view your exact specs by doing `./specinfo`
