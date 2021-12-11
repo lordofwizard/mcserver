@@ -1,3 +1,4 @@
+
 #!/bin/bash
 
 echo ''
@@ -9,7 +10,7 @@ echo ''
 
 mkdir -p $PWD/../update_files
 
-git clone https://github.com/lordofwizards/mcserver $PWD/../update_files/
+git clone https://github.com/lordofwizard/mcserver $PWD/../update_files/
 rm ../update_files/startserver ../update_files/startJavaServer ../update_files/startBedrockServer
 
 # some java/bedrock installs overwrite the startup scripts
