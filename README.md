@@ -2,19 +2,14 @@
 
 This project aims to run a minecraft server on Google cloud shell for free.
 
-**The following features are added into this project are:**
-- Supports different type of Bedrock Servers
-- Clean & Friendly Interface
-- Supports Additional type of Java Server *(eg. Sponge, Paper, Fabric etc)*
-- Added Server Management
+**Features:**
+- Supports different type of Minecraft Servers
 - Easier functional scripts *(eg. [**./uninstall**](https://github.com/lordofwizard/mcserver/blob/main/README.md#uninstallremove-the-server) allows you to delete your server easily)*
 - Instant EULA script setup *(Completly skipping this part which makes other people's life much easier to manage)*
-- Faster Server Installation *(It would probably take you like approx 30 seconds to setup a server)*
+- Fast Server Installation *(It would probably take you like approx 30 seconds to setup a server)*
 
 ## Need help?
 > [**Watch this Tutorial with LordOfWizard**](https://youtu.be/2CdQUmNKRJI) `Latest`
-
-> [**Watch this Tutorial with ArcticWoof**](https://youtu.be/0j0ijkwddz8) `Outdated`
 
 > [**Submit any Issues here**](https://github.com/lordofwizard/mcserver/issues)
 
