@@ -115,7 +115,8 @@ install_server $choiceForServer
 echo "> Installing Playit.gg..."
 cd ..
 #wget "https://playit.gg/downloads/playit-linux_64-0.4.2-rc1" -O playit 
-wget -q "https://playit.gg/downloads/playit-linux_64-0.4.6" -O playit
+#wget -q "https://playit.gg/downloads/playit-linux_64-0.4.6" -O playit
+wget -q "https://new.playit.gg/downloads/playit-0.7.0-beta" -O playit
 chmod +x playit
 echo "> Playit.gg Installation Completed!"
 echo ""
