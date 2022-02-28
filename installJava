@@ -79,6 +79,13 @@ install_server () {
     cd JavaInstallScripts
     chmod +x *
     ./BungeecordInstall
+    
+    
+  elif [[ $choice == 8 ]];then
+    echo "> Installing Glowstone..."
+    cd JavaInstallScripts
+    chmod +x *
+    ./GlowstoneInstall
 
   
  # Invaild Input
@@ -105,7 +112,8 @@ echo "Type [3] Create Forge Server"
 echo "Type [4] Create Sponge Server"
 echo "Type [5] Create Fabric Server"
 echo "Type [6] Create Spigot Server(COMPILE)"
-echo "Type [7] Create Bungeecord Server(latest)"
+echo "Type [7] Create Bungeecord Server(COMPILE)"
+echo "Type [8] Create Glowstone Server(Latest)"
 choiceForServer=1
 read choiceForServer
 
