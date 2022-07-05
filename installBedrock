@@ -73,7 +73,7 @@ fi
 echo "> Installing Playit.gg..."
 cd ..
 #wget "https://playit.gg/downloads/playit-linux_64-0.4.6" -O playit 
-wget -q "https://playit.gg/downloads/playit-0.8.1-beta" -O playit
+wget -q "https://playit.gg/downloads/playit-0.8.3-beta" -O playit
 chmod +x playit
 echo "> Playit.gg Installation Completed!"
 echo ""
