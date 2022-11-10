@@ -1,7 +1,7 @@
-# Minecraft Cloud Shell Tutorial & Info
+# Minecraft Cloud Shell Tutorial & Info  
 
 In this project, we'll teach you host your very own Java/Bedrock Minecraft Server using `Google Cloud Shell`. This works under `Ubuntu/Debian` based Linux operation system. This project requires **NO CREDIT CARD** and the whole project is entirely **FREE**! You can make a server without costing you anything.  
----
+  
 [![Star History Chart](https://api.star-history.com/svg?repos=lordofwizard/mcserver&type=Date)](https://star-history.com/#lordofwizard/mcserver&Date)  
 
 
