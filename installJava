@@ -118,8 +118,15 @@ cd ..
 #wget -q "https://playit.gg/downloads/playit-linux_64-0.4.6" -O playit
 #wget -q "https://new.playit.gg/downloads/playit-0.7.0-beta" -O playit
 #wget -q "https://playit.gg/downloads/playit-0.7.5-beta" -O playit
-wget -q "https://playit.gg/downloads/playit-0.8.1-beta" -O playit
-chmod +x playit
+#wget -q "https://playit.gg/downloads/playit-0.8.1-beta" -O playit
+#chmod +x playit
+
+# NOte this is directly downloaded from the playit repository, anything can happen.
+curl -SsL https://playit-cloud.github.io/ppa/key.gpg | sudo apt-key add -
+sudo curl -SsL -o /etc/apt/sources.list.d/playit-cloud.list https://playit-cloud.github.io/ppa/playit-cloud.list
+sudo apt update
+sudo apt install playit
+
 echo "> Playit.gg Installation Completed!"
 echo ""
 echo "-- Do you want to start the server now? --"

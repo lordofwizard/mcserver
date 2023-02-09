@@ -2,4 +2,4 @@
 export MAIN_DIR=$PWD
 
 cd $MAIN_DIR
-./playit
+playit
