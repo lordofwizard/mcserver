@@ -1,0 +1,144 @@
+#!/bin/bash
+
+export THIS_DIR=$PWD
+
+install_server () {
+  choice=$1
+  if [[ -z $choice ]]
+  then	
+    echo -e "\n> Installing Vanilla..."
+    cd JavaInstallScripts
+    chmod +x *
+    
+    ./VanillaInstall
+    errorno=${?}
+    if [ $errorno -eq 1 ]
+    then
+      cd $THIS_DIR
+      install_server $choice
+    fi
+
+
+  # Vanilla
+  elif [[ $choice == 1 ]]
+  then
+    echo -e "\n> Installing Vanilla..."
+    cd JavaInstallScripts
+    chmod +x *
+
+    ./VanillaInstall
+    errorno=${?}
+    if [ $errorno -eq 1 ]
+    then
+	    cd $THIS_DIR
+      install_server $choice
+    fi
+
+  # Paper
+  elif [[ $choice == 2 ]]
+  then
+    echo "> Installing Paper..."
+    cd JavaInstallScripts
+    chmod +x *
+    ./PaperInstall
+
+  # Forge
+  elif [[ $choice == 3 ]]
+  then
+    echo "> Installing Forge..."
+    cd JavaInstallScripts
+    chmod +x *
+    ./ForgeInstall
+
+  # Sponge
+  elif [[ $choice == 4 ]]
+  then
+    echo "> Installing Sponge..."
+    cd JavaInstallScripts
+    chmod +x *
+    ./SpongeInstall
+
+  # Fabric
+  elif [[ $choice == 5 ]]
+  then
+    echo "> Installing Fabric..."
+    cd JavaInstallScripts
+    chmod +x *
+    ./FabricInstall
+
+
+  elif [[ $choice == 6 ]];then
+    echo "> Installing Spigot..."
+    cd JavaInstallScripts
+    chmod +x *
+    ./SpigotInstall
+
+
+  elif [[ $choice == 7 ]];then
+    echo "> Installing Bungeecord..."
+    cd JavaInstallScripts
+    chmod +x *
+    ./BungeecordInstall
+
+  
+ # Invaild Input
+  else
+    echo "Invaild Responds! Please try again"
+    ./installJava
+  fi
+}
+
+#Installing all the dependencise
+sudo apt install -y -qq screen neofetch 
+
+echo "export PATH=$PATH:/some/new/path" > ~/.profile
+echo "> Dependencies Installtion Completed!"
+
+#Downloading ngrok && Downloading Minecraft Server
+mkdir server 
+
+echo ""
+echo "-- Pick the following Server type: --"
+echo "Type [1] Create Vanilla Server"
+echo "Type [2] Create Paper Server"
+echo "Type [3] Create Forge Server"
+echo "Type [4] Create Sponge Server"
+echo "Type [5] Create Fabric Server"
+echo "Type [6] Create Spigot Server(COMPILE)"
+echo "Type [7] Create Bungeecord Server(latest)"
+choiceForServer=1
+read choiceForServer
+
+install_server $choiceForServer
+
+# Backup install playit.gg in case if first one doesn't download
+echo "> Installing Playit.gg..."
+cd ..
+
+#install playit
+paru -S playit -y
+
+echo "> Playit.gg Installation Completed!"
+echo ""
+echo "-- Do you want to start the server now? --"
+echo "Type [1] for Yes"
+echo "Type [2] for No"
+
+StartServer=2
+read StartServer
+
+if [[ -z $StartServer ]]; then
+echo "> By Default, you selected 'No'."
+echo "> You can start the server by do ./startserver"
+
+elif [[ $StartServer == 1 ]]; then
+./startserver
+
+elif [[ $StartServer == 2 ]]; then
+echo "You picked 'No'."
+echo "> You can start the server by do ./startserver"
+
+else
+echo "> By Default, you selected 'No'."
+echo "> You can start the server by do ./startserver"
+fi

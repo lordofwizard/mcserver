@@ -28,7 +28,7 @@ if [[ -z $choiceForServer ]]; then
 elif [[ $choiceForServer == 1 ]]; then
 	
 	echo "> Running Java Installation..."
-  ./installJava
+  ./installJava-arch
 
 # If choice is 1 then run this command
 elif [[ $choiceForServer == 2 ]]; then

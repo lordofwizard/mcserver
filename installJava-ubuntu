@@ -114,12 +114,6 @@ install_server $choiceForServer
 # Backup install playit.gg in case if first one doesn't download
 echo "> Installing Playit.gg..."
 cd ..
-#wget "https://playit.gg/downloads/playit-linux_64-0.4.2-rc1" -O playit 
-#wget -q "https://playit.gg/downloads/playit-linux_64-0.4.6" -O playit
-#wget -q "https://new.playit.gg/downloads/playit-0.7.0-beta" -O playit
-#wget -q "https://playit.gg/downloads/playit-0.7.5-beta" -O playit
-#wget -q "https://playit.gg/downloads/playit-0.8.1-beta" -O playit
-#chmod +x playit
 
 # NOte this is directly downloaded from the playit repository, anything can happen.
 curl -SsL https://playit-cloud.github.io/ppa/key.gpg | sudo apt-key add -
