@@ -45,9 +45,9 @@ You can view your exact specs by doing `./specinfo`
 ```
 git clone https://github.com/alex5402/minecraftserver
 ```
-* Go into `mcserver` directory:
+* Go into `minecraftserver` directory:
 ```
-cd mcserver
+cd minecraftserver
 ```
 * Allow all commands executable:
 ```
