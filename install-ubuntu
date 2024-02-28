@@ -1,7 +1,7 @@
 #!/bin/bash
 mkdir bin
-sudo apt update 
-sudo apt upgrade
+#sudo apt update 
+#sudo apt upgrade
 chmod +x *
 export MAIN_DIR=$PWD
 echo "Which Server do you want to install?"
