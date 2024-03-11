@@ -1,9 +1,0 @@
-#!/bin/bash
-sudo apt update -qq
-sudo apt install -y -qq wget
-
-cd ..
-mkdir -p server
-cd server
-
-sudo wget "https://repo.spongepowered.org/maven/org/spongepowered/spongevanilla/1.12.2-7.3.0/spongevanilla-1.12.2-7.3.0.jar" -o server.jar
