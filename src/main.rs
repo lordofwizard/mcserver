@@ -1,5 +1,7 @@
 mod config;
+use crate::config::*;
+
 
 fn main() {
-    println!("Hello, world!");
+    let _ = take_config();
 }
