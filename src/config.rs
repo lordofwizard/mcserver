@@ -1,32 +1,53 @@
-use confy::ConfyError;
-use serde::{Deserialize, Serialize};
-use std::default::Default;
-use std::env;
+use serde::Deserialize;
+use std::fs::File;
+use std::io::Read;
+use toml;
 
-#[derive(Deserialize, Serialize)]
-struct Server {
-    r#type: String,
+#[derive(Debug, Deserialize)]
+struct Config {
+    mcserver: McServerConfig,
+    server: ServerConfig,
 }
 
-#[derive(Deserialize, Serialize)]
-struct Settings {
-    server: Server,
+#[derive(Debug, Deserialize)]
+struct McServerConfig {
+    logfile: String,
+    tunnel: String,
 }
 
-impl Default for Settings {
-    fn default() -> Self {
-        Settings {
-            server: Server {
-                r#type: "java".to_string(),
-            },
-        }
-    }
+#[derive(Debug, Deserialize)]
+struct ServerConfig {
+    online_mode: bool,
+    version: String,
+    r#type: String, // type is a reserved keyword in Rust, so use r#type
+    url: String,
 }
 
-pub fn take_config() -> Result<(), ConfyError> {
-    let mut path = env::current_dir().unwrap();
-    path.push("config.toml");
-    let cfg: Settings = confy::load_path(path).unwrap();
-    println!("Server type: {}", cfg.server.r#type);
-    Ok(())
+pub fn take_config() {
+    // Read the contents of the file into a string
+    let mut file = File::open("config.toml").expect("Unable to open file");
+    let mut contents = String::new();
+    file.read_to_string(&mut contents)
+        .expect("Unable to read file");
+
+    // Deserialize the TOML into a Config struct
+    let config: Config = toml::from_str(&contents).expect("Unable to parse TOML");
+
+    // Access values
+    let mcserver_logfile = config.mcserver.logfile;
+    let mcserver_tunnel = config.mcserver.tunnel;
+
+    let server_online_mode = config.server.online_mode;
+    let server_version = config.server.version;
+    let server_type = config.server.r#type; // using r#type to avoid the reserved keyword
+    let server_url = config.server.url;
+
+    // Print values or use them in your program
+    println!("MCServer Logfile: {}", mcserver_logfile);
+    println!("MCServer Tunnel: {}", mcserver_tunnel);
+
+    println!("Server Online Mode: {}", server_online_mode);
+    println!("Server Version: {}", server_version);
+    println!("Server Type: {}", server_type);
+    println!("Server URL: {}", server_url);
 }

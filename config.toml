@@ -1,2 +1,10 @@
+[mcserver]
+logfile = "mcserver.log"
+tunnel = "playit"
+
 [server]
-type = "fuckno"
+online_mode = false
+version = "1.20.0"
+type = "java"
+url = "https://launcher.mojang.com/v1/objects/9d3d8f07c1e2b3f3d3f6a3b5f7f2b0b3f7b2d4f2/server.jar"
+
