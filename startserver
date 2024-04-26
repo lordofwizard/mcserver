@@ -16,7 +16,8 @@ elif [ ! -f $MAIN_DIR/server/eula.txt ]; then
 
 cd $MAIN_DIR/server
 echo "> EULA doesn't exist! Creating one!"
-sudo wget https://cdn.discordapp.com/attachments/715123369200189460/846712565530624050/eula.txt
+# sudo wget https://cdn.discordapp.com/attachments/715123369200189460/846712565530624050/eula.txt
+echo "eula=true" > eula.txt
 echo "> EULA Completed! Restarting Server"
 cd $MAIN_DIR
 screen -S server -d -m ./startJavaServer
