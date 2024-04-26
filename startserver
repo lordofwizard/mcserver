@@ -16,7 +16,7 @@ elif [ ! -f $MAIN_DIR/server/eula.txt ]; then
 
 cd $MAIN_DIR/server
 echo "> EULA doesn't exist! Creating one!"
-sudo wget https://fastupload.io/en/gRlR6JFb0ENY/2JQLdSYqYjsuFf4/LJlGnx9NV315w/eula.txt
+echo "eula=true" > eula.txt
 echo "> EULA Completed! Restarting Server"
 cd $MAIN_DIR
 screen -S server -d -m ./startJavaServer
