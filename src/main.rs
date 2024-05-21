@@ -3,5 +3,7 @@ use crate::config::*;
 
 
 fn main() {
-    let _ = take_config();
+    let config: Config = Config::new();
+
+    println!("{:?}",config);
 }

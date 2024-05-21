@@ -1,53 +1,129 @@
-use serde::Deserialize;
-use std::fs::File;
-use std::io::Read;
+use std::fs;
+use std::io::Error as IoError;
+use serde::{Serialize, Deserialize};
 use toml;
 
-#[derive(Debug, Deserialize)]
-struct Config {
-    mcserver: McServerConfig,
-    server: ServerConfig,
+#[derive(Serialize, Deserialize, Debug)]
+struct ConfigToml {
+    mcserver: Option<ConfigTomlMcServer>,
+    server: Option<ConfigTomlServer>,
+    mods: Option<ConfigTomlMods>,
 }
 
-#[derive(Debug, Deserialize)]
-struct McServerConfig {
-    logfile: String,
-    tunnel: String,
+#[derive(Serialize, Deserialize, Debug)]
+struct ConfigTomlMcServer {
+    logfile: Option<String>,
+    tunnel: Option<String>,
 }
 
-#[derive(Debug, Deserialize)]
-struct ServerConfig {
-    online_mode: bool,
-    version: String,
-    r#type: String, // type is a reserved keyword in Rust, so use r#type
-    url: String,
+#[derive(Serialize, Deserialize, Debug)]
+struct ConfigTomlServer {
+    online_mode: Option<bool>,
+    version: Option<String>,
+    server_type: Option<String>, // Renamed from 'type' to 'server_type' since 'type' is a keyword in Rust
+    url: Option<String>,
 }
 
-pub fn take_config() {
-    // Read the contents of the file into a string
-    let mut file = File::open("config.toml").expect("Unable to open file");
-    let mut contents = String::new();
-    file.read_to_string(&mut contents)
-        .expect("Unable to read file");
+#[derive(Serialize, Deserialize, Debug)]
+struct ConfigTomlMods {
+    // Define fields if there are any, or leave it empty if it's just a placeholder
+}
 
-    // Deserialize the TOML into a Config struct
-    let config: Config = toml::from_str(&contents).expect("Unable to parse TOML");
+#[derive(Debug)]
+pub struct Config {
+    pub logfile: String,
+    pub tunnel: String,
+    pub online_mode: bool,
+    pub version: String,
+    pub server_type: String,
+    pub url: String,
+}
 
-    // Access values
-    let mcserver_logfile = config.mcserver.logfile;
-    let mcserver_tunnel = config.mcserver.tunnel;
+impl Config {
+    pub fn new() -> Self {
 
-    let server_online_mode = config.server.online_mode;
-    let server_version = config.server.version;
-    let server_type = config.server.r#type; // using r#type to avoid the reserved keyword
-    let server_url = config.server.url;
+        let config_filepaths: [&str; 2] = [
+            "./config.toml",
+            "./Config.toml",
+        ];
 
-    // Print values or use them in your program
-    println!("MCServer Logfile: {}", mcserver_logfile);
-    println!("MCServer Tunnel: {}", mcserver_tunnel);
+        let mut content: String = "".to_owned();
 
-    println!("Server Online Mode: {}", server_online_mode);
-    println!("Server Version: {}", server_version);
-    println!("Server Type: {}", server_type);
-    println!("Server URL: {}", server_url);
+        for filepath in config_filepaths {
+            let result: Result<String, IoError> = fs::read_to_string(filepath);
+
+            if result.is_ok() {
+                content = result.unwrap();
+                break;
+            }
+        }
+
+        let config_toml: ConfigToml = toml::from_str(&content).unwrap_or_else(|_| {
+            println!("Failed to create ConfigToml Object out of config file.");
+            ConfigToml {
+                mcserver: None,
+                server: None,
+                mods: None,
+            }
+        });
+
+        let (logfile, tunnel): (String, String) = match config_toml.mcserver {
+            Some(mcserver) => {
+                let mc_logfile: String = mcserver.logfile.unwrap_or_else(|| {
+                    println!("Missing field logfile in table mcserver.");
+                    "unknown".to_owned()
+                });
+
+                let mc_tunnel: String = mcserver.tunnel.unwrap_or_else(|| {
+                    println!("Missing field tunnel in table mcserver.");
+                    "unknown".to_owned()
+                });
+
+                (mc_logfile, mc_tunnel)
+            },
+            None => {
+                println!("Missing table mcserver.");
+                ("unknown".to_owned(), "unknown".to_owned())
+            },
+        };
+
+        let (online_mode, version, server_type, url): (bool, String, String, String) = match config_toml.server {
+            Some(server) => {
+                let srv_online_mode: bool = server.online_mode.unwrap_or_else(|| {
+                    println!("Missing field online_mode in table server.");
+                    false
+                });
+
+                let srv_version: String = server.version.unwrap_or_else(|| {
+                    println!("Missing field version in table server.");
+                    "unknown".to_owned()
+                });
+
+                let srv_type: String = server.server_type.unwrap_or_else(|| {
+                    println!("Missing field type in table server.");
+                    "unknown".to_owned()
+                });
+
+                let srv_url: String = server.url.unwrap_or_else(|| {
+                    println!("Missing field url in table server.");
+                    "unknown".to_owned()
+                });
+
+                (srv_online_mode, srv_version, srv_type, srv_url)
+            },
+            None => {
+                println!("Missing table server.");
+                (false, "unknown".to_owned(), "unknown".to_owned(), "unknown".to_owned())
+            },
+        };
+
+        Config {
+            logfile,
+            tunnel,
+            online_mode,
+            version,
+            server_type,
+            url,
+        }
+    }
 }
