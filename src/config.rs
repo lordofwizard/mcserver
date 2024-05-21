@@ -20,7 +20,7 @@ struct ConfigTomlMcServer {
 struct ConfigTomlServer {
     online_mode: Option<bool>,
     version: Option<String>,
-    server_type: Option<String>, // Renamed from 'type' to 'server_type' since 'type' is a keyword in Rust
+    server_type: Option<String>, 
     url: Option<String>,
 }
 
