@@ -11,4 +11,6 @@ config = "0.14.0"
 confy = "0.6.1"
 serde = "1.0.197"
 serde_toml = "0.0.1"
+serde_json = "*"
 toml = "0.8.12"
+reqwest = { version = "0.12.4", features = ["blocking", "json"] }
