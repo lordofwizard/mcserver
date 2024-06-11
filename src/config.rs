@@ -1,6 +1,6 @@
+use serde::{Deserialize, Serialize};
 use std::fs;
 use std::io::Error as IoError;
-use serde::{Serialize, Deserialize};
 use toml;
 
 #[derive(Serialize, Deserialize, Debug)]
@@ -20,7 +20,7 @@ struct ConfigTomlMcServer {
 struct ConfigTomlServer {
     online_mode: Option<bool>,
     version: Option<String>,
-    server_type: Option<String>, 
+    server_type: Option<String>,
     url: Option<String>,
 }
 
@@ -41,11 +41,7 @@ pub struct Config {
 
 impl Config {
     pub fn new() -> Self {
-
-        let config_filepaths: [&str; 2] = [
-            "./config.toml",
-            "./Config.toml",
-        ];
+        let config_filepaths: [&str; 2] = ["./config.toml", "./Config.toml"];
 
         let mut content: String = "".to_owned();
 
@@ -80,42 +76,48 @@ impl Config {
                 });
 
                 (mc_logfile, mc_tunnel)
-            },
+            }
             None => {
                 println!("Missing table mcserver.");
                 ("unknown".to_owned(), "unknown".to_owned())
-            },
+            }
         };
 
-        let (online_mode, version, server_type, url): (bool, String, String, String) = match config_toml.server {
-            Some(server) => {
-                let srv_online_mode: bool = server.online_mode.unwrap_or_else(|| {
-                    println!("Missing field online_mode in table server.");
-                    false
-                });
+        let (online_mode, version, server_type, url): (bool, String, String, String) =
+            match config_toml.server {
+                Some(server) => {
+                    let srv_online_mode: bool = server.online_mode.unwrap_or_else(|| {
+                        println!("Missing field online_mode in table server.");
+                        false
+                    });
 
-                let srv_version: String = server.version.unwrap_or_else(|| {
-                    println!("Missing field version in table server.");
-                    "unknown".to_owned()
-                });
+                    let srv_version: String = server.version.unwrap_or_else(|| {
+                        println!("Missing field version in table server.");
+                        "unknown".to_owned()
+                    });
 
-                let srv_type: String = server.server_type.unwrap_or_else(|| {
-                    println!("Missing field type in table server.");
-                    "unknown".to_owned()
-                });
+                    let srv_type: String = server.server_type.unwrap_or_else(|| {
+                        println!("Missing field type in table server.");
+                        "unknown".to_owned()
+                    });
 
-                let srv_url: String = server.url.unwrap_or_else(|| {
-                    println!("Missing field url in table server.");
-                    "unknown".to_owned()
-                });
+                    let srv_url: String = server.url.unwrap_or_else(|| {
+                        println!("Missing field url in table server.");
+                        "unknown".to_owned()
+                    });
 
-                (srv_online_mode, srv_version, srv_type, srv_url)
-            },
-            None => {
-                println!("Missing table server.");
-                (false, "unknown".to_owned(), "unknown".to_owned(), "unknown".to_owned())
-            },
-        };
+                    (srv_online_mode, srv_version, srv_type, srv_url)
+                }
+                None => {
+                    println!("Missing table server.");
+                    (
+                        false,
+                        "unknown".to_owned(),
+                        "unknown".to_owned(),
+                        "unknown".to_owned(),
+                    )
+                }
+            };
 
         Config {
             logfile,
