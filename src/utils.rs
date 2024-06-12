@@ -3,6 +3,7 @@
 // Downloading a java version
 
 
+#[allow(dead_code)]
 pub fn make_file_tree(project_name: &str) {
     // This function takes a project_name i.e. Minecraft Server name and generates basic tree
     // structure if not present
@@ -26,8 +27,8 @@ pub fn make_file_tree(project_name: &str) {
     }
 }
 
+#[allow(dead_code)]
 pub fn server_present() -> bool {
-    use std::fs;
     use std::path::Path;
     let path = Path::new("config.toml");
     path.exists()

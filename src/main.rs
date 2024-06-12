@@ -3,6 +3,9 @@ mod config;
 mod java;
 mod run;
 mod utils;
+mod generate;
+
+
 use crate::config::*;
 use crate::run::Run;
 
