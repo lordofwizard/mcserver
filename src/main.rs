@@ -1,5 +1,6 @@
 mod args;
 mod config;
+mod java;
 mod run;
 mod utils;
 use crate::config::*;

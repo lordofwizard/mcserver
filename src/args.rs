@@ -14,7 +14,16 @@ pub struct MCServer {
 
 #[derive(Debug, Subcommand)]
 pub enum Commands {
+    /// Generates a new Minecraft Server instance.
     ServerGenerate,
+    /// Starts the Minecraft Server.
     StartServer,
+    /// Stops the Minecraft Server. 
     StopServer,
+    /// Prints the logs of the latest run.
+    Log,
+    /// Gives debug information on Currently running server. 
+    Check,
+    /// Prints the connectable url of the Minecraft Server.
+    GetUrl,
 }
