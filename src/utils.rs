@@ -82,7 +82,7 @@ pub fn make_file_tree(project_name: &str) {
     }
 }
 
-pub fn is_config_toml_present() -> bool {
+pub fn server_present() -> bool {
     use std::fs;
     use std::path::Path;
     let path = Path::new("config.toml");
