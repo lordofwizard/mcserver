@@ -1,10 +1,10 @@
 mod args;
 mod config;
-mod utils;
 mod run;
+mod utils;
 use crate::config::*;
-use crate::utils::*;
 use crate::run::Run;
+use crate::utils::*;
 
 fn main() {
     let config: Config = Config::new();
