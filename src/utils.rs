@@ -37,31 +37,3 @@ pub fn server_present() -> bool {
 
 
 
-fn default_toml(project_name: &str) {
-    if !Path::new(project_name).exists() {
-        fs::create_dir_all(project_name).expect("Failed to create project directory");
-    }
-
-    let toml_content = r#"
-[mcserver]
-logfile = "mcserver.log"
-tunnel = "playit"
-java = "22"
-
-[server]
-online_mode = false
-version = "1.20.0"
-server_type = "java"
-category = "vanilla"
-providor = "vanilla"
-#url = "https://launcher.mojang.com/v1/objects/9d3d8f07c1e2b3f3d3f6a3b5f7f2b0b3f7b2d4f2/server.jar"
-"#;
-
-    let file_path = format!("{}/config.toml", project_name);
-
-    let mut file = fs::File::create(&file_path).expect("Failed to create TOML file");
-    file.write_all(toml_content.as_bytes()).expect("Failed to write to TOML file");
-
-    println!("TOML file created at {}", file_path);
-}
-
