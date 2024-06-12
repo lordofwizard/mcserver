@@ -13,4 +13,4 @@ serde_toml = "0.0.1"
 serde_json = "*"
 toml = "0.8.12"
 reqwest = { version = "0.12.4", features = ["blocking", "json"] }
-clap = { version = "4.5.7", features = ["derive"] }
+clap = { version = "4.5.7", features = ["derive"]}

@@ -4,7 +4,6 @@ mod run;
 mod utils;
 use crate::config::*;
 use crate::run::Run;
-use crate::utils::*;
 
 fn main() {
     let config: Config = Config::new();

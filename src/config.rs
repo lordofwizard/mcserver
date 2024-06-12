@@ -7,7 +7,6 @@ use toml;
 struct ConfigToml {
     mcserver: Option<ConfigTomlMcServer>,
     server: Option<ConfigTomlServer>,
-    mods: Option<ConfigTomlMods>,
 }
 
 #[derive(Serialize, Deserialize, Debug)]
@@ -22,11 +21,6 @@ struct ConfigTomlServer {
     version: Option<String>,
     server_type: Option<String>,
     url: Option<String>,
-}
-
-#[derive(Serialize, Deserialize, Debug)]
-struct ConfigTomlMods {
-    // Define fields if there are any, or leave it empty if it's just a placeholder
 }
 
 #[derive(Debug)]
@@ -59,7 +53,6 @@ impl Config {
             ConfigToml {
                 mcserver: None,
                 server: None,
-                mods: None,
             }
         });
 
