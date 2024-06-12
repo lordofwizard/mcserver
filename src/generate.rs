@@ -7,21 +7,23 @@ use std::fs;
 use std::path::Path;
 use std::io::{self, Write};
 use crate::utils::make_file_tree;
+
+
 pub fn server_generate(){
+    let project_name = project();
+    make_file_tree(&project_name);
+    default_toml(&project_name);
+     
+    println!("Generating a new server hehe");
+}
 
+fn project() -> String {
     let mut input = String::new();
-
-    // Prompt the user for input
     print!("Enter project name: ");
     io::stdout().flush().unwrap();
     io::stdin().read_line(&mut input).expect("Failed to read line");
     let trimmed_input = input.trim();
-    let project_name: String = trimmed_input.replace(char::is_whitespace, "_");
-    make_file_tree(&project_name);
-    
-    default_toml(&project_name);
-    
-    println!("Generating a new server hehe");
+    trimmed_input.replace(char::is_whitespace, "_")
 }
 
 fn default_toml(project_name: &str) {
