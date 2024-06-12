@@ -13,6 +13,7 @@ struct ConfigToml {
 struct ConfigTomlMcServer {
     logfile: Option<String>,
     tunnel: Option<String>,
+    java: Option<String>,
 }
 
 #[derive(Serialize, Deserialize, Debug)]
@@ -20,6 +21,8 @@ struct ConfigTomlServer {
     online_mode: Option<bool>,
     version: Option<String>,
     server_type: Option<String>,
+    category: Option<String>,
+    providor: Option<String>,
     url: Option<String>,
 }
 
@@ -27,9 +30,12 @@ struct ConfigTomlServer {
 pub struct Config {
     pub logfile: String,
     pub tunnel: String,
+    pub java: String,
     pub online_mode: bool,
     pub version: String,
     pub server_type: String,
+    pub category: String,
+    pub providor: String,
     pub url: String,
 }
 
@@ -56,7 +62,7 @@ impl Config {
             }
         });
 
-        let (logfile, tunnel): (String, String) = match config_toml.mcserver {
+        let (logfile, tunnel,java): (String, String, String) = match config_toml.mcserver {
             Some(mcserver) => {
                 let mc_logfile: String = mcserver.logfile.unwrap_or_else(|| {
                     println!("Missing field logfile in table mcserver.");
@@ -68,15 +74,19 @@ impl Config {
                     "unknown".to_owned()
                 });
 
-                (mc_logfile, mc_tunnel)
+                let mc_java: String = mcserver.java.unwrap_or_else(|| {
+                    println!("Missing field java in table mcserver.");
+                    "unknown".to_owned()
+                });
+                (mc_logfile, mc_tunnel, mc_java)
             }
             None => {
                 println!("Missing table mcserver.");
-                ("unknown".to_owned(), "unknown".to_owned())
+                ("unknown".to_owned(), "unknown".to_owned(),"unknown".to_owned())
             }
         };
 
-        let (online_mode, version, server_type, url): (bool, String, String, String) =
+        let (online_mode, version, server_type,category, providor, url): (bool, String, String,String,String, String) =
             match config_toml.server {
                 Some(server) => {
                     let srv_online_mode: bool = server.online_mode.unwrap_or_else(|| {
@@ -93,18 +103,27 @@ impl Config {
                         println!("Missing field type in table server.");
                         "unknown".to_owned()
                     });
+                    let srv_category: String = server.category.unwrap_or_else(|| {
+                        println!("Missing field type in table server.");
+                        "unknown".to_owned()
+                    });
+                    let srv_providor: String = server.providor.unwrap_or_else(|| {
+                        println!("Missing field type in table server.");
+                        "unknown".to_owned()
+                    });
 
                     let srv_url: String = server.url.unwrap_or_else(|| {
                         println!("Missing field url in table server.");
                         "unknown".to_owned()
                     });
-
-                    (srv_online_mode, srv_version, srv_type, srv_url)
+                    (srv_online_mode, srv_version, srv_type,srv_category, srv_providor, srv_url)
                 }
                 None => {
                     println!("Missing table server.");
                     (
                         false,
+                        "unknown".to_owned(),
+                        "unknown".to_owned(),
                         "unknown".to_owned(),
                         "unknown".to_owned(),
                         "unknown".to_owned(),
@@ -115,9 +134,12 @@ impl Config {
         Config {
             logfile,
             tunnel,
+            java,
             online_mode,
             version,
             server_type,
+            category,
+            providor,
             url,
         }
     }
