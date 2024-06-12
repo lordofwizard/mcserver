@@ -8,13 +8,20 @@ use std::path::Path;
 use std::io::{self, Write};
 use crate::utils::make_file_tree;
 
+use crate::config::*;
 
 pub fn server_generate(){
+
+    
     let project_name = project();
     make_file_tree(&project_name);
     default_toml(&project_name);
+
+    let config: Config = Config::new(project_name.as_str());
+
      
     println!("Generating a new server hehe");
+    println!("{:?}", config);
 }
 
 fn project() -> String {

@@ -40,12 +40,15 @@ pub struct Config {
 }
 
 impl Config {
-    pub fn new() -> Self {
-        let config_filepaths: [&str; 2] = ["./config.toml", "./Config.toml"];
-
+    pub fn new(project_name: &str) -> Self {
+        let f1   = format!("./{}/config.toml", project_name);
+        let f2   = format!("./{}/config.toml", project_name);
+        
+        let config_filepaths: [&str; 2] = [&f1,&f2];
+        println!("{:?}",config_filepaths);
         let mut content: String = "".to_owned();
 
-        for filepath in config_filepaths {
+        for filepath in &config_filepaths {
             let result: Result<String, IoError> = fs::read_to_string(filepath);
 
             if result.is_ok() {
