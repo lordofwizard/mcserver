@@ -1,10 +1,10 @@
 mod args;
 mod config;
+mod generate;
 mod java;
 mod run;
-mod utils;
-mod generate;
 mod start;
+mod utils;
 
 use crate::run::Run;
 

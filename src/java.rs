@@ -59,6 +59,4 @@ pub fn download_jdk(java_version: u8) {
     }
 }
 
-pub fn extract_jdk(java_version : u8){
-    
-}
+pub fn extract_jdk(java_version: u8) {}

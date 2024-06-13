@@ -2,7 +2,6 @@
 
 // Downloading a java version
 
-
 use std::fs;
 use std::io::Write;
 use std::path::Path;
@@ -34,6 +33,3 @@ pub fn server_present() -> bool {
     let path = Path::new("config.toml");
     path.exists()
 }
-
-
-

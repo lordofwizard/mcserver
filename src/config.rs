@@ -41,11 +41,11 @@ pub struct Config {
 
 impl Config {
     pub fn new(project_name: &str) -> Self {
-        let f1   = format!("./{}/config.toml", project_name);
-        let f2   = format!("./{}/config.toml", project_name);
-        
-        let config_filepaths: [&str; 2] = [&f1,&f2];
-        println!("{:?}",config_filepaths);
+        let f1 = format!("./{}/config.toml", project_name);
+        let f2 = format!("./{}/config.toml", project_name);
+
+        let config_filepaths: [&str; 2] = [&f1, &f2];
+        println!("{:?}", config_filepaths);
         let mut content: String = "".to_owned();
 
         for filepath in &config_filepaths {
@@ -65,7 +65,7 @@ impl Config {
             }
         });
 
-        let (logfile, tunnel,java): (String, String, String) = match config_toml.mcserver {
+        let (logfile, tunnel, java): (String, String, String) = match config_toml.mcserver {
             Some(mcserver) => {
                 let mc_logfile: String = mcserver.logfile.unwrap_or_else(|| {
                     println!("Missing field logfile in table mcserver.");
@@ -85,54 +85,71 @@ impl Config {
             }
             None => {
                 println!("Missing table mcserver.");
-                ("unknown".to_owned(), "unknown".to_owned(),"unknown".to_owned())
+                (
+                    "unknown".to_owned(),
+                    "unknown".to_owned(),
+                    "unknown".to_owned(),
+                )
             }
         };
 
-        let (online_mode, version, server_type,category, providor, url): (bool, String, String,String,String, String) =
-            match config_toml.server {
-                Some(server) => {
-                    let srv_online_mode: bool = server.online_mode.unwrap_or_else(|| {
-                        println!("Missing field online_mode in table server.");
-                        false
-                    });
+        let (online_mode, version, server_type, category, providor, url): (
+            bool,
+            String,
+            String,
+            String,
+            String,
+            String,
+        ) = match config_toml.server {
+            Some(server) => {
+                let srv_online_mode: bool = server.online_mode.unwrap_or_else(|| {
+                    println!("Missing field online_mode in table server.");
+                    false
+                });
 
-                    let srv_version: String = server.version.unwrap_or_else(|| {
-                        println!("Missing field version in table server.");
-                        "unknown".to_owned()
-                    });
+                let srv_version: String = server.version.unwrap_or_else(|| {
+                    println!("Missing field version in table server.");
+                    "unknown".to_owned()
+                });
 
-                    let srv_type: String = server.server_type.unwrap_or_else(|| {
-                        println!("Missing field type in table server.");
-                        "unknown".to_owned()
-                    });
-                    let srv_category: String = server.category.unwrap_or_else(|| {
-                        println!("Missing field type in table server.");
-                        "unknown".to_owned()
-                    });
-                    let srv_providor: String = server.providor.unwrap_or_else(|| {
-                        println!("Missing field type in table server.");
-                        "unknown".to_owned()
-                    });
+                let srv_type: String = server.server_type.unwrap_or_else(|| {
+                    println!("Missing field type in table server.");
+                    "unknown".to_owned()
+                });
+                let srv_category: String = server.category.unwrap_or_else(|| {
+                    println!("Missing field type in table server.");
+                    "unknown".to_owned()
+                });
+                let srv_providor: String = server.providor.unwrap_or_else(|| {
+                    println!("Missing field type in table server.");
+                    "unknown".to_owned()
+                });
 
-                    let srv_url: String = server.url.unwrap_or_else(|| {
-                        println!("Missing field url in table server.");
-                        "unknown".to_owned()
-                    });
-                    (srv_online_mode, srv_version, srv_type,srv_category, srv_providor, srv_url)
-                }
-                None => {
-                    println!("Missing table server.");
-                    (
-                        false,
-                        "unknown".to_owned(),
-                        "unknown".to_owned(),
-                        "unknown".to_owned(),
-                        "unknown".to_owned(),
-                        "unknown".to_owned(),
-                    )
-                }
-            };
+                let srv_url: String = server.url.unwrap_or_else(|| {
+                    println!("Missing field url in table server.");
+                    "unknown".to_owned()
+                });
+                (
+                    srv_online_mode,
+                    srv_version,
+                    srv_type,
+                    srv_category,
+                    srv_providor,
+                    srv_url,
+                )
+            }
+            None => {
+                println!("Missing table server.");
+                (
+                    false,
+                    "unknown".to_owned(),
+                    "unknown".to_owned(),
+                    "unknown".to_owned(),
+                    "unknown".to_owned(),
+                    "unknown".to_owned(),
+                )
+            }
+        };
 
         Config {
             logfile,

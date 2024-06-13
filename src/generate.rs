@@ -3,23 +3,28 @@
 // config.toml
 //
 
-use std::fs;
-use std::path::Path;
-use std::io::{self, Write};
+use crate::java::{self, download_jdk};
 use crate::utils::make_file_tree;
+use std::io::{self, Write};
+use std::path::Path;
+use std::{fs, u32};
 
 use crate::config::*;
 
-pub fn server_generate(){
-
-    
+pub fn server_generate() {
     let project_name = project();
     make_file_tree(&project_name);
     default_toml(&project_name);
 
     let config: Config = Config::new(project_name.as_str());
 
-     
+    download_jdk(
+        config
+            .java
+            .parse::<u8>()
+            .expect("Failed to parse Java Version"),
+    );
+
     println!("Generating a new server hehe");
     println!("{:?}", config);
 }
@@ -28,7 +33,9 @@ fn project() -> String {
     let mut input = String::new();
     print!("Enter project name: ");
     io::stdout().flush().unwrap();
-    io::stdin().read_line(&mut input).expect("Failed to read line");
+    io::stdin()
+        .read_line(&mut input)
+        .expect("Failed to read line");
     let trimmed_input = input.trim();
     trimmed_input.replace(char::is_whitespace, "_")
 }
@@ -56,8 +63,8 @@ providor = "vanilla"
     let file_path = format!("{}/config.toml", project_name);
 
     let mut file = fs::File::create(&file_path).expect("Failed to create TOML file");
-    file.write_all(toml_content.as_bytes()).expect("Failed to write to TOML file");
+    file.write_all(toml_content.as_bytes())
+        .expect("Failed to write to TOML file");
 
     println!("TOML file created at {}", file_path);
 }
-
