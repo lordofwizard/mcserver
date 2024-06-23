@@ -88,6 +88,22 @@ cd ..
 ```
 - And [Restart the Server](https://github.com/lordofwizard/mcserver/blob/main/README.md#restarting-your-server).
 * Now everything should be functional and ready. You can check if your server is up and running by doing `screen -r server`.
+
+## Playit Installation (to create a tunnel and get links)
+* playit.gg makes it easy for friends to connect.
+- Install Playit
+```
+curl -SsL https://playit-cloud.github.io/ppa/key.gpg | gpg --dearmor | sudo tee /etc/apt/trusted.gpg.d/playit.gpg >/dev/null
+echo "deb [signed-by=/etc/apt/trusted.gpg.d/playit.gpg] https://playit-cloud.github.io/ppa/data ./" | sudo tee /etc/apt/sources.list.d/playit-cloud.list
+sudo apt update
+sudo apt install playit
+```
+- Start Playit
+```
+./startPlayit
+```
+- a playit link will be created for the tunnel, first create a free playit account by clicking on that link and then follow the instructions
+
 ## Joining your Server
 * To join your server, start your server by doing `./startserver` *(If you haven't started it yet)* and do this command:
 ``` 
