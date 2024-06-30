@@ -4,6 +4,8 @@
 //
 
 use crate::java::download_jdk;
+use crate::java::latest_java_version;
+
 use crate::utils::make_file_tree;
 use std::fs;
 use std::io::{self, Write};
@@ -58,7 +60,7 @@ fn default_toml(project_name: &str) {
 [mcserver]
 logfile = "mcserver.log"
 tunnel = "playit"
-java = "22"
+java = "{latest_java_version}"
 
 [server]
 online_mode = false
@@ -67,6 +69,7 @@ server_type = "java"
 category = "vanilla"
 providor = "vanilla"
 "#,
+        latest_java_version = latest_java_version(),
         version = version
     );
     let file_path: String = format!("{}/config.toml", project_name);
@@ -133,5 +136,3 @@ fn fetch_version() -> String {
 
     "unknown".to_string()
 }
-
-
