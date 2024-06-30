@@ -12,12 +12,12 @@ use std::fs;
 use crate::config::*;
 
 pub fn server_generate() {
-    let project_name = project();
+    let project_name: String = project();
 
     let project_str: &str = project_name.as_str();
 
     project_exists_check(&project_name);
-    
+
     make_file_tree(&project_name);
 
     default_toml(&project_name);
