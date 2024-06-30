@@ -3,7 +3,7 @@
 // config.toml
 //
 
-use crate::java::{self, download_jdk};
+use crate::java::download_jdk;
 use crate::utils::make_file_tree;
 use std::fs;
 use std::io::{self, Write};
@@ -100,6 +100,7 @@ fn fetch_version() -> String {
     }
 
     #[derive(Deserialize)]
+    #[allow(dead_code)]
     struct ResponseDetails {
         version: String,
         file: String,
@@ -110,6 +111,7 @@ fn fetch_version() -> String {
     }
 
     #[derive(Deserialize)]
+    #[allow(dead_code)]
     struct Size {
         display: String,
         bytes: u64,
@@ -132,7 +134,4 @@ fn fetch_version() -> String {
     "unknown".to_string()
 }
 
-fn main() {
-    let version = fetch_version();
-    println!("Version: {}", version);
-}
+
