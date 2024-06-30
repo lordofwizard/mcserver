@@ -1,6 +1,6 @@
 use crate::args::Commands;
 use crate::args::MCServer;
-use crate::generate::server_generate;
+use crate::generate::generate::server_generate;
 use crate::start::start_server;
 use clap::Parser;
 

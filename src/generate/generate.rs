@@ -7,15 +7,22 @@ use crate::java::{self, download_jdk};
 use crate::utils::make_file_tree;
 use std::io::{self, Write};
 use std::path::Path;
-use std::{fs, u32};
+use std::fs;
 
 use crate::config::*;
 
 pub fn server_generate() {
     let project_name = project();
+
+    let project_str: &str = project_name.as_str();
+
+    project_exists_check(&project_name);
+    
     make_file_tree(&project_name);
+
     default_toml(&project_name);
 
+    
     let config: Config = Config::new(project_name.as_str());
 
     download_jdk(
@@ -67,4 +74,13 @@ providor = "vanilla"
         .expect("Failed to write to TOML file");
 
     println!("TOML file created at {}", file_path);
+}
+
+fn project_exists_check(project_name: &str) {
+    let base_path = Path::new(project_name);
+
+    if base_path.exists() {
+        println!("Project Already Found at the present location. Aborting");
+        std::process::exit(1);
+    }
 }
