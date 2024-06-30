@@ -5,9 +5,9 @@
 
 use crate::java::{self, download_jdk};
 use crate::utils::make_file_tree;
+use std::fs;
 use std::io::{self, Write};
 use std::path::Path;
-use std::fs;
 
 use crate::config::*;
 
@@ -22,7 +22,6 @@ pub fn server_generate() {
 
     default_toml(&project_name);
 
-    
     let config: Config = Config::new(project_name.as_str());
 
     download_jdk(
@@ -52,7 +51,10 @@ fn default_toml(project_name: &str) {
         fs::create_dir_all(project_name).expect("Failed to create project directory");
     }
 
-    let toml_content = r#"
+    let version = fetch_version();
+
+    let toml_content: &str = &format!(
+        r#"
 [mcserver]
 logfile = "mcserver.log"
 tunnel = "playit"
@@ -60,14 +62,14 @@ java = "22"
 
 [server]
 online_mode = false
-version = "1.20.0"
+version = "{version}"
 server_type = "java"
 category = "vanilla"
 providor = "vanilla"
-#url = "https://launcher.mojang.com/v1/objects/9d3d8f07c1e2b3f3d3f6a3b5f7f2b0b3f7b2d4f2/server.jar"
-"#;
-
-    let file_path = format!("{}/config.toml", project_name);
+"#,
+        version = version
+    );
+    let file_path: String = format!("{}/config.toml", project_name);
 
     let mut file = fs::File::create(&file_path).expect("Failed to create TOML file");
     file.write_all(toml_content.as_bytes())
@@ -83,4 +85,54 @@ fn project_exists_check(project_name: &str) {
         println!("Project Already Found at the present location. Aborting");
         std::process::exit(1);
     }
+}
+
+use reqwest::blocking::get;
+use serde::Deserialize;
+
+fn fetch_version() -> String {
+    let url = "https://centrojars.com/api/fetchJar/vanilla/vanilla/";
+
+    #[derive(Deserialize)]
+    struct ApiResponse {
+        status: String,
+        response: Option<ResponseDetails>,
+    }
+
+    #[derive(Deserialize)]
+    struct ResponseDetails {
+        version: String,
+        file: String,
+        size: Size,
+        md5: String,
+        built: u64,
+        stability: String,
+    }
+
+    #[derive(Deserialize)]
+    struct Size {
+        display: String,
+        bytes: u64,
+    }
+
+    let response = match get(url) {
+        Ok(resp) => match resp.json::<ApiResponse>() {
+            Ok(json) => json,
+            Err(_) => return "unknown".to_string(),
+        },
+        Err(_) => return "unknown".to_string(),
+    };
+
+    if response.status == "success" {
+        if let Some(details) = response.response {
+            return details.version;
+        }
+    }
+
+    "unknown".to_string()
+}
+
+fn main() {
+    let version = fetch_version();
+    println!("Version: {}", version);
 }
