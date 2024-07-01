@@ -31,9 +31,8 @@ pub fn server_generate() {
             .java
             .parse::<u8>()
             .expect("Failed to parse Java Version"),
-            project_str
+        project_str,
     );
-
 
     println!("Generating a new server hehe");
     println!("{:?}", config);

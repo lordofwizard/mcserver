@@ -6,7 +6,7 @@ use reqwest::blocking::get;
 use serde::Deserialize;
 use std::{path::Path, process::Command};
 
-pub fn download_jdk(java_version: u8, project_name : &str) {
+pub fn download_jdk(java_version: u8, project_name: &str) {
     #[derive(Deserialize)]
     struct AvailableReleases {
         available_releases: Vec<u8>,
@@ -41,28 +41,28 @@ pub fn download_jdk(java_version: u8, project_name : &str) {
         java_version
     );
 
-    let output_file = format!("./{}/cache/jdk-{}.tar.gz", project_name,java_version);
+    let output_file = format!("./{}/cache/jdk-{}.tar.gz", project_name, java_version);
 
     if file_exists(&output_file) {
         println!("File already present bro");
-    }else {
-    let status = Command::new("curl")
-        .arg("-L")
-        .arg("--progress-bar")
-        .arg(&url)
-        .arg("-o")
-        .arg(&output_file)
-        .status()
-        .expect("failed to execute curl command");
-
-    if status.success() {
-        println!("File downloaded successfully as {}", output_file);
     } else {
-        println!("Failed to download the file.");
-        std::process::exit(1);
+        let status = Command::new("curl")
+            .arg("-L")
+            .arg("--progress-bar")
+            .arg(&url)
+            .arg("-o")
+            .arg(&output_file)
+            .status()
+            .expect("failed to execute curl command");
+
+        if status.success() {
+            println!("File downloaded successfully as {}", output_file);
+        } else {
+            println!("Failed to download the file.");
+            std::process::exit(1);
+        }
+        extract_jdk(&output_file, project_name);
     }
-    extract_jdk(&output_file, project_name);
-}
 }
 
 pub fn latest_java_version() -> String {
@@ -88,27 +88,26 @@ pub fn latest_java_version() -> String {
     }
 }
 
-
 fn file_exists(file_path: &str) -> bool {
     let full_path = std::env::current_dir().unwrap().join(file_path);
     Path::new(&full_path).exists()
 }
 
-pub fn extract_jdk(file_path: &str, project_name : &str) { 
+pub fn extract_jdk(file_path: &str, project_name: &str) {
     if file_exists(file_path) {
         let status = Command::new("tar")
-        .arg("-xvf")
-        .arg(file_path)
-        .arg("-C")
-        .arg(format!("./{}/java/",project_name))
-        .status()
-        .expect("failed to execute curl command");
+            .arg("-xvf")
+            .arg(file_path)
+            .arg("-C")
+            .arg(format!("./{}/java/", project_name))
+            .status()
+            .expect("failed to execute curl command");
 
-    if status.success() {
-        println!("Java Successfully Extracted {}", file_path);
-    } else {
-        println!("Failed to extract the file.");
-        std::process::exit(1);
-    }
+        if status.success() {
+            println!("Java Successfully Extracted {}", file_path);
+        } else {
+            println!("Failed to extract the file.");
+            std::process::exit(1);
+        }
     }
 }
