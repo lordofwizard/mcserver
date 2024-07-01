@@ -4,6 +4,7 @@
 //
 
 use crate::java::download_jdk;
+use crate::java::extract_jdk;
 use crate::java::latest_java_version;
 
 use crate::utils::make_file_tree;
@@ -33,6 +34,7 @@ pub fn server_generate() {
             .expect("Failed to parse Java Version"),
             project_str
     );
+
 
     println!("Generating a new server hehe");
     println!("{:?}", config);
