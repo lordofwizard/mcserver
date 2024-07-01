@@ -6,7 +6,7 @@ use reqwest::blocking::get;
 use serde::Deserialize;
 use std::process::Command;
 
-pub fn download_jdk(java_version: u8) {
+pub fn download_jdk(java_version: u8, project_name : &str) {
     #[derive(Deserialize)]
     struct AvailableReleases {
         available_releases: Vec<u8>,
@@ -41,7 +41,7 @@ pub fn download_jdk(java_version: u8) {
         java_version
     );
 
-    let output_file = format!("jdk-{}.tar.gz", java_version);
+    let output_file = format!("./{}/cache/jdk-{}.tar.gz", project_name,java_version);
     let status = Command::new("curl")
         .arg("-L")
         .arg("--progress-bar")
