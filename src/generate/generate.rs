@@ -4,7 +4,6 @@
 //
 
 use crate::java::download_jdk;
-use crate::java::extract_jdk;
 use crate::java::latest_java_version;
 
 use crate::utils::make_file_tree;
