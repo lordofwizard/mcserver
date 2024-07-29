@@ -16,8 +16,6 @@ use crate::config::*;
 pub fn setup() {
     let project_name: String = project();
 
-    let project_str: &str = project_name.as_str();
-
     project_exists_check(&project_name);
 
     make_file_tree(&project_name);

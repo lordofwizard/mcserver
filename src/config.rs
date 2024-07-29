@@ -29,6 +29,7 @@ struct ConfigTomlServer {
 }
 
 #[derive(Debug)]
+#[allow(dead_code)]
 pub struct Config {
     pub project_name: String,
     pub logfile: String,
@@ -178,10 +179,11 @@ impl Config {
         let filepath = "./config.toml";
 
         //println!("{:?}", config_filepaths);
+        #[allow(unused_assignments)]
         let mut content: String = "".to_owned();
 
         let result: Result<String, IoError> = fs::read_to_string(filepath);
-
+        
         if result.is_ok() {
             content = result.unwrap();
         } else {
