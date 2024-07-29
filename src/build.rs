@@ -44,5 +44,9 @@ pub fn build() {
             println!("Failed to download the file.");
             std::process::exit(1);
         }
+
+        println!("Downloading the Java JDK now");
+
+        download_jdk(config.java.parse::<u8>().unwrap());
     }
 }
