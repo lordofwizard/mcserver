@@ -36,7 +36,10 @@ pub fn build() {
             .expect("failed to execute curl command");
 
         if status.success() {
-            println!("File downloaded successfully as {}", "./server/server.jar");
+            println!(
+                "{}",
+                "File downloaded successfully as ./server/server.jar".green()
+            );
         } else {
             println!("Failed to download the file.");
             std::process::exit(1);
