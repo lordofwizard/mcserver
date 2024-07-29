@@ -26,16 +26,16 @@ pub fn server_generate() {
 
     let config: Config = Config::new(project_name.as_str());
 
-    download_jdk(
-        config
-            .java
-            .parse::<u8>()
-            .expect("Failed to parse Java Version"),
-        project_str,
-    );
+    // download_jdk(
+    //     config
+    //         .java
+    //         .parse::<u8>()
+    //         .expect("Failed to parse Java Version"),
+    //     project_str,
+    // );
 
-    println!("Generating a new server hehe");
-    println!("{:?}", config);
+    // println!("Generating a new server hehe");
+    // println!("{:?}", config);
 }
 
 fn project() -> String {
@@ -59,6 +59,7 @@ fn default_toml(project_name: &str) {
     let toml_content: &str = &format!(
         r#"
 [mcserver]
+project = "{project_name}"
 logfile = "mcserver.log"
 tunnel = "playit"
 java = "{latest_java_version}"

@@ -1,6 +1,6 @@
 use crate::args::Commands;
 use crate::args::MCServer;
-use crate::generate::generate::server_generate;
+use crate::generate::build::server_generate;
 use crate::start::start_server;
 use clap::Parser;
 
@@ -11,11 +11,9 @@ impl Run {
         let server_instance = MCServer::parse();
 
         match server_instance.command {
-            Commands::ServerGenerate => server_generate(),
-            Commands::StartServer => start_server(),
-            //            Commands::Log => log(),
-            //            Commands::Check => check(),
-            //            Commands::GetUrl => get_url()
+            Commands::Build => server_generate(),
+            Commands::Start => start_server(),
+
             _ => println!("Nah didn't reach me bruh"),
         }
     }

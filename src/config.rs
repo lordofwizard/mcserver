@@ -11,6 +11,7 @@ struct ConfigToml {
 
 #[derive(Serialize, Deserialize, Debug)]
 struct ConfigTomlMcServer {
+    project_name : Option<String>,
     logfile: Option<String>,
     tunnel: Option<String>,
     java: Option<String>,
@@ -28,6 +29,7 @@ struct ConfigTomlServer {
 
 #[derive(Debug)]
 pub struct Config {
+    pub project_name: String,
     pub logfile: String,
     pub tunnel: String,
     pub java: String,
@@ -65,8 +67,12 @@ impl Config {
             }
         });
 
-        let (logfile, tunnel, java): (String, String, String) = match config_toml.mcserver {
+        let (project_name, logfile, tunnel, java): (String, String, String, String) = match config_toml.mcserver {
             Some(mcserver) => {
+                let mc_project_name: String = mcserver.project_name.unwrap_or_else(|| {
+                    println!("Missing field project_name in table mcserver.");
+                    "unknown".to_owned()
+                });
                 let mc_logfile: String = mcserver.logfile.unwrap_or_else(|| {
                     println!("Missing field logfile in table mcserver.");
                     "unknown".to_owned()
@@ -81,11 +87,12 @@ impl Config {
                     println!("Missing field java in table mcserver.");
                     "unknown".to_owned()
                 });
-                (mc_logfile, mc_tunnel, mc_java)
+                (mc_project_name,mc_logfile, mc_tunnel, mc_java)
             }
             None => {
                 println!("Missing table mcserver.");
                 (
+                    "unknown".to_owned(),
                     "unknown".to_owned(),
                     "unknown".to_owned(),
                     "unknown".to_owned(),
@@ -152,6 +159,7 @@ impl Config {
         };
 
         Config {
+            project_name,
             logfile,
             tunnel,
             java,
