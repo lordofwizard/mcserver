@@ -88,7 +88,7 @@ pub fn latest_java_version() -> String {
     }
 }
 
-fn file_exists(file_path: &str) -> bool {
+pub fn file_exists(file_path: &str) -> bool {
     let full_path = std::env::current_dir().unwrap().join(file_path);
     Path::new(&full_path).exists()
 }
