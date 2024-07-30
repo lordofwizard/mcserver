@@ -1,3 +1,4 @@
+use colored::Colorize;
 use serde::{Deserialize, Serialize};
 use std::fs;
 use std::io::Error as IoError;
@@ -11,6 +12,7 @@ struct ConfigToml {
 
 #[derive(Serialize, Deserialize, Debug)]
 struct ConfigTomlMcServer {
+    project_name: Option<String>,
     logfile: Option<String>,
     tunnel: Option<String>,
     java: Option<String>,
@@ -27,7 +29,9 @@ struct ConfigTomlServer {
 }
 
 #[derive(Debug)]
+#[allow(dead_code)]
 pub struct Config {
+    pub project_name: String,
     pub logfile: String,
     pub tunnel: String,
     pub java: String,
@@ -65,33 +69,39 @@ impl Config {
             }
         });
 
-        let (logfile, tunnel, java): (String, String, String) = match config_toml.mcserver {
-            Some(mcserver) => {
-                let mc_logfile: String = mcserver.logfile.unwrap_or_else(|| {
-                    println!("Missing field logfile in table mcserver.");
-                    "unknown".to_owned()
-                });
+        let (project_name, logfile, tunnel, java): (String, String, String, String) =
+            match config_toml.mcserver {
+                Some(mcserver) => {
+                    let mc_project_name: String = mcserver.project_name.unwrap_or_else(|| {
+                        println!("Missing field project_name in table mcserver.");
+                        "unknown".to_owned()
+                    });
+                    let mc_logfile: String = mcserver.logfile.unwrap_or_else(|| {
+                        println!("Missing field logfile in table mcserver.");
+                        "unknown".to_owned()
+                    });
 
-                let mc_tunnel: String = mcserver.tunnel.unwrap_or_else(|| {
-                    println!("Missing field tunnel in table mcserver.");
-                    "unknown".to_owned()
-                });
+                    let mc_tunnel: String = mcserver.tunnel.unwrap_or_else(|| {
+                        println!("Missing field tunnel in table mcserver.");
+                        "unknown".to_owned()
+                    });
 
-                let mc_java: String = mcserver.java.unwrap_or_else(|| {
-                    println!("Missing field java in table mcserver.");
-                    "unknown".to_owned()
-                });
-                (mc_logfile, mc_tunnel, mc_java)
-            }
-            None => {
-                println!("Missing table mcserver.");
-                (
-                    "unknown".to_owned(),
-                    "unknown".to_owned(),
-                    "unknown".to_owned(),
-                )
-            }
-        };
+                    let mc_java: String = mcserver.java.unwrap_or_else(|| {
+                        println!("Missing field java in table mcserver.");
+                        "unknown".to_owned()
+                    });
+                    (mc_project_name, mc_logfile, mc_tunnel, mc_java)
+                }
+                None => {
+                    println!("Missing table mcserver.");
+                    (
+                        "unknown".to_owned(),
+                        "unknown".to_owned(),
+                        "unknown".to_owned(),
+                        "unknown".to_owned(),
+                    )
+                }
+            };
 
         let (online_mode, version, server_type, category, providor, url): (
             bool,
@@ -152,6 +162,140 @@ impl Config {
         };
 
         Config {
+            project_name,
+            logfile,
+            tunnel,
+            java,
+            online_mode,
+            version,
+            server_type,
+            category,
+            providor,
+            url,
+        }
+    }
+
+    pub fn new_build() -> Self {
+        let filepath = "./config.toml";
+
+        //println!("{:?}", config_filepaths);
+        #[allow(unused_assignments)]
+        let mut content: String = "".to_owned();
+
+        let result: Result<String, IoError> = fs::read_to_string(filepath);
+        
+        if result.is_ok() {
+            content = result.unwrap();
+        } else {
+            panic!(
+                "Unable to read {} hence {}",
+                filepath.red(),
+                "Aborting!!!!".red()
+            );
+        }
+
+        let config_toml: ConfigToml = toml::from_str(&content).unwrap_or_else(|_| {
+            println!("Failed to create ConfigToml Object out of config file.");
+            ConfigToml {
+                mcserver: None,
+                server: None,
+            }
+        });
+
+        let (project_name, logfile, tunnel, java): (String, String, String, String) =
+            match config_toml.mcserver {
+                Some(mcserver) => {
+                    let mc_project_name: String = mcserver.project_name.unwrap_or_else(|| {
+                        println!("Missing field project_name in table mcserver.");
+                        "unknown".to_owned()
+                    });
+                    let mc_logfile: String = mcserver.logfile.unwrap_or_else(|| {
+                        println!("Missing field logfile in table mcserver.");
+                        "unknown".to_owned()
+                    });
+
+                    let mc_tunnel: String = mcserver.tunnel.unwrap_or_else(|| {
+                        println!("Missing field tunnel in table mcserver.");
+                        "unknown".to_owned()
+                    });
+
+                    let mc_java: String = mcserver.java.unwrap_or_else(|| {
+                        println!("Missing field java in table mcserver.");
+                        "unknown".to_owned()
+                    });
+                    (mc_project_name, mc_logfile, mc_tunnel, mc_java)
+                }
+                None => {
+                    println!("Missing table mcserver.");
+                    (
+                        "unknown".to_owned(),
+                        "unknown".to_owned(),
+                        "unknown".to_owned(),
+                        "unknown".to_owned(),
+                    )
+                }
+            };
+
+        let (online_mode, version, server_type, category, providor, url): (
+            bool,
+            String,
+            String,
+            String,
+            String,
+            String,
+        ) = match config_toml.server {
+            Some(server) => {
+                let srv_online_mode: bool = server.online_mode.unwrap_or_else(|| {
+                    println!("Missing field online_mode in table server.");
+                    false
+                });
+
+                let srv_version: String = server.version.unwrap_or_else(|| {
+                    println!("Missing field version in table server.");
+                    "unknown".to_owned()
+                });
+
+                let srv_type: String = server.server_type.unwrap_or_else(|| {
+                    println!("Missing field type in table server.");
+                    "unknown".to_owned()
+                });
+                let srv_category: String = server.category.unwrap_or_else(|| {
+                    println!("Missing field type in table server.");
+                    "unknown".to_owned()
+                });
+                let srv_providor: String = server.providor.unwrap_or_else(|| {
+                    println!("Missing field type in table server.");
+                    "unknown".to_owned()
+                });
+
+                let srv_url: String = server.url.unwrap_or_else(|| {
+                    println!("Missing field url in table server.");
+                    "unknown".to_owned()
+                });
+                (
+                    srv_online_mode,
+                    srv_version,
+                    srv_type,
+                    srv_category,
+                    srv_providor,
+                    srv_url,
+                )
+            }
+            None => {
+                println!("Missing table server.");
+                (
+                    false,
+                    "unknown".to_owned(),
+                    "unknown".to_owned(),
+                    "unknown".to_owned(),
+                    "unknown".to_owned(),
+                    "unknown".to_owned(),
+                )
+            }
+        };
+
+        Config {
+            project_name,
             logfile,
             tunnel,
             java,

@@ -3,20 +3,18 @@
 // config.toml
 //
 
-use crate::java::download_jdk;
 use crate::java::latest_java_version;
 
 use crate::utils::make_file_tree;
+use colored::*;
 use std::fs;
 use std::io::{self, Write};
 use std::path::Path;
 
 use crate::config::*;
 
-pub fn server_generate() {
+pub fn setup() {
     let project_name: String = project();
-
-    let project_str: &str = project_name.as_str();
 
     project_exists_check(&project_name);
 
@@ -26,16 +24,18 @@ pub fn server_generate() {
 
     let config: Config = Config::new(project_name.as_str());
 
-    download_jdk(
-        config
-            .java
-            .parse::<u8>()
-            .expect("Failed to parse Java Version"),
-        project_str,
+    println!(
+        "{} {}{}",
+        "Project created with".green(),
+        config.project_name.blue(),
+        "!".green()
     );
 
-    println!("Generating a new server hehe");
-    println!("{:?}", config);
+    println!(
+        "To build the server, do {}\nand run  {}",
+        format!("cd {}", config.project_name).green(),
+        "mcserver build".green()
+    );
 }
 
 fn project() -> String {
@@ -59,6 +59,7 @@ fn default_toml(project_name: &str) {
     let toml_content: &str = &format!(
         r#"
 [mcserver]
+project_name = "{project_name}"
 logfile = "mcserver.log"
 tunnel = "playit"
 java = "{latest_java_version}"
@@ -79,14 +80,17 @@ providor = "vanilla"
     file.write_all(toml_content.as_bytes())
         .expect("Failed to write to TOML file");
 
-    println!("TOML file created at {}", file_path);
+    // println!("TOML file created at {}", file_path);
 }
 
 fn project_exists_check(project_name: &str) {
     let base_path = Path::new(project_name);
 
     if base_path.exists() {
-        println!("Project Already Found at the present location. Aborting");
+        println!(
+            "{}",
+            "Project Already Found at the present location. Aborting".yellow()
+        );
         std::process::exit(1);
     }
 }

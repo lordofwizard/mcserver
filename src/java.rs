@@ -2,11 +2,12 @@
 // This file will also have additional functionalities to extract and properly manage multiple
 // versions of Java jdk from Adoptium
 
+use colored::Colorize;
 use reqwest::blocking::get;
 use serde::Deserialize;
-use std::{path::Path, process::Command};
+use std::{fs, io::{self, ErrorKind}, path::Path, process::Command};
 
-pub fn download_jdk(java_version: u8, project_name: &str) {
+pub fn download_jdk(java_version: u8) {
     #[derive(Deserialize)]
     struct AvailableReleases {
         available_releases: Vec<u8>,
@@ -41,7 +42,7 @@ pub fn download_jdk(java_version: u8, project_name: &str) {
         java_version
     );
 
-    let output_file = format!("./{}/cache/jdk-{}.tar.gz", project_name, java_version);
+    let output_file = format!("./cache/jdk-{}.tar.gz", java_version);
 
     if file_exists(&output_file) {
         println!("File already present bro");
@@ -61,7 +62,12 @@ pub fn download_jdk(java_version: u8, project_name: &str) {
             println!("Failed to download the file.");
             std::process::exit(1);
         }
-        extract_jdk(&output_file, project_name);
+        extract_jdk(&output_file);
+
+        match move_files_from_random_dir() {
+            Ok(_) => println!("{}","Files moved successfully. to java directory".green()),
+            Err(e) => eprintln!("Error occurred: {}", e),
+        }
     }
 }
 
@@ -88,18 +94,18 @@ pub fn latest_java_version() -> String {
     }
 }
 
-fn file_exists(file_path: &str) -> bool {
+pub fn file_exists(file_path: &str) -> bool {
     let full_path = std::env::current_dir().unwrap().join(file_path);
     Path::new(&full_path).exists()
 }
 
-pub fn extract_jdk(file_path: &str, project_name: &str) {
+pub fn extract_jdk(file_path: &str) {
     if file_exists(file_path) {
         let status = Command::new("tar")
             .arg("-xvf")
             .arg(file_path)
             .arg("-C")
-            .arg(format!("./{}/java/", project_name))
+            .arg(format!("./java/"))
             .status()
             .expect("failed to execute curl command");
 
@@ -110,4 +116,57 @@ pub fn extract_jdk(file_path: &str, project_name: &str) {
             std::process::exit(1);
         }
     }
+}
+
+pub fn move_files_from_random_dir() -> io::Result<()> {
+    // Get the current working directory
+    let cwd = std::env::current_dir()?;
+    // Define the path to the "java" directory
+    let java_dir = cwd.join("java");
+
+    // Check if the "java" directory exists
+    if !java_dir.is_dir() {
+        return Err(io::Error::new(ErrorKind::NotFound, "java directory not found"));
+    }
+
+    // Read the contents of the "java" directory
+    let entries: Vec<_> = fs::read_dir(&java_dir)?
+        .filter_map(|entry| entry.ok())
+        .collect();
+
+    // There should be exactly one directory inside "java"
+    let mut random_dir = None;
+    for entry in entries {
+        let path = entry.path();
+        if path.is_dir() {
+            if random_dir.is_some() {
+                return Err(io::Error::new(ErrorKind::InvalidData, "More than one directory found"));
+            }
+            random_dir = Some(path);
+        }
+    }
+
+    let random_dir = match random_dir {
+        Some(dir) => dir,
+        None => return Err(io::Error::new(ErrorKind::NotFound, "No directory found inside java")),
+    };
+
+    // Move all files and directories from the random directory to "java"
+    for entry in fs::read_dir(&random_dir)? {
+        let entry = entry?;
+        let file_type = entry.file_type()?;
+        let src_path = entry.path();
+        let dst_path = java_dir.join(src_path.file_name().unwrap());
+
+        if file_type.is_dir() {
+            fs::rename(&src_path, &dst_path)?;
+        } else {
+            fs::rename(&src_path, &dst_path)?;
+        }
+    }
+
+    // Remove the now-empty random directory
+    fs::remove_dir(&random_dir)?;
+
+    Ok(())
 }

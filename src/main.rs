@@ -1,15 +1,14 @@
 mod args;
+mod build;
 mod config;
-mod generate;
 mod java;
 mod run;
+mod setup;
 mod start;
 mod utils;
 
 use crate::run::Run;
 
 fn main() {
-    let _run = Run::new();
-    //    download_jdk(22);
-    //    make_file_tree("homiecraft");
+    let _ = Run::new();
 }
