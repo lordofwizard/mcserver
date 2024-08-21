@@ -1,0 +1,5 @@
+- [ ] implement the cache system on system wide level
+- [ ] Setup a start script based on whatever java minecraft version you have selected, 
+- [ ] Stop Functionality
+- [ ] Status check for screen sesions
+- [ ] Duplication of Screen sessions.
