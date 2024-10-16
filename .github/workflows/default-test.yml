@@ -27,5 +27,5 @@ jobs:
         # sudo apt-get install -y libsqlite3-dev  # Add any necessary system dependencies here
 
     - name: Run Cargo Test
-      run: cargo test
+      run: cargo test --quiet
 
