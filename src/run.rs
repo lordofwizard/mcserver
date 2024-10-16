@@ -18,7 +18,7 @@ impl Run {
             Commands::Build => build(),
             Commands::Start => start_server(),
 
-            _ => println!("Nah didn't reach me bruh"),
+            _ => println!("No Implementation found for this command"),
         }
 
     }
