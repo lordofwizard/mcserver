@@ -18,11 +18,11 @@ pub enum Commands {
     Setup,
     /// Builds a new Minecraft Server Instance.
     Build,
-    /// Starts the Minecraft Server.
+    /// Starts the Minecraft Server Instance.
     Start,
-    /// Stops the Minecraft Server.
+    /// Stops the Minecraft Server Instance.
     Stop,
-    /// Prints the logs of the latest run.
+    /// Prints the logs of the latest instance.
     Log,
     /// Gives debug information on Currently running server.
     Check,
