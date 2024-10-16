@@ -24,6 +24,7 @@ impl Run {
             Commands::Check => check(),
             Commands::Stop  => stop(),
             Commands::GetUrl => get_url(),
+            #[allow(unreachable_patterns)]
             _ => println!("No Implementation found for this command"),
         }
 
