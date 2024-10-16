@@ -1,0 +1,31 @@
+name: Run Cargo Tests
+
+on:
+  push:
+    branches:
+      - 'feature-*'
+  pull_request:
+    branches:
+      - 'feature-*'
+
+jobs:
+  default-unit-tests:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    - name: Set up Rust
+      uses: actions-rs/toolchain@v1
+      with:
+        toolchain: stable
+
+    - name: Install dependencies
+      run: |
+        sudo apt-get update
+        # sudo apt-get install -y libsqlite3-dev  # Add any necessary system dependencies here
+
+    - name: Run Cargo Test
+      run: cargo test
+
