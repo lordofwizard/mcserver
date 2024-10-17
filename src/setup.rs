@@ -1,5 +1,8 @@
 use std::{
-    fs, io::{self, Write}, panic, path::Path
+    fs,
+    io::{self, Write},
+    panic,
+    path::Path,
 };
 pub fn setup() {
     let project_name = take_project_name();
@@ -14,7 +17,7 @@ fn take_project_name() -> String {
     io::stdout().flush().unwrap();
 
     let mut project_name = String::new();
-    
+
     io::stdin()
         .read_line(&mut project_name)
         .expect("Failed to read input");
@@ -27,7 +30,7 @@ fn take_project_name() -> String {
 fn project_name_validator(project_name: &str) -> &str {
     // Trim leading and trailing whitespace from the input
     let trimmed_project_name = project_name.trim();
-    
+
     // Check for empty or spaces inside the project name
     if trimmed_project_name.is_empty() || project_name.contains(' ') {
         panic!("Invalid project name. Please enter only alphabetic characters or underscores, no numbers or whitespace.");
@@ -37,7 +40,10 @@ fn project_name_validator(project_name: &str) -> &str {
     let cleaned_project_name = trimmed_project_name.trim_end_matches(|c| c == '\n' || c == '\r');
 
     // Ensure the cleaned project name meets the criteria
-    if cleaned_project_name.chars().all(|c| c.is_alphabetic() || c == '_') {
+    if cleaned_project_name
+        .chars()
+        .all(|c| c.is_alphabetic() || c == '_')
+    {
         return cleaned_project_name;
     } else {
         panic!("Invalid project name. Please enter only alphabetic characters or underscores, no numbers or whitespace.");
@@ -243,9 +249,9 @@ mod tests_for_directory_of_project {
 #[cfg(test)]
 mod tests_for_project_tree {
     use super::*;
+    use std::env;
     use std::fs;
     use std::path::Path;
-    use std::env;
 
     fn setup_tmp_directory() -> std::io::Result<()> {
         env::set_current_dir("/tmp")
@@ -319,9 +325,9 @@ mod tests_for_project_tree {
 #[cfg(test)]
 mod tests_for_empty_config {
     use super::*;
+    use std::env;
     use std::fs;
     use std::path::Path;
-    use std::env;
 
     fn setup_tmp_directory() -> std::io::Result<()> {
         env::set_current_dir("/tmp")
