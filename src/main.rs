@@ -1,5 +1,6 @@
 mod args;
 mod build;
+mod centro;
 mod check;
 mod config;
 mod config_builder;

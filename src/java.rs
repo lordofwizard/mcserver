@@ -24,7 +24,7 @@ pub fn latest_java_version() -> String {
     }
 }
 #[cfg(test)]
-mod tests {
+mod tests_for_latest_java_version {
     use super::*;
 
     #[test]
@@ -32,7 +32,7 @@ mod tests {
         let version = latest_java_version();
         assert_eq!(version, "23");
     }
-    
+
     #[test]
     fn test_latest_java_version_failed() {
         let version = latest_java_version();
