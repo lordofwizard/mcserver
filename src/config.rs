@@ -176,3 +176,134 @@ impl Config {
         }
     }
 }
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+    use std::fs::{self, File};
+    use std::io::Write;
+    use tempfile::TempDir;
+
+    // Helper function to create a project directory with a config.toml file inside
+    fn create_project_with_toml(project_name: &str, content: &str) -> TempDir {
+        let tmp_dir = TempDir::new().expect("Failed to create temp dir");
+        let project_path = tmp_dir.path().join(project_name);
+
+        // Create project directory
+        fs::create_dir_all(&project_path).expect("Failed to create project directory");
+
+        // Create the config.toml file
+        let file_path = project_path.join("config.toml");
+        let mut file = File::create(&file_path).expect("Failed to create config.toml file");
+        file.write_all(content.as_bytes())
+            .expect("Failed to write to config.toml file");
+
+        tmp_dir
+    }
+
+    #[test]
+    fn test_valid_toml() {
+        let toml_content = r#"
+            [mcserver]
+            project_name = "TestProject"
+            logfile = "mcserver.log"
+            tunnel = "playit"
+            java = "23"
+
+            [server]
+            online_mode = true
+            version = "1.21"
+            server_type = "java"
+            category = "vanilla"
+            providor = "vanilla"
+            url = "https://example.com"
+        "#;
+
+        // Create a temporary project directory with config.toml inside
+        let project_name = "my_project";
+        let tmp_dir = create_project_with_toml(project_name, toml_content);
+
+        // Test the Config::new method
+        let config = Config::new(project_name);
+
+        assert_eq!(config.project_name, "TestProject");
+        assert_eq!(config.logfile, "mcserver.log");
+        assert_eq!(config.tunnel, "playit");
+        assert_eq!(config.java, "23");
+
+        assert_eq!(config.online_mode, true);
+        assert_eq!(config.version, "1.21");
+        assert_eq!(config.server_type, "java");
+        assert_eq!(config.category, "vanilla");
+        assert_eq!(config.providor, "vanilla");
+        assert_eq!(config.url, "https://example.com");
+    }
+
+    #[test]
+    fn test_missing_mcserver_fields() {
+        let toml_content = r#"
+            [mcserver]
+            project_name = "TestProject"
+
+            [server]
+            online_mode = true
+            version = "1.21"
+            server_type = "java"
+            category = "vanilla"
+            providor = "vanilla"
+            url = "https://example.com"
+        "#;
+
+        // Create a temporary project directory with config.toml inside
+        let project_name = "my_project_missing_mcserver";
+        let tmp_dir = create_project_with_toml(project_name, toml_content);
+
+        let config = Config::new(project_name);
+
+        assert_eq!(config.project_name, "TestProject");
+        assert_eq!(config.logfile, "unknown");  // Missing field
+        assert_eq!(config.tunnel, "unknown");   // Missing field
+        assert_eq!(config.java, "unknown");     // Missing field
+    }
+
+    #[test]
+    fn test_missing_server_fields() {
+        let toml_content = r#"
+            [mcserver]
+            project_name = "TestProject"
+            logfile = "mcserver.log"
+            tunnel = "playit"
+            java = "23"
+
+            [server]
+            online_mode = true
+        "#;
+
+        // Create a temporary project directory with config.toml inside
+        let project_name = "my_project_missing_server";
+        let tmp_dir = create_project_with_toml(project_name, toml_content);
+
+        let config = Config::new(project_name);
+
+        assert_eq!(config.online_mode, true);
+        assert_eq!(config.version, "unknown");  // Missing field
+        assert_eq!(config.server_type, "unknown");  // Missing field
+        assert_eq!(config.category, "unknown");  // Missing field
+        assert_eq!(config.providor, "unknown");  // Missing field
+        assert_eq!(config.url, "unknown");  // Missing field
+    }
+
+    #[test]
+    fn test_missing_both_sections() {
+        let toml_content = r#""#;  // Empty content
+
+        // Create a temporary project directory with empty config.toml inside
+        let project_name = "my_project_missing_both";
+        let tmp_dir = create_project_with_toml(project_name, toml_content);
+
+        let config = Config::new(project_name);
+
+        assert_eq!(config.project_name, "unknown");  // Missing section
+        assert_eq!(config.online_mode, false);       // Missing section
+    }
+}
