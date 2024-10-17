@@ -2,14 +2,14 @@ mod args;
 mod build;
 mod check;
 mod config;
+mod config_builder;
 mod get_url;
-mod log;
 mod java;
+mod log;
 mod run;
 mod setup;
 mod start;
 mod stop;
-mod config_builder;
 
 use run::Run;
 fn main() {
