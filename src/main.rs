@@ -7,6 +7,9 @@ mod run;
 mod setup;
 mod start;
 mod stop;
+mod config;
+
+
 use run::Run;
 fn main() {
     println!("Hello, world!");
