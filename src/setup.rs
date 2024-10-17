@@ -5,13 +5,14 @@ use std::{
     path::Path,
 };
 
-use crate::config::Config;
+use crate::{config::Config, config_builder::config_builder};
 pub fn setup() {
     let project_name = take_project_name();
     let project_name = project_name.as_str();
     let _ = make_project_directory(project_name);
     make_project_tree(project_name);
     make_empty_config(project_name);
+    config_builder(project_name);
     let config = Config::new(project_name);
     println!("{:?}", config);
 }

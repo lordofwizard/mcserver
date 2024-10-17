@@ -24,7 +24,7 @@ struct Size {
     bytes: u64,
 }
 
-fn fetch_version() -> String {
+pub fn fetch_latest_minecraft_version() -> String {
     let url = "https://centrojars.com/api/fetchJar/vanilla/vanilla/";
 
     let response = match get(url) {
@@ -49,12 +49,12 @@ mod tests_for_fetch_version {
 
     #[test]
     fn test_fetch_version_failed() {
-        let version = fetch_version();
+        let version = fetch_latest_minecraft_version();
         assert_ne!(version, "unknown");
     }
     #[test]
     fn test_latest_java_version() {
-        let version = fetch_version();
+        let version = fetch_latest_minecraft_version();
         assert_eq!(version, "1.21");
     }
 }
