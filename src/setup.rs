@@ -1,5 +1,5 @@
 use std::{
-    fs, io::{self, Write}, mem::take, panic, path::Path
+    fs, io::{self, Write}, panic, path::Path
 };
 pub fn setup() {
     let project_name = take_project_name();

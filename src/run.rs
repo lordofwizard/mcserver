@@ -32,7 +32,6 @@ impl Run {
 
 #[cfg(test)]
 mod tests {
-    use super::*;
 
     #[test]
     fn run_has_std_practices() {
