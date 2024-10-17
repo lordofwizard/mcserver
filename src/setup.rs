@@ -1,8 +1,8 @@
 use std::{
+    fs,
     io::{self, Write},
     panic,
     path::Path,
-    fs,
 };
 pub fn setup() {
     // TODO Build this
@@ -20,8 +20,7 @@ fn take_project_name() -> String {
     project_name_validator(&project_name)
 }
 
-fn project_name_validator(project_name: &str) -> String{
-
+fn project_name_validator(project_name: &str) -> String {
     if project_name.contains(" ") {
         panic!("Invalid project name. Please enter only alphabetic characters or underscores, no numbers or whitespace.")
     }
@@ -34,7 +33,7 @@ fn project_name_validator(project_name: &str) -> String{
     let project_name = project_name.trim();
 
     // Check if the input meets the criteria
-    if !project_name.is_empty() && project_name.chars().all(|c| c.is_alphabetic() || c == '_') { 
+    if !project_name.is_empty() && project_name.chars().all(|c| c.is_alphabetic() || c == '_') {
         return project_name.to_string();
     } else {
         panic!("Invalid project name. Please enter only alphabetic characters or underscores, no numbers or whitespace.");
@@ -79,7 +78,6 @@ mod tests {
         assert_eq!(result, "____".to_string());
     }
 
-
     // Invalid Cases: Expected to Panic
     #[test]
     #[should_panic]
@@ -94,30 +92,40 @@ mod tests {
     }
 
     #[test]
-    #[should_panic(expected = "Invalid project name. Please enter only alphabetic characters or underscores, no numbers or whitespace.")]
+    #[should_panic(
+        expected = "Invalid project name. Please enter only alphabetic characters or underscores, no numbers or whitespace."
+    )]
     fn project_name_with_numbers_should_panic() {
         project_name_validator("project123");
-    }    
+    }
     #[test]
-    #[should_panic(expected = "Invalid project name. Please enter only alphabetic characters or underscores, no numbers or whitespace.")]
+    #[should_panic(
+        expected = "Invalid project name. Please enter only alphabetic characters or underscores, no numbers or whitespace."
+    )]
     fn project_name_with_random_symbols_should_panic() {
         project_name_validator("project@#!%!@_ ");
     }
 
     #[test]
-    #[should_panic(expected = "Invalid project name. Please enter only alphabetic characters or underscores, no numbers or whitespace.")]
+    #[should_panic(
+        expected = "Invalid project name. Please enter only alphabetic characters or underscores, no numbers or whitespace."
+    )]
     fn project_name_with_special_chars_should_panic() {
         project_name_validator("project!@#");
     }
 
     #[test]
-    #[should_panic(expected = "Invalid project name. Please enter only alphabetic characters or underscores, no numbers or whitespace.")]
+    #[should_panic(
+        expected = "Invalid project name. Please enter only alphabetic characters or underscores, no numbers or whitespace."
+    )]
     fn empty_project_name_should_panic() {
         project_name_validator("");
     }
 
     #[test]
-    #[should_panic(expected = "Invalid project name. Please enter only alphabetic characters or underscores, no numbers or whitespace.")]
+    #[should_panic(
+        expected = "Invalid project name. Please enter only alphabetic characters or underscores, no numbers or whitespace."
+    )]
     fn project_name_with_only_spaces_should_panic() {
         project_name_validator("   ");
     }
@@ -126,10 +134,10 @@ mod tests {
 #[cfg(test)]
 mod tests_for_directory_of_project {
     use super::*;
-    use std::fs;
-    use std::path::Path;
     use std::env;
+    use std::fs;
     use std::io;
+    use std::path::Path;
 
     fn setup_tmp_directory() -> io::Result<()> {
         // Change the current working directory to /tmp
