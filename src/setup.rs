@@ -45,14 +45,32 @@ fn make_project_directory(dir_name: &str) -> io::Result<()> {
 
     // Check if the directory already exists
     if path.exists() {
-        panic!("Directory '{}' already exists!", dir_name);
+        panic!("Project '{}' already exists!", dir_name);
     }
 
     // Attempt to create the directory
     fs::create_dir(path)?;
 
-    println!("Directory '{}' successfully created.", dir_name);
+    println!("Project '{}' successfully created.", dir_name);
     Ok(())
+}
+
+fn make_project_tree(project_name: &str) {
+    let project_path = Path::new(project_name);
+
+    // Check if the project directory exists
+    if !project_path.exists() {
+        panic!("Project directory '{}' does not exist.", project_name);
+    }
+
+    // Create the subdirectories: {cache, java, log, server}
+    let subdirectories = vec!["cache", "java", "log", "server"];
+    for subdir in &subdirectories {
+        let subdir_path = project_path.join(subdir);
+        if !subdir_path.exists() {
+            fs::create_dir(&subdir_path).expect("Failed to create subdirectory");
+        }
+    }
 }
 
 #[cfg(test)]
@@ -165,7 +183,7 @@ mod tests_for_directory_of_project {
     }
 
     #[test]
-    #[should_panic(expected = "Directory 'existing_project' already exists!")]
+    #[should_panic(expected = "Project 'existing_project' already exists!")]
     fn test_panic_if_directory_exists() {
         setup_tmp_directory().unwrap();
         let dir_name = "existing_project";
@@ -203,5 +221,81 @@ mod tests_for_directory_of_project {
 
         // Verify that the directory was successfully removed
         assert!(!Path::new(dir_name).exists());
+    }
+}
+
+#[cfg(test)]
+mod tests_for_project_tree {
+    use super::*;
+    use std::fs;
+    use std::path::Path;
+    use std::env;
+
+    fn setup_tmp_directory() -> std::io::Result<()> {
+        env::set_current_dir("/tmp")
+    }
+
+    #[test]
+    fn test_make_project_tree_success() {
+        setup_tmp_directory().unwrap();
+        let project_name = "test_project_tree";
+
+        // Create the project directory before calling the function
+        if !Path::new(project_name).exists() {
+            fs::create_dir(project_name).unwrap();
+        }
+
+        // Call the function
+        make_project_tree(project_name);
+
+        // Verify that the subdirectories were created
+        let expected_dirs = vec!["cache", "java", "log", "server"];
+        for dir in &expected_dirs {
+            assert!(Path::new(&format!("{}/{}", project_name, dir)).exists());
+        }
+
+        // Clean up by removing the created directories and project folder
+        for dir in &expected_dirs {
+            fs::remove_dir(format!("{}/{}", project_name, dir)).unwrap();
+        }
+        fs::remove_dir(project_name).unwrap();
+    }
+
+    #[test]
+    #[should_panic(expected = "Project directory 'nonexistent_project' does not exist.")]
+    fn test_make_project_tree_panic_on_nonexistent_project() {
+        setup_tmp_directory().unwrap();
+        let project_name = "nonexistent_project";
+
+        // This should panic because the project directory does not exist
+        make_project_tree(project_name);
+    }
+
+    #[test]
+    fn test_make_project_tree_existing_structure() {
+        setup_tmp_directory().unwrap();
+        let project_name = "existing_project_tree";
+
+        // Create the project directory and subdirectories
+        if !Path::new(project_name).exists() {
+            fs::create_dir(project_name).unwrap();
+        }
+        fs::create_dir(format!("{}/cache", project_name)).unwrap();
+        fs::create_dir(format!("{}/java", project_name)).unwrap();
+
+        // Call the function, should complete without errors
+        make_project_tree(project_name);
+
+        // Verify all subdirectories are now present
+        let expected_dirs = vec!["cache", "java", "log", "server"];
+        for dir in &expected_dirs {
+            assert!(Path::new(&format!("{}/{}", project_name, dir)).exists());
+        }
+
+        // Clean up by removing the created directories and project folder
+        for dir in &expected_dirs {
+            fs::remove_dir(format!("{}/{}", project_name, dir)).unwrap();
+        }
+        fs::remove_dir(project_name).unwrap();
     }
 }
