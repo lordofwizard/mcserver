@@ -1,3 +1,3 @@
-pub fn check(){
+pub fn check() {
     // TODO Build this
 }

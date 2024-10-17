@@ -1,13 +1,13 @@
 pub struct Run;
-use clap::Parser;
-use crate::args::{MCServer,Commands};
+use crate::args::{Commands, MCServer};
 use crate::build::build;
+use crate::check::check;
+use crate::get_url::get_url;
+use crate::log::log;
 use crate::setup::setup;
 use crate::start::start_server;
 use crate::stop::stop;
-use crate::log::log;
-use crate::check::check;
-use crate::get_url::get_url;
+use clap::Parser;
 
 impl Run {
     pub fn new() {
@@ -20,14 +20,13 @@ impl Run {
             Commands::Setup => setup(),
             Commands::Build => build(),
             Commands::Start => start_server(),
-            Commands::Log   => log(),
+            Commands::Log => log(),
             Commands::Check => check(),
-            Commands::Stop  => stop(),
+            Commands::Stop => stop(),
             Commands::GetUrl => get_url(),
             #[allow(unreachable_patterns)]
             _ => println!("No Implementation found for this command"),
         }
-
     }
 }
 
@@ -37,9 +36,9 @@ mod tests {
 
     #[test]
     fn run_has_std_practices() {
-        // Commented this test cause while parsing it fails 
+        // Commented this test cause while parsing it fails
         // Waits for a user subcommand and takes directly
-        // To help 
+        // To help
 
         //Run::new();
         assert!(true);
