@@ -52,4 +52,9 @@ mod tests_for_fetch_version {
         let version = fetch_version();
         assert_ne!(version, "unknown");
     }
+    #[test]
+    fn test_latest_java_version() {
+        let version = fetch_version();
+        assert_eq!(version, "1.21");
+    }
 }
