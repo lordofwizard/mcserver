@@ -42,8 +42,6 @@ pub struct Config {
     pub url: String,
 }
 
-
-
 impl Config {
     pub fn new(project_name: &str) -> Self {
         let f1 = format!("./{}/config.toml", project_name);
@@ -180,10 +178,10 @@ impl Config {
 #[cfg(test)]
 mod tests {
     use super::*;
+    use std::env;
     use std::fs::{self, File};
     use std::io::Write;
     use std::path::PathBuf;
-    use std::env;
 
     // Helper function to create a project directory with a config.toml file inside
     fn create_project_with_toml(project_name: &str, content: &str) -> PathBuf {
@@ -268,9 +266,9 @@ mod tests {
         let config = Config::new(project_name);
 
         assert_eq!(config.project_name, "TestProject");
-        assert_eq!(config.logfile, "unknown");  // Missing field
-        assert_eq!(config.tunnel, "unknown");   // Missing field
-        assert_eq!(config.java, "unknown");     // Missing field
+        assert_eq!(config.logfile, "unknown"); // Missing field
+        assert_eq!(config.tunnel, "unknown"); // Missing field
+        assert_eq!(config.java, "unknown"); // Missing field
     }
 
     #[test]
@@ -296,11 +294,11 @@ mod tests {
         let config = Config::new(project_name);
 
         assert_eq!(config.online_mode, true);
-        assert_eq!(config.version, "unknown");  // Missing field
-        assert_eq!(config.server_type, "unknown");  // Missing field
-        assert_eq!(config.category, "unknown");  // Missing field
-        assert_eq!(config.providor, "unknown");  // Missing field
-        assert_eq!(config.url, "unknown");  // Missing field
+        assert_eq!(config.version, "unknown"); // Missing field
+        assert_eq!(config.server_type, "unknown"); // Missing field
+        assert_eq!(config.category, "unknown"); // Missing field
+        assert_eq!(config.providor, "unknown"); // Missing field
+        assert_eq!(config.url, "unknown"); // Missing field
     }
 
     #[test]
@@ -308,7 +306,7 @@ mod tests {
         // Set the current working directory to /tmp
         env::set_current_dir("/tmp").expect("Failed to change cwd to /tmp");
 
-        let toml_content = r#""#;  // Empty content
+        let toml_content = r#""#; // Empty content
 
         // Create a temporary project directory with empty config.toml inside
         let project_name = "my_project_missing_both";
@@ -316,16 +314,16 @@ mod tests {
 
         let config = Config::new(project_name);
 
-        assert_eq!(config.project_name, "unknown");  // Missing section
-        assert_eq!(config.online_mode, false);       // Missing section
+        assert_eq!(config.project_name, "unknown"); // Missing section
+        assert_eq!(config.online_mode, false); // Missing section
     }
-    
+
     #[test]
     fn test_missing_version() {
         // Set the current working directory to /tmp
         env::set_current_dir("/tmp").expect("Failed to change cwd to /tmp");
 
-        let toml_content = r#""#;  // Empty content
+        let toml_content = r#""#; // Empty content
 
         // Create a temporary project directory with empty config.toml inside
         let project_name = "my_project_missing_version";
@@ -333,14 +331,14 @@ mod tests {
 
         let config = Config::new(project_name);
 
-        assert_eq!(config.version, "unknown");  // Missing section
+        assert_eq!(config.version, "unknown"); // Missing section
     }
     #[test]
     fn test_missing_java() {
         // Set the current working directory to /tmp
         env::set_current_dir("/tmp").expect("Failed to change cwd to /tmp");
 
-        let toml_content = r#""#;  // Empty content
+        let toml_content = r#""#; // Empty content
 
         // Create a temporary project directory with empty config.toml inside
         let project_name = "my_project_missing_java";
@@ -348,6 +346,6 @@ mod tests {
 
         let config = Config::new(project_name);
 
-        assert_eq!(config.java, "unknown");  // Missing section
+        assert_eq!(config.java, "unknown"); // Missing section
     }
 }

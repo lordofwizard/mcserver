@@ -13,7 +13,7 @@ pub fn setup() {
     make_project_tree(project_name);
     make_empty_config(project_name);
     let config = Config::new(project_name);
-    println!("{:?}",config);
+    println!("{:?}", config);
 }
 
 fn take_project_name() -> String {
