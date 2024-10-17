@@ -32,4 +32,16 @@ mod tests {
         let version = latest_java_version();
         assert_eq!(version, "23");
     }
+    
+    #[test]
+    fn test_latest_java_version_failed() {
+        let version = latest_java_version();
+        assert_ne!(version, "unknown");
+    }
+    #[test]
+    fn test_version_is_int() {
+        let version = latest_java_version();
+        let version = version.parse::<u32>();
+        assert!(version.is_ok());
+    }
 }
