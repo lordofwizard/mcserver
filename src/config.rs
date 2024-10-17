@@ -319,4 +319,35 @@ mod tests {
         assert_eq!(config.project_name, "unknown");  // Missing section
         assert_eq!(config.online_mode, false);       // Missing section
     }
+    
+    #[test]
+    fn test_missing_version() {
+        // Set the current working directory to /tmp
+        env::set_current_dir("/tmp").expect("Failed to change cwd to /tmp");
+
+        let toml_content = r#""#;  // Empty content
+
+        // Create a temporary project directory with empty config.toml inside
+        let project_name = "my_project_missing_version";
+        let _project_dir = create_project_with_toml(project_name, toml_content);
+
+        let config = Config::new(project_name);
+
+        assert_eq!(config.version, "unknown");  // Missing section
+    }
+    #[test]
+    fn test_missing_java() {
+        // Set the current working directory to /tmp
+        env::set_current_dir("/tmp").expect("Failed to change cwd to /tmp");
+
+        let toml_content = r#""#;  // Empty content
+
+        // Create a temporary project directory with empty config.toml inside
+        let project_name = "my_project_missing_java";
+        let _project_dir = create_project_with_toml(project_name, toml_content);
+
+        let config = Config::new(project_name);
+
+        assert_eq!(config.java, "unknown");  // Missing section
+    }
 }
