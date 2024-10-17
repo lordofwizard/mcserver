@@ -4,7 +4,7 @@ pub fn config_builder(project_name: &str) {
     write_toml_file(project_name);
 }
 
-pub fn write_toml_file(project_name: &str){
+pub fn write_toml_file(project_name: &str) {
     // Call functions to get the latest versions
     let latest_java_version = latest_java_version();
     let latest_minecraft_version = fetch_latest_minecraft_version();
@@ -35,13 +35,10 @@ providor = "vanilla"
     let file_path = format!("./{}/config.toml", project_name);
 
     // Write the formatted TOML content to the file
-    std::fs::create_dir_all(format!("./{}", project_name)).expect("Project Should Have been properly setuped"); // Ensure the directory exists
+    std::fs::create_dir_all(format!("./{}", project_name))
+        .expect("Project Should Have been properly setuped"); // Ensure the directory exists
     std::fs::write(file_path, toml_content).expect("Project Should Have been properly setuped");
-
 }
 
 #[cfg(test)]
-mod tests {
-
-}
-
+mod tests {}
