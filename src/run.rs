@@ -43,9 +43,12 @@ mod tests {
         //Run::new();
         assert!(true);
     }
+
+    /*Unused Test 
     #[test]
     fn setup_available() {
-        setup();
+        //setup();
         assert!(true);
     }
+    */
 }

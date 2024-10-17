@@ -1,11 +1,12 @@
 use std::{
-    fs,
-    io::{self, Write},
-    panic,
-    path::Path,
+    fs, io::{self, Write}, mem::take, panic, path::Path
 };
 pub fn setup() {
-    // TODO Build this
+    let project_name = take_project_name();
+    let project_name = project_name.as_str();
+    let _ = make_project_directory(project_name);
+    make_project_tree(project_name);
+    make_empty_config(project_name);
 }
 
 fn take_project_name() -> String {
@@ -13,28 +14,31 @@ fn take_project_name() -> String {
     io::stdout().flush().unwrap();
 
     let mut project_name = String::new();
+    
     io::stdin()
         .read_line(&mut project_name)
         .expect("Failed to read input");
 
-    project_name_validator(&project_name)
+    let project_name = project_name.to_string();
+    project_name_validator(&project_name); // Pass the project_name as a &str
+    project_name.replace("\n", "").replace("\r", "") // Return the owned String
 }
 
-fn project_name_validator(project_name: &str) -> String {
-    if project_name.contains(" ") {
-        panic!("Invalid project name. Please enter only alphabetic characters or underscores, no numbers or whitespace.")
+fn project_name_validator(project_name: &str) -> &str {
+    // Trim leading and trailing whitespace from the input
+    let trimmed_project_name = project_name.trim();
+    
+    // Check for empty or spaces inside the project name
+    if trimmed_project_name.is_empty() || project_name.contains(' ') {
+        panic!("Invalid project name. Please enter only alphabetic characters or underscores, no numbers or whitespace.");
     }
 
-    if project_name.trim().is_empty() {
-        panic!("Invalid project name. Please enter only alphabetic characters or underscores, no numbers or whitespace.")
-    }
+    // Remove newline and carriage return characters (if any)
+    let cleaned_project_name = trimmed_project_name.trim_end_matches(|c| c == '\n' || c == '\r');
 
-    // Trim whitespace from the input
-    let project_name = project_name.trim();
-
-    // Check if the input meets the criteria
-    if !project_name.is_empty() && project_name.chars().all(|c| c.is_alphabetic() || c == '_') {
-        return project_name.to_string();
+    // Ensure the cleaned project name meets the criteria
+    if cleaned_project_name.chars().all(|c| c.is_alphabetic() || c == '_') {
+        return cleaned_project_name;
     } else {
         panic!("Invalid project name. Please enter only alphabetic characters or underscores, no numbers or whitespace.");
     }
@@ -71,6 +75,18 @@ fn make_project_tree(project_name: &str) {
             fs::create_dir(&subdir_path).expect("Failed to create subdirectory");
         }
     }
+}
+
+pub fn make_empty_config(project_name: &str) {
+    let config_path = Path::new(project_name).join("config.toml");
+
+    // Check if the project directory exists
+    if !Path::new(project_name).exists() {
+        panic!("Project directory '{}' does not exist.", project_name);
+    }
+
+    // Create an empty config.toml file
+    fs::File::create(config_path).expect("Failed to create config.toml");
 }
 
 #[cfg(test)]
@@ -296,6 +312,73 @@ mod tests_for_project_tree {
         for dir in &expected_dirs {
             fs::remove_dir(format!("{}/{}", project_name, dir)).unwrap();
         }
+        fs::remove_dir(project_name).unwrap();
+    }
+}
+
+#[cfg(test)]
+mod tests_for_empty_config {
+    use super::*;
+    use std::fs;
+    use std::path::Path;
+    use std::env;
+
+    fn setup_tmp_directory() -> std::io::Result<()> {
+        env::set_current_dir("/tmp")
+    }
+
+    #[test]
+    fn test_make_empty_config_success() {
+        setup_tmp_directory().unwrap();
+        let project_name = "test_project_config";
+
+        // Create the project directory before calling the function
+        if !Path::new(project_name).exists() {
+            fs::create_dir(project_name).unwrap();
+        }
+
+        // Call the function to create the empty config file
+        make_empty_config(project_name);
+
+        // Verify that the config.toml file was created
+        assert!(Path::new(&format!("{}/config.toml", project_name)).exists());
+
+        // Clean up by removing the project folder and config file
+        fs::remove_file(format!("{}/config.toml", project_name)).unwrap();
+        fs::remove_dir(project_name).unwrap();
+    }
+
+    #[test]
+    #[should_panic(expected = "Project directory 'nonexistent_project' does not exist.")]
+    fn test_make_empty_config_panic_on_nonexistent_project() {
+        setup_tmp_directory().unwrap();
+        let project_name = "nonexistent_project";
+
+        // This should panic because the project directory does not exist
+        make_empty_config(project_name);
+    }
+
+    #[test]
+    fn test_make_empty_config_existing_file() {
+        setup_tmp_directory().unwrap();
+        let project_name = "existing_project_config";
+
+        // Create the project directory before the test
+        if !Path::new(project_name).exists() {
+            fs::create_dir(project_name).unwrap();
+        }
+
+        // Create the config.toml file initially
+        fs::File::create(format!("{}/config.toml", project_name)).unwrap();
+
+        // Call the function, should complete without errors
+        make_empty_config(project_name);
+
+        // Verify that the config.toml file still exists
+        assert!(Path::new(&format!("{}/config.toml", project_name)).exists());
+
+        // Clean up by removing the project folder and config file
+        fs::remove_file(format!("{}/config.toml", project_name)).unwrap();
         fs::remove_dir(project_name).unwrap();
     }
 }
