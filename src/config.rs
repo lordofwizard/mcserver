@@ -182,12 +182,13 @@ mod tests {
     use super::*;
     use std::fs::{self, File};
     use std::io::Write;
-    use tempfile::TempDir;
+    use std::path::PathBuf;
+    use std::env;
 
     // Helper function to create a project directory with a config.toml file inside
-    fn create_project_with_toml(project_name: &str, content: &str) -> TempDir {
-        let tmp_dir = TempDir::new().expect("Failed to create temp dir");
-        let project_path = tmp_dir.path().join(project_name);
+    fn create_project_with_toml(project_name: &str, content: &str) -> PathBuf {
+        let tmp_dir = PathBuf::from("/tmp");
+        let project_path = tmp_dir.join(project_name);
 
         // Create project directory
         fs::create_dir_all(&project_path).expect("Failed to create project directory");
@@ -198,11 +199,14 @@ mod tests {
         file.write_all(content.as_bytes())
             .expect("Failed to write to config.toml file");
 
-        tmp_dir
+        project_path
     }
 
     #[test]
     fn test_valid_toml() {
+        // Set the current working directory to /tmp
+        env::set_current_dir("/tmp").expect("Failed to change cwd to /tmp");
+
         let toml_content = r#"
             [mcserver]
             project_name = "TestProject"
@@ -221,7 +225,7 @@ mod tests {
 
         // Create a temporary project directory with config.toml inside
         let project_name = "my_project";
-        let tmp_dir = create_project_with_toml(project_name, toml_content);
+        let _project_dir = create_project_with_toml(project_name, toml_content);
 
         // Test the Config::new method
         let config = Config::new(project_name);
@@ -241,6 +245,9 @@ mod tests {
 
     #[test]
     fn test_missing_mcserver_fields() {
+        // Set the current working directory to /tmp
+        env::set_current_dir("/tmp").expect("Failed to change cwd to /tmp");
+
         let toml_content = r#"
             [mcserver]
             project_name = "TestProject"
@@ -256,7 +263,7 @@ mod tests {
 
         // Create a temporary project directory with config.toml inside
         let project_name = "my_project_missing_mcserver";
-        let tmp_dir = create_project_with_toml(project_name, toml_content);
+        let _project_dir = create_project_with_toml(project_name, toml_content);
 
         let config = Config::new(project_name);
 
@@ -268,6 +275,9 @@ mod tests {
 
     #[test]
     fn test_missing_server_fields() {
+        // Set the current working directory to /tmp
+        env::set_current_dir("/tmp").expect("Failed to change cwd to /tmp");
+
         let toml_content = r#"
             [mcserver]
             project_name = "TestProject"
@@ -281,7 +291,7 @@ mod tests {
 
         // Create a temporary project directory with config.toml inside
         let project_name = "my_project_missing_server";
-        let tmp_dir = create_project_with_toml(project_name, toml_content);
+        let _project_dir = create_project_with_toml(project_name, toml_content);
 
         let config = Config::new(project_name);
 
@@ -295,11 +305,14 @@ mod tests {
 
     #[test]
     fn test_missing_both_sections() {
+        // Set the current working directory to /tmp
+        env::set_current_dir("/tmp").expect("Failed to change cwd to /tmp");
+
         let toml_content = r#""#;  // Empty content
 
         // Create a temporary project directory with empty config.toml inside
         let project_name = "my_project_missing_both";
-        let tmp_dir = create_project_with_toml(project_name, toml_content);
+        let _project_dir = create_project_with_toml(project_name, toml_content);
 
         let config = Config::new(project_name);
 
