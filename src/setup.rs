@@ -1,6 +1,8 @@
 use std::{
     io::{self, Write},
     panic,
+    path::Path,
+    fs,
 };
 pub fn setup() {
     // TODO Build this
@@ -38,6 +40,22 @@ fn project_name_validator(project_name: &str) -> String{
         panic!("Invalid project name. Please enter only alphabetic characters or underscores, no numbers or whitespace.");
     }
 }
+
+fn make_project_directory(dir_name: &str) -> io::Result<()> {
+    let path = Path::new(dir_name);
+
+    // Check if the directory already exists
+    if path.exists() {
+        panic!("Directory '{}' already exists!", dir_name);
+    }
+
+    // Attempt to create the directory
+    fs::create_dir(path)?;
+
+    println!("Directory '{}' successfully created.", dir_name);
+    Ok(())
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;
@@ -66,7 +84,7 @@ mod tests {
     #[test]
     #[should_panic]
     fn invalid_project_name_with_trailing_spaces() {
-        let result = project_name_validator("  myproject  ");
+        let _ = project_name_validator("  myproject  ");
     }
 
     #[test]
@@ -79,6 +97,11 @@ mod tests {
     #[should_panic(expected = "Invalid project name. Please enter only alphabetic characters or underscores, no numbers or whitespace.")]
     fn project_name_with_numbers_should_panic() {
         project_name_validator("project123");
+    }    
+    #[test]
+    #[should_panic(expected = "Invalid project name. Please enter only alphabetic characters or underscores, no numbers or whitespace.")]
+    fn project_name_with_random_symbols_should_panic() {
+        project_name_validator("project@#!%!@_ ");
     }
 
     #[test]
@@ -97,5 +120,80 @@ mod tests {
     #[should_panic(expected = "Invalid project name. Please enter only alphabetic characters or underscores, no numbers or whitespace.")]
     fn project_name_with_only_spaces_should_panic() {
         project_name_validator("   ");
+    }
+}
+
+#[cfg(test)]
+mod tests_for_directory_of_project {
+    use super::*;
+    use std::fs;
+    use std::path::Path;
+    use std::env;
+    use std::io;
+
+    fn setup_tmp_directory() -> io::Result<()> {
+        // Change the current working directory to /tmp
+        env::set_current_dir("/tmp")
+    }
+
+    #[test]
+    fn test_create_new_directory() {
+        setup_tmp_directory().unwrap();
+        let dir_name = "test_project";
+
+        // Ensure the directory does not exist before the test
+        if Path::new(dir_name).exists() {
+            fs::remove_dir(dir_name).unwrap();
+        }
+
+        // Try creating the directory
+        assert!(make_project_directory(dir_name).is_ok());
+
+        // Check if the directory was actually created
+        assert!(Path::new(dir_name).exists());
+
+        // Clean up by removing the directory after the test
+        fs::remove_dir(dir_name).unwrap();
+    }
+
+    #[test]
+    #[should_panic(expected = "Directory 'existing_project' already exists!")]
+    fn test_panic_if_directory_exists() {
+        setup_tmp_directory().unwrap();
+        let dir_name = "existing_project";
+
+        // Ensure the directory exists before the test
+        if !Path::new(dir_name).exists() {
+            fs::create_dir(dir_name).unwrap();
+        }
+
+        // This should panic because the directory already exists
+        make_project_directory(dir_name).unwrap();
+
+        // Clean up by removing the directory after the test
+        fs::remove_dir(dir_name).unwrap();
+    }
+
+    #[test]
+    fn test_directory_is_cleaned_up() {
+        setup_tmp_directory().unwrap();
+        let dir_name = "temporary_project";
+
+        // Ensure directory is removed before the test if it exists
+        if Path::new(dir_name).exists() {
+            fs::remove_dir(dir_name).unwrap();
+        }
+
+        // Create the directory
+        assert!(make_project_directory(dir_name).is_ok());
+
+        // Verify that the directory was created
+        assert!(Path::new(dir_name).exists());
+
+        // Clean up by removing the directory after the test
+        fs::remove_dir(dir_name).unwrap();
+
+        // Verify that the directory was successfully removed
+        assert!(!Path::new(dir_name).exists());
     }
 }
