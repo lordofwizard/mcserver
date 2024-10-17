@@ -4,12 +4,16 @@ use std::{
     panic,
     path::Path,
 };
+
+use crate::config::Config;
 pub fn setup() {
     let project_name = take_project_name();
     let project_name = project_name.as_str();
     let _ = make_project_directory(project_name);
     make_project_tree(project_name);
     make_empty_config(project_name);
+    let config = Config::new(project_name);
+    println!("{:?}",config);
 }
 
 fn take_project_name() -> String {
