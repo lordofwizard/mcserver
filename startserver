@@ -1,47 +1,52 @@
 #!/bin/bash
 export MAIN_DIR=$PWD
 echo "> Starting the server up. Please wait..."                                                                                 
-echo "> Installing Dependencise..."
+echo "> Installing Dependencies..."
 
-sudo apt install -y -qq screen wget  
+# Install required dependencies including JDK 21
+sudo apt update
+sudo apt install -y -qq screen wget openjdk-21-jdk
 
-echo "> Dependencise Installed!"
+echo "> Dependencies Installed!"
+
+# Set Java 21 as the default version
+echo "> Configuring Java version to JDK 21..."
+sudo update-alternatives --set java $(update-alternatives --list java | grep "java-21")
+
+# Verify the Java version
+java -version
 
 echo "> Checking Server Type..."
 if [ -f $MAIN_DIR/server/bedrock_server ]; then
-
-echo "> Bedrock Server Detected! Starting Server up..."
-
+    echo "> Bedrock Server Detected! Starting Server up..."
 elif [ ! -f $MAIN_DIR/server/eula.txt ]; then
-
-cd $MAIN_DIR/server
-echo "> EULA doesn't exist! Creating one!"
-echo "eula=true" > eula.txt
-echo "> EULA Completed! Restarting Server"
-cd $MAIN_DIR
-screen -S server -d -m ./startJavaServer
-clear
-echo "> Your server just doing a second restart to fix the EULA file."
-killall screen
-./startserver
-exit
+    cd $MAIN_DIR/server
+    echo "> EULA doesn't exist! Creating one!"
+    echo "eula=true" > eula.txt
+    echo "> EULA Completed! Restarting Server"
+    cd $MAIN_DIR
+    screen -S server -d -m ./startJavaServer
+    clear
+    echo "> Your server is performing a second restart to fix the EULA file."
+    killall screen
+    ./startserver
+    exit
 elif [ -f $MAIN_DIR/server/eula.txt ]; then
-echo "> EULA Detected! Starting Server up..."
-
+    echo "> EULA Detected! Starting Server up..."
 else
-echo "> Your server isn't setup properly. Force uninstall..."
-cd $MAIN_DIR
-./uninstall
-echo "> Comfirmed Uninstallation! Restarting Installation..."
-./install
+    echo "> Your server isn't set up properly. Force uninstall..."
+    cd $MAIN_DIR
+    ./uninstall
+    echo "> Confirmed Uninstallation! Restarting Installation..."
+    ./install
 fi
 
-# apparently ppl keep spamming startserver and end up having multiple screens of the same app
+# Prevent multiple instances of the same app from running
 killall screen
 
 screen -S server -d -m ./startJavaServer # Starting Java Server
 screen -S server -d -m ./startBedrockServer # Starting Bedrock Server
-screen -S afk -d -m ./startAfk #Starting AFK app aka bpytop.
+screen -S afk -d -m ./startAfk # Starting AFK app aka bpytop.
 screen -S playit -d -m ./startPlayIt # Starting Playit
 
 cd $MAIN_DIR/server
@@ -57,5 +62,5 @@ echo "Type [screen -r playit] to view your Server IP"
 echo ""
 echo "> To stop your server, type './stopserver' to stop"
 
-echo -e '\nchecking if server has launched properly'
+echo -e '\nChecking if the server has launched properly'
 ./.checkserver 2> crash.log

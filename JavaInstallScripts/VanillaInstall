@@ -1,4 +1,6 @@
 #!/bin/bash
+set -e
+
 sudo apt update -qq
 sudo apt install -y -qq jq curl
 
@@ -6,38 +8,29 @@ cd ..
 mkdir -p server
 cd server
 
+LATEST_RELEASE=$(curl -s https://launchermeta.mojang.com/mc/game/version_manifest.json | jq -r '.latest.release')
+LATEST_SNAPSHOT=$(curl -s https://launchermeta.mojang.com/mc/game/version_manifest.json | jq -r '.latest.snapshot')
 
-# -- EDIT HERE | DO NOT EDIT ABOVE -- #
-# VANILLA_VERSION: https://launchermeta.mojang.com/mc/game/version_manifest.json
-# -- EDIT HERE | DO NOT EDIT BELOW -- # 
+VANILLA_VERSION="${MC_VERSION:-latest}"
+echo "> Using Minecraft version: $VANILLA_VERSION"
 
-
-LATEST_VERSION=`sudo curl -s https://launchermeta.mojang.com/mc/game/version_manifest.json | jq -r '.latest.release'`
-LATEST_SNAPSHOT_VERSION=`sudo -s curl https://launchermeta.mojang.com/mc/game/version_manifest.json | jq -r '.latest.snapshot'`
-
-echo -e "\nlatest version is $LATEST_VERSION"
-echo -e "latest snapshot is $LATEST_SNAPSHOT_VERSION"
-
-echo -e "\n> Enter minecraft version for server: "
-VANILLA_VERSION=latest
-read VANILLA_VERSION
-
-if [ -z "$VANILLA_VERSION" ] || [ "$VANILLA_VERSION" == "latest" ]; then
-  MANIFEST_URL=$(curl -sSL https://launchermeta.mojang.com/mc/game/version_manifest.json | jq --arg VERSION $LATEST_VERSION -r '.versions | .[] | select(.id== $VERSION )|.url')
-elif [ "$VANILLA_VERSION" == "snapshot" ]; then
-  MANIFEST_URL=$(curl -sSL https://launchermeta.mojang.com/mc/game/version_manifest.json | jq --arg VERSION $LATEST_SNAPSHOT_VERSION -r '.versions | .[] | select(.id== $VERSION )|.url')
+if [ "$VANILLA_VERSION" = "latest" ]; then
+  TARGET="$LATEST_RELEASE"
+elif [ "$VANILLA_VERSION" = "snapshot" ]; then
+  TARGET="$LATEST_SNAPSHOT"
 else
-  MANIFEST_URL=$(curl -sSL https://launchermeta.mojang.com/mc/game/version_manifest.json | jq --arg VERSION $VANILLA_VERSION -r '.versions | .[] | select(.id== $VERSION )|.url')
+  TARGET="$VANILLA_VERSION"
 fi
 
-DOWNLOAD_URL=$(curl ${MANIFEST_URL} | jq .downloads.server | jq -r '. | .url')
-if [ -z $DOWNLOAD_URL ]
-then
-  echo "Invalid version provided"
+MANIFEST_URL=$(curl -s https://launchermeta.mojang.com/mc/game/version_manifest.json \
+  | jq -r --arg V "$TARGET" '.versions[] | select(.id==$V) | .url')
+
+if [ -z "$MANIFEST_URL" ]; then
+  echo "Invalid Minecraft version"
   exit 1
 fi
 
-echo -e "running: curl -o server.jar $DOWNLOAD_URL"
-sudo curl -o server.jar $DOWNLOAD_URL
+DOWNLOAD_URL=$(curl -s "$MANIFEST_URL" | jq -r '.downloads.server.url')
 
-echo -e "Install Complete"
+curl -sSL -o server.jar "$DOWNLOAD_URL"
+echo "> Vanilla install complete"

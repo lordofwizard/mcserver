@@ -1,153 +1,139 @@
 #!/bin/bash
+set -e
 
-export THIS_DIR=$PWD
+export THIS_DIR="$PWD"
 
+# -----------------------------
+# Ask Minecraft version (ONCE)
+# -----------------------------
+echo ""
+echo "Enter Minecraft version (example: 1.14.2, 1.16.5, 1.18.2, 1.20.4 or latest)"
+read -rp "> " MC_VERSION
+
+# Default
+MC_VERSION="${MC_VERSION:-latest}"
+export MC_VERSION
+
+# -----------------------------
+# Decide Java version
+# -----------------------------
+JAVA_PKG=""
+
+case "$MC_VERSION" in
+  1.1[0-6]*)
+    JAVA_PKG="temurin-8-jdk"
+    ;;
+  1.17*)
+    JAVA_PKG="temurin-16-jdk"
+    ;;
+  1.18*|1.19*)
+    JAVA_PKG="temurin-17-jdk"
+    ;;
+  1.20*)
+    JAVA_PKG="temurin-21-jdk"
+    ;;
+  latest)
+    JAVA_PKG="temurin-21-jdk"
+    ;;
+  *)
+    JAVA_PKG="temurin-17-jdk"
+    ;;
+esac
+
+echo "> Minecraft version: $MC_VERSION"
+echo "> Installing Java package: $JAVA_PKG"
+
+# -----------------------------
+# Dependencies (UNCHANGED)
+# -----------------------------
+sudo apt update -y
+sudo apt install -y \
+  screen neofetch curl wget jq \
+  apt-transport-https ca-certificates gnupg lsb-release
+
+# -----------------------------
+# Adoptium (Temurin) repo
+# -----------------------------
+if [[ ! -f /etc/apt/sources.list.d/adoptium.list ]]; then
+  wget -qO - https://packages.adoptium.net/artifactory/api/gpg/key/public \
+    | sudo gpg --dearmor -o /etc/apt/trusted.gpg.d/adoptium.gpg
+
+  echo "deb https://packages.adoptium.net/artifactory/deb $(lsb_release -cs) main" \
+    | sudo tee /etc/apt/sources.list.d/adoptium.list
+fi
+
+sudo apt update -y
+sudo apt install -y "$JAVA_PKG"
+
+echo "> Java installed successfully"
+java -version
+
+# -----------------------------
+# Server directory
+# -----------------------------
+mkdir -p server
+
+# -----------------------------
+# Server installer menu
+# -----------------------------
 install_server () {
-  choice=$1
-  if [[ -z $choice ]]
-  then	
-    echo -e "\n> Installing Vanilla..."
-    cd JavaInstallScripts
-    chmod +x *
-    
-    ./VanillaInstall
-    errorno=${?}
-    if [ $errorno -eq 1 ]
-    then
-      cd $THIS_DIR
-      install_server $choice
-    fi
+  choice="$1"
+  cd JavaInstallScripts || exit 1
+  chmod +x *
 
-
-  # Vanilla
-  elif [[ $choice == 1 ]]
-  then
-    echo -e "\n> Installing Vanilla..."
-    cd JavaInstallScripts
-    chmod +x *
-
-    ./VanillaInstall
-    errorno=${?}
-    if [ $errorno -eq 1 ]
-    then
-	    cd $THIS_DIR
-      install_server $choice
-    fi
-
-  # Paper
-  elif [[ $choice == 2 ]]
-  then
-    echo "> Installing Paper..."
-    cd JavaInstallScripts
-    chmod +x *
-    ./PaperInstall
-
-  # Forge
-  elif [[ $choice == 3 ]]
-  then
-    echo "> Installing Forge..."
-    cd JavaInstallScripts
-    chmod +x *
-    ./ForgeInstall
-
-  # Sponge
-  elif [[ $choice == 4 ]]
-  then
-    echo "> Installing Sponge..."
-    cd JavaInstallScripts
-    chmod +x *
-    ./SpongeInstall
-
-  # Fabric
-  elif [[ $choice == 5 ]]
-  then
-    echo "> Installing Fabric..."
-    cd JavaInstallScripts
-    chmod +x *
-    ./FabricInstall
-
-
-  elif [[ $choice == 6 ]];then
-    echo "> Installing Spigot..."
-    cd JavaInstallScripts
-    chmod +x *
-    ./SpigotInstall
-
-
-  elif [[ $choice == 7 ]];then
-    echo "> Installing Bungeecord..."
-    cd JavaInstallScripts
-    chmod +x *
-    ./BungeecordInstall
-
-  
- # Invaild Input
-  else
-    echo "Invaild Responds! Please try again"
-    ./installJava
-  fi
+  case "$choice" in
+    ""|1) ./VanillaInstall ;;
+    2) ./PaperInstall ;;
+    3) ./ForgeInstall ;;
+    4) ./SpongeInstall ;;
+    5) ./FabricInstall ;;
+    6) ./SpigotInstall ;;
+    7) ./BungeecordInstall ;;
+    *)
+      echo "> Invalid response"
+      cd "$THIS_DIR"
+      exec ./installJava
+      ;;
+  esac
 }
 
-#Installing all the dependencise
-sudo apt install -y -qq screen neofetch 
-
-echo "export PATH=$PATH:/some/new/path" > ~/.profile
-echo "> Dependencies Installtion Completed!"
-
-#Downloading ngrok && Downloading Minecraft Server
-mkdir server 
-
 echo ""
-echo "-- Pick the following Server type: --"
-echo "Type [1] Create Vanilla Server"
-echo "Type [2] Create Paper Server"
-echo "Type [3] Create Forge Server"
-echo "Type [4] Create Sponge Server"
-echo "Type [5] Create Fabric Server"
-echo "Type [6] Create Spigot Server(COMPILE)"
-echo "Type [7] Create Bungeecord Server(latest)"
-choiceForServer=1
-read choiceForServer
+echo "-- Pick Server Type --"
+echo "[1] Vanilla"
+echo "[2] Paper"
+echo "[3] Forge"
+echo "[4] Sponge"
+echo "[5] Fabric"
+echo "[6] Spigot"
+echo "[7] Bungeecord"
+read -rp "> " choiceForServer
 
-install_server $choiceForServer
+install_server "$choiceForServer"
+cd "$THIS_DIR"
 
-# Backup install playit.gg in case if first one doesn't download
+# -----------------------------
+# Playit.gg (UNCHANGED)
+# -----------------------------
 echo "> Installing Playit.gg..."
-cd ..
-#wget "https://playit.gg/downloads/playit-linux_64-0.4.2-rc1" -O playit 
-#wget -q "https://playit.gg/downloads/playit-linux_64-0.4.6" -O playit
-#wget -q "https://new.playit.gg/downloads/playit-0.7.0-beta" -O playit
-#wget -q "https://playit.gg/downloads/playit-0.7.5-beta" -O playit
-#wget -q "https://playit.gg/downloads/playit-0.8.1-beta" -O playit
-#chmod +x playit
-
-# NOte this is directly downloaded from the playit repository, anything can happen.
 curl -SsL https://playit-cloud.github.io/ppa/key.gpg | sudo apt-key add -
-sudo curl -SsL -o /etc/apt/sources.list.d/playit-cloud.list https://playit-cloud.github.io/ppa/playit-cloud.list
+sudo curl -SsL -o /etc/apt/sources.list.d/playit-cloud.list \
+  https://playit-cloud.github.io/ppa/playit-cloud.list
 sudo apt update
-sudo apt install playit
+sudo apt install -y playit
 
-echo "> Playit.gg Installation Completed!"
+echo "> Playit.gg installed"
+
+# -----------------------------
+# Start prompt
+# -----------------------------
 echo ""
-echo "-- Do you want to start the server now? --"
-echo "Type [1] for Yes"
-echo "Type [2] for No"
+echo "Start server now?"
+echo "[1] Yes"
+echo "[2] No"
+read -rp "> " StartServer
 
-StartServer=2
-read StartServer
-
-if [[ -z $StartServer ]]; then
-echo "> By Default, you selected 'No'."
-echo "> You can start the server by do ./startserver"
-
-elif [[ $StartServer == 1 ]]; then
-./startserver
-
-elif [[ $StartServer == 2 ]]; then
-echo "You picked 'No'."
-echo "> You can start the server by do ./startserver"
-
+if [[ "$StartServer" == "1" ]]; then
+  ./startserver
 else
-echo "> By Default, you selected 'No'."
-echo "> You can start the server by do ./startserver"
+  echo "You can start later using: ./startserver"
 fi

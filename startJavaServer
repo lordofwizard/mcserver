@@ -1,13 +1,28 @@
 #!/bin/bash
-export MAIN_DIR=$PWD
-export JAVA=$MAIN_DIR/bin/java_bins/bin/java
-cd server
 
-mem=$(grep MemTotal /proc/meminfo | sed -e 's/MemTotal:[ ]*//' | sed -e 's/ kB//') # some new stuff 
+set -e
 
-mem=$(($mem/1024/1024))
+MAIN_DIR="$PWD"
+SERVER_DIR="$MAIN_DIR/server"
+JAVA="$(command -v java)"
 
-#uncomment this below line only if the server you are running is 1.17+ (if it is uncommented by default keep it as it is).
-$JAVA -Xmx${mem}G -Xms${mem}G -jar server.jar nogui
-# for 1.16 or lower uncomment this line
-#java -Xmx${mem}G -Xms${mem}G -jar server.jar nogui
+if [[ -z "$JAVA" ]]; then
+  echo "Java not found. Run ./install first."
+  exit 1
+fi
+
+if [[ ! -f "$SERVER_DIR/server.jar" ]]; then
+  echo "server.jar not found in server/"
+  exit 1
+fi
+
+cd "$SERVER_DIR"
+
+mem_kb=$(grep MemTotal /proc/meminfo | awk '{print $2}')
+mem_gb=$((mem_kb / 1024 / 1024))
+RAM=$((mem_gb * 75 / 100))
+
+echo "Starting Minecraft with ${RAM}G RAM"
+echo "Java path: $JAVA"
+
+exec "$JAVA" -Xms${RAM}G -Xmx${RAM}G -jar server.jar nogui
